@@ -7,6 +7,7 @@ export default function Header() {
     return (
 
         <>
+            <div id="site-overlay"></div>
             <header className="site-header header-absolute">
                 <div className="header-top d-none d-md-block">
                     <div className="container">
@@ -52,7 +53,7 @@ export default function Header() {
                         </div>
                         <div className="row align-items-center">
                             <div className="col-md-3 col-lg-2">
-                                <a href="index.html"><img src="/img/header-logo.svg" alt="header logo" className="img-fluid" /></a>
+                                <a href="/"><img src="/img/header-logo.svg" alt="header logo" className="img-fluid" /></a>
                             </div>
                             <div className="col-md-9 col-lg-10 position-static">
                                 <div className="d-flex justify-content-end">
@@ -60,7 +61,7 @@ export default function Header() {
                                         <div className="menu-main-menu-container">
                                             <ul className="header-navigation-menu">
                                                 <li className="active">
-                                                    <a href="index.html">Home</a>
+                                                    <a href="/">Home</a>
                                                     <ul className="submenu-inner">
                                                         <li><a href="home-2.html">Home 2</a></li>
                                                     </ul>
@@ -194,7 +195,7 @@ export default function Header() {
                                 </div>
                             </div>
                             <div className="col-8 text-center">
-                                <a href="index.html"><img src="/img/header-logo.svg" alt="header logo" className="img-fluid" /></a>
+                                <a href="/"><img src="/img/header-logo.svg" alt="header logo" className="img-fluid" /></a>
                             </div>
                             <div className="col-2">
                                 <div className="search-box">

@@ -136,6 +136,7 @@ export default function Footer() {
             <script src="/js/vendor/count-to.js"></script>
             <script src="/js/vendor/isotope.pkgd.min.js"></script>
             <script src="/js/vendor/owl.carousel.min.js"></script>
+            <script src="/js/main.js"></script>
         </>
     )
 }
