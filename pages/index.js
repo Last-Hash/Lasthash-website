@@ -502,117 +502,117 @@ const Home = () => {
                 </div>
             </section>
 
-            <section class="blog-section ptb-100">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="section-header text-center">
-                                <span class="section-heading">Latest News</span>
-                                <h2 class="section-title">World renowned and authentic data and cloud analysis</h2>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="blog-block">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="post-carousel owl-carousel owl-theme">
-                                    <div class="post-block-item">
-                                        <div class="post-thumbnail">
-                                            <img src="/img/post-1.jpg" alt="" class="img-fluid" />
-                                            <div class="post-block-category">
-                                                <a href="#">Technology</a>
-                                            </div>
-                                        </div>
-                                        <div class="post-content">
-                                            <h2 class="post-block-title"><a href="single.html">Circuit board connected with direct AI &
-                                                internet</a></h2>
-                                        </div>
-                                        <div class="post-block-footer d-flex justify-content-between align-items-center">
-                                            <div class="d-flex align-items-center">
-                                                <div class="post-block-author-photo">
-                                                    <img src="assets/img/post-author.png" alt="author" class="img-fluid" />
-                                                </div>
-                                                <span class="post-block-author-name">Nicky Masou</span>
-                                            </div>
-                                            <div class="post-block-comment">
-                                                <i class="fal fa-comment-alt-dots"></i> 7
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="post-block-item">
-                                        <div class="post-thumbnail">
-                                            <img src="/img/post-2.jpg" alt="" class="img-fluid" />
-                                            <div class="post-block-category">
-                                                <a href="#">Science</a>
-                                            </div>
-                                        </div>
-                                        <div class="post-content">
-                                            <h2 class="post-block-title"><a href="single.html">Mecal science is developing human gens</a></h2>
-                                        </div>
-                                        <div class="post-block-footer d-flex justify-content-between align-items-center">
-                                            <div class="d-flex align-items-center">
-                                                <div class="post-block-author-photo">
-                                                    <img src="/img/post-author.png" alt="author" class="img-fluid" />
-                                                </div>
-                                                <span class="post-block-author-name">Nicky Masou</span>
-                                            </div>
-                                            <div class="post-block-comment">
-                                                <i class="fal fa-comment-alt-dots"></i> 2
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="post-block-item">
-                                        <div class="post-thumbnail">
-                                            <img src="/img/post-3.jpg" alt="" class="img-fluid" />
-                                            <div class="post-block-category">
-                                                <a href="#">Life</a>
-                                            </div>
-                                        </div>
-                                        <div class="post-content">
-                                            <h2 class="post-block-title"><a href="single.html">Discussiong with colleagues might change life</a>
-                                            </h2>
-                                        </div>
-                                        <div class="post-block-footer d-flex justify-content-between align-items-center">
-                                            <div class="d-flex align-items-center">
-                                                <div class="post-block-author-photo">
-                                                    <img src="/img/post-author.png" alt="author" class="img-fluid" />
-                                                </div>
-                                                <span class="post-block-author-name">Nicky Masou</span>
-                                            </div>
-                                            <div class="post-block-comment">
-                                                <i class="fal fa-comment-alt-dots"></i> 7
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="post-block-item">
-                                        <div class="post-thumbnail">
-                                            <img src="/img/post-2.jpg" alt="" class="img-fluid" />
-                                            <div class="post-block-category">
-                                                <a href="#">Technology</a>
-                                            </div>
-                                        </div>
-                                        <div class="post-content">
-                                            <h2 class="post-block-title"><a href="single.html">Circuit board connected with direct AI &
-                                                internet</a></h2>
-                                        </div>
-                                        <div class="post-block-footer d-flex justify-content-between align-items-center">
-                                            <div class="d-flex align-items-center">
-                                                <div class="post-block-author-photo">
-                                                    <img src="/img/post-author.png" alt="author" class="img-fluid" />
-                                                </div>
-                                                <span class="post-block-author-name">Nicky Masou</span>
-                                            </div>
-                                            <div class="post-block-comment">
-                                                <i class="fal fa-comment-alt-dots"></i> 7
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <section className="blog-section ptb-100">
+    <div className="container">
+      <div className="row">
+        <div className="col-12">
+          <div className="section-header text-center">
+            <span className="section-heading">Latest News</span>
+            <h2 className="section-title">World renowned and authentic data and cloud analysis</h2>
+          </div>
+        </div>
+      </div>
+      <div className="blog-block">
+        <div className="row">
+          <div className="col-sm-12">
+            <div className="post-carousel owl-carousel owl-theme">
+              <div className="post-block-item">
+                <div className="post-thumbnail">
+                  <img src="/img/post-1.jpg" alt="" className="img-fluid"/>
+                  <div className="post-block-category">
+                    <a href="#">Technology</a>
+                  </div>
                 </div>
-            </section>
+                <div className="post-content">
+                  <h2 className="post-block-title"><a href="single.html">Circuit board connected with direct AI &
+                      internet</a></h2>
+                </div>
+                <div className="post-block-footer d-flex justify-content-between align-items-center">
+                  <div className="d-flex align-items-center">
+                    <div className="post-block-author-photo">
+                      <img src="/img/post-author.png" alt="author" className="img-fluid"/>
+                    </div>
+                    <span className="post-block-author-name">Nicky Masou</span>
+                  </div>
+                  <div className="post-block-comment">
+                    <i className="fal fa-comment-alt-dots"></i> 7
+                  </div>
+                </div>
+              </div> 
+              <div className="post-block-item">
+                <div className="post-thumbnail">
+                  <img src="/img/post-2.jpg" alt="" className="img-fluid"/>
+                  <div className="post-block-category">
+                    <a href="#">Science</a>
+                  </div>
+                </div>
+                <div className="post-content">
+                  <h2 className="post-block-title"><a href="single.html">Mecal science is developing human gens</a></h2>
+                </div>
+                <div className="post-block-footer d-flex justify-content-between align-items-center">
+                  <div className="d-flex align-items-center">
+                    <div className="post-block-author-photo">
+                      <img src="/img/post-author.png" alt="author" className="img-fluid"/>
+                    </div>
+                    <span className="post-block-author-name">Nicky Masou</span>
+                  </div>
+                  <div className="post-block-comment">
+                    <i className="fal fa-comment-alt-dots"></i> 2
+                  </div>
+                </div>
+              </div>
+              <div className="post-block-item">
+                <div className="post-thumbnail">
+                  <img src="/img/post-3.jpg" alt="" className="img-fluid"/>
+                  <div className="post-block-category">
+                    <a href="#">Life</a>
+                  </div>
+                </div>
+                <div className="post-content">
+                  <h2 className="post-block-title"><a href="single.html">Discussiong with colleagues might change life</a>
+                  </h2>
+                </div>
+                <div className="post-block-footer d-flex justify-content-between align-items-center">
+                  <div className="d-flex align-items-center">
+                    <div className="post-block-author-photo">
+                      <img src="/img/post-author.png" alt="author" className="img-fluid"/>
+                    </div>
+                    <span className="post-block-author-name">Nicky Masou</span>
+                  </div>
+                  <div className="post-block-comment">
+                    <i className="fal fa-comment-alt-dots"></i> 7
+                  </div>
+                </div>
+              </div> 
+              <div className="post-block-item">
+                <div className="post-thumbnail">
+                  <img src="/img/post-2.jpg" alt="" className="img-fluid"/>
+                  <div className="post-block-category">
+                    <a href="#">Technology</a>
+                  </div>
+                </div>
+                <div className="post-content">
+                  <h2 className="post-block-title"><a href="single.html">Circuit board connected with direct AI &
+                      internet</a></h2>
+                </div>
+                <div className="post-block-footer d-flex justify-content-between align-items-center">
+                  <div className="d-flex align-items-center">
+                    <div className="post-block-author-photo">
+                      <img src="/img/post-author.png" alt="author" className="img-fluid"/>
+                    </div>
+                    <span className="post-block-author-name">Nicky Masou</span>
+                  </div>
+                  <div className="post-block-comment">
+                    <i className="fal fa-comment-alt-dots"></i> 7
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
             <Footer />
         </>
