@@ -7,8 +7,17 @@ import 'public/css/owl.theme.default.min.css'
 import 'public/css/main.css'
 
 
-function Application({ Component, pageProps }) {
-    return <Component {...pageProps} />
-  }
-  
-  export default Application
+import Head from 'next/head'
+ 
+function MyApp({ Component, pageProps }) {
+  return (
+    <>
+      <Head>
+        <meta name="viewport" content="viewport-fit=cover" />
+      </Head>
+      <Component {...pageProps} />
+    </>
+  )
+}
+ 
+export default MyApp
