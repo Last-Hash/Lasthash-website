@@ -1,8 +1,10 @@
 import Link from 'next/link'
-import { useEffect } from "react";
 
+import { useTheme } from 'next-themes'
 
 export default function Header() {
+
+    const { theme, setTheme } = useTheme()
 
     return (
 
@@ -46,8 +48,7 @@ export default function Header() {
                         <div className="full-bar-search-wrap">
                             <div className="search-form-wrapper">
                                 <form method="get" className="search-form" action="#">
-                                    <div className="search-form-group"> <input name="s" type="text" className="form-control" value=""
-                                        placeholder="Search here..." /></div>
+                                    <div className="search-form-group"> </div>
                                 </form> <a href="#" className="close full-bar-search-toggle"></a>
                             </div>
                         </div>
@@ -109,7 +110,8 @@ export default function Header() {
                                         </div>
                                     </div>
                                     <div className="search-box">
-                                        <a href="javascript:void(0)" className="full-bar-search-toggle"><i className="fal fa-search"></i></a>
+                                        <button data-hide-on-theme="light" className='set-light' onClick={() => setTheme('light')}><i className="fa-solid fa-sun-bright"></i></button>
+                                        <button data-hide-on-theme="dark" className='set-dark' onClick={() => setTheme('dark')}><i className="fa-solid fa-moon"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -123,8 +125,7 @@ export default function Header() {
                             <div className="full-bar-search-wrap">
                                 <div className="search-form-wrapper">
                                     <form method="get" className="search-form" action="#">
-                                        <div className="search-form-group"> <input name="s" type="text" className="form-control" value=""
-                                            placeholder="Search here..." /></div>
+                                        <div className="search-form-group"> </div>
                                     </form> <a href="#" className="close full-bar-search-toggle"></a>
                                 </div>
                             </div>

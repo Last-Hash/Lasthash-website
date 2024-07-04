@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { useEffect } from "react";
-
+import Script from 'next/script'
 
 export default function Footer() {
     const getCurrentYear = () => {
@@ -108,7 +108,7 @@ export default function Footer() {
                     <div className="container">
                         <div className="row">
                             <div className="col-md-6">
-                                <span>Lasthash {getCurrentYear()} copyright. All rights reserved.</span>
+                                <span>Lasthash 2017-{getCurrentYear()} copyright. All rights reserved.</span>
                             </div>
                             <div className="col-md-6">
                                 <nav className="footer-menu">
@@ -125,18 +125,18 @@ export default function Footer() {
             <div className="scroll-top">
                 <i className="fal fa-arrow-to-top"></i>
             </div>
-            <script src="/js/vendor/modernizr-3.8.0.min.js"></script>
-            <script src="/js/vendor/jquery-3.4.1.min.js"></script>
-            <script src="/js/vendor/popper.min.js"></script>
-            <script src="/js/vendor/jquery.magnific-popup.min.js"></script>
-            <script src="/js/bootstrap.min.js"></script>
-            <script src="/js/plugins.js"></script>
-            <script src="/js/vendor/jquery.tabslet.min.js"></script>
-            <script src="/js/vendor/jquery.appear.js"></script>
-            <script src="/js/vendor/count-to.js"></script>
-            <script src="/js/vendor/isotope.pkgd.min.js"></script>
-            <script src="/js/vendor/owl.carousel.min.js"></script>
-            <script src="/js/main.js"></script>
+            <Script src="/js/vendor/modernizr-3.8.0.min.js" />
+            <Script src="/js/vendor/jquery-3.4.1.min.js" />
+            <Script src="/js/vendor/popper.min.js" />
+            <Script src="/js/vendor/jquery.magnific-popup.min.js" />
+            <Script src="/js/bootstrap.min.js" />
+            <Script src="/js/plugins.js" />
+            <Script src="/js/vendor/jquery.tabslet.min.js" />
+            <Script src="/js/vendor/jquery.appear.js" />
+            <Script src="/js/vendor/count-to.js" />
+            <Script src="/js/vendor/isotope.pkgd.min.js" />
+            <Script src="/js/vendor/owl.carousel.min.js" />
+            <Script src="/js/main.js" />
         </>
     )
 }
