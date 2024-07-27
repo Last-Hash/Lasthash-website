@@ -67,7 +67,7 @@ export default function Header() {
                                                         <li><a href="home-2.html">Home 2</a></li>
                                                     </ul>
                                                 </li>
-                                                <li><a href="about.html">About us</a>
+                                                <li><a href="/about/">About us</a>
                                                     <ul className="submenu-inner">
                                                         <li><a href="about-2.html">About 2</a></li>
                                                     </ul>
