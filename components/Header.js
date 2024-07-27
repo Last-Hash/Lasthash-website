@@ -98,14 +98,14 @@ export default function Header() {
                                                     </ul>
                                                 </li>
                                                 <li><a href="projects.html">Projects</a></li>
-                                                <li><a href="blog.html">Blog</a>
+                                                <li><a href="/blogs/">Blog</a>
                                                     <ul className="submenu-inner">
                                                         <li><a href="blog.html">Blog Grid</a></li>
-                                                        <li><a href="blog-listing.html">Blog List</a></li>
+                                                        <li><a href="blog/">Blog List</a></li>
                                                         <li><a href="single.html">Single post</a></li>
                                                     </ul>
                                                 </li>
-                                                <li><a href="contact.html">Contact</a></li>
+                                                <li><a href="/contact-us/">Contact</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -182,14 +182,14 @@ export default function Header() {
                                                     </ul>
                                                 </li>
                                                 <li><a href="projects.html">Projects</a></li>
-                                                <li><a href="blog.html">Blog</a>
+                                                <li><a href="/blogs/">Blog</a>
                                                     <ul className="submenu-inner">
-                                                        <li><a href="blog.html">Blog Grid</a></li>
+                                                        <li><a href="/blog/">Blog Grid</a></li>
                                                         <li><a href="blog-listing.html">Blog List</a></li>
                                                         <li><a href="single.html">Single post</a></li>
                                                     </ul>
                                                 </li>
-                                                <li><a href="contact.html">Contact</a></li>
+                                                <li><a href="/contact-us/">Contact</a></li>
                                             </ul>
                                         </div>
                                     </div>
