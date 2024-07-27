@@ -12,7 +12,7 @@ const Home = () => {
                 <title>Lasthash</title>
                 <meta name="description" content="" />
             </Head>
-            <Header />
+            <Header  />
 
            
   <section class="page-hero" data-background="assets/img/about-header.jpg">

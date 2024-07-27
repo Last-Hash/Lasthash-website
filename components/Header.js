@@ -72,7 +72,7 @@ export default function Header() {
                                                         <li><a href="about-2.html">About 2</a></li>
                                                     </ul>
                                                 </li>
-                                                <li className="megamenu-parent"><a href="services.html">Services</a>
+                                                <li className="megamenu-parent"><a href="/services/">Services</a>
                                                     <ul className="submenu-inner megamenu-wrap-inner">
                                                         <li><a href="#">Basic Services</a>
                                                             <ul>
@@ -97,7 +97,7 @@ export default function Header() {
                                                         </li>
                                                     </ul>
                                                 </li>
-                                                <li><a href="projects.html">Projects</a></li>
+                                                <li><a href="/projects/">Projects</a></li>
                                                 <li><a href="/blogs/">Blog</a>
                                                     <ul className="submenu-inner">
                                                         <li><a href="blog.html">Blog Grid</a></li>
