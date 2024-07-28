@@ -6,11 +6,10 @@ import React, { useRef, useState } from "react";
 
 const Header = ({ HeaderType }) => {
   const { theme, setTheme } = useTheme();
-  console.log(HeaderType);
   return (
     <>
       <div id="site-overlay"></div>
-      <header className="site-header {HeaderType}">
+      <header className={`site-header ${HeaderType}`}>
         <div className="header-top d-none d-md-block">
           <div className="container">
             <div className="row align-items-center">
@@ -93,7 +92,7 @@ const Header = ({ HeaderType }) => {
                   <div className="menu-align-right d-sm-block d-none">
                     <div className="menu-main-menu-container">
                       <ul className="header-navigation-menu">
-                        <li className="active">
+                        <li >
                           <a href="/">Home</a>
                         </li>
 
