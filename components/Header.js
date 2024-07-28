@@ -101,81 +101,81 @@ export default function Header({ HeaderType }) {
                           <a href="/services/">Services</a>
                           <ul className="submenu-inner megamenu-wrap-inner">
                             <li>
-                              <a href="#">Core Software Development</a>
+                              <a href="/services/core-software-development/">Core Software Development</a>
                               <ul>
                                 <li>
-                                  <a href="#">Custom Software Development</a>
+     <a href="/services/custom-software-development">Custom Software Development</a>
                                 </li>
                                 <li>
-                                  <a href="#">Web Application Development</a>
+                                  <a href="/services/web-application-development/">Web Application Development</a>
                                 </li>
                                 <li>
-                                  <a href="#">Mobile App Development</a>
+                                  <a href="/services/mobile-app-development/">Mobile App Development</a>
                                 </li>
                               </ul>
-                              <a href="#">Infrastructure & Operations</a>
+                              <a href="/services/infrastructure-&-operations/">Infrastructure & Operations</a>
                               <ul>
                                 <li>
-                                  <a href="#">Cloud Computing Services</a>
+                                  <a href="/services/cloud-computing-services/">Cloud Computing Services</a>
                                 </li>
                                 <li>
-                                  <a href="#">DevOps Services</a>
+                                  <a href="/services/devops-services/">DevOps Services</a>
                                 </li>
                               </ul>
                             </li>
 
                             <li>
-                              <a href="#">Quality & Enhancement</a>
+                              <a href="/services/quality-&-enhancement/">Quality & Enhancement</a>
                               <ul>
                                 <li>
-                                  <a href="#">
+                                  <a href="/services/software-testing-and-quality-assurance/">
                                     Software Testing and Quality Assurance
                                   </a>
                                 </li>
                                 <li>
-                                  <a href="#">UI/UX Design</a>
+                                  <a href="/services/ui-&-ux-design/">UI/UX Design</a>
                                 </li>
                                 <li>
-                                  <a href="#">
+                                  <a href="/services/software-maintenance-and-support/">
                                     Software Maintenance and Support
                                   </a>
                                 </li>
                               </ul>
-                              <a href="#">Strategic & Consultative</a>
+                              <a href="/services/strategic-&-consultative/">Strategic & Consultative</a>
                               <ul>
                                 <li>
-                                  <a href="#">IT Consulting</a>
+                                  <a href="/services/it-consulting/">IT Consulting</a>
                                 </li>
                                 <li>
-                                  <a href="#">Software Integration</a>
+                                  <a href="/services/software-integration/">Software Integration</a>
                                 </li>
                               </ul>
                             </li>
                             <li>
-                              <a href="#">Data & AI</a>
+                              <a href="/services/data-&-ai/">Data & AI</a>
                               <ul>
                                 <li>
-                                  <a href="#">Data Analytics</a>
+                                  <a href="/services/data-analytics/">Data Analytics</a>
                                 </li>
                                 <li>
-                                  <a href="#">Machine Learning</a>
+                                  <a href="/services/machine-learning/">Machine Learning</a>
                                 </li>
                                 <li>
-                                  <a href="#">Artificial Intelligence</a>
+                                  <a href="/services/artificial-intelligence/">Artificial Intelligence</a>
                                 </li>
                                 <li>
-                                  <a href="#">
+                                  <a href="/services/machine-learning-developmentp/">
                                     Machine Learning (ML) Developmentp
                                   </a>
                                 </li>
                               </ul>
-                              <a href="#">Emerging Technologies</a>
+                              <a href="/services/emerging-technologies/">Emerging Technologies</a>
                               <ul>
                                 <li>
-                                  <a href="#">Blockchain Development</a>
+                                  <a href="/services/blockchain-development/">Blockchain Development</a>
                                 </li>
                                 <li>
-                                  <a href="#">
+                                  <a href="/services/Internet-of-things-development/">
                                     Internet of Things (IoT) Development
                                   </a>
                                 </li>
@@ -198,7 +198,7 @@ export default function Header({ HeaderType }) {
                           <a href="/">Support</a>
                           <ul className="submenu-inner">
                             <li>
-                              <a href="/blog/">Blog</a>
+                              <a href="/blogs/">Blog</a>
                             </li>
                             <li>
                               <a href="/contact-us/">Contact us</a>

@@ -11,7 +11,7 @@ const Home = () => {
   return (
     <>
       <Head>
-        <title>About Us</title>
+        <title>DevOps Services</title>
         <meta name="description" content="" />
       </Head>
       <Header HeaderType={HeaderType} />
@@ -20,11 +20,11 @@ const Home = () => {
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
-          <h1 class="page-title">About Us</h1>
+          <h1 class="page-title">DevOps Services</h1>
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active" aria-current="page">About Us</li>
+              <li class="breadcrumb-item active" aria-current="page">DevOps Services</li>
             </ol>
           </nav>
         </div>

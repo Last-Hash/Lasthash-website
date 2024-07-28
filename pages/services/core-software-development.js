@@ -11,20 +11,21 @@ const Home = () => {
   return (
     <>
       <Head>
-        <title>About Us</title>
+        <title>Core Software Development</title>
         <meta name="description" content="" />
       </Head>
       <Header HeaderType={HeaderType} />
 
-      <section class="page-hero" data-background="/img/about-header.jpg">
+    
+  <section class="page-hero" data-background="/img/about-header.jpg">
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
-          <h1 class="page-title">About Us</h1>
+          <h1 class="page-title">Core Software Development</h1>
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active" aria-current="page">About Us</li>
+              <li class="breadcrumb-item active" aria-current="page">Core Software Development</li>
             </ol>
           </nav>
         </div>
@@ -106,6 +107,7 @@ const Home = () => {
       </div>
     </div>
   </section>
+  
 
       <Footer />
     </>
