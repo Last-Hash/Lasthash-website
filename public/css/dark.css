@@ -55,7 +55,14 @@
 }
 
 
-button.set-light, button.set-dark {
+button.set-light,
+button.set-dark {
   background-color: transparent;
   border: none;
+}
+
+button.set-light>i,
+button.set-dark>i {
+  min-width: 20px;
+  font-size: 20px;
 }
