@@ -79,28 +79,30 @@ const Header = ({ HeaderType }) => {
             </div>
             <div className="row align-items-center">
               <div className="col-md-3 col-lg-2">
-                <a href="/">
-                  <img
-                    src="/img/header-logo.svg"
-                    alt="header logo"
-                    className="img-fluid"
-                  />
-                </a>
+                <Link href={"/"} legacyBehavior>
+                  <a>
+                    <img
+                      src="/img/header-logo.svg"
+                      alt="header logo"
+                      className="img-fluid"
+                    />
+                  </a>
+                </Link>
               </div>
               <div className="col-md-9 col-lg-10 position-static">
                 <div className="d-flex justify-content-end">
                   <div className="menu-align-right d-sm-block d-none">
                     <div className="menu-main-menu-container">
                       <ul className="header-navigation-menu">
-                        <li >
-                          <a href="/">Home</a>
+                        <li>
+                          <Link href="/">Home</Link>
                         </li>
 
                         <li className="megamenu-parent">
                           <a href="/services/">Services</a>
                           <ul className="submenu-inner megamenu-wrap-inner">
                             <li>
-                              <a href="/services/core-software-development/">
+                              <a href="#">
                                 Core Software Development
                               </a>
                               <ul>
@@ -120,7 +122,7 @@ const Header = ({ HeaderType }) => {
                                   </a>
                                 </li>
                               </ul>
-                              <a href="/services/infrastructure-&-operations/">
+                              <a href="#">
                                 Infrastructure & Operations
                               </a>
                               <ul>
@@ -143,7 +145,7 @@ const Header = ({ HeaderType }) => {
                               </a>
                               <ul>
                                 <li>
-                                  <a href="/services/software-testing-and-quality-assurance/">
+                                  <a href="#">
                                     Software Testing and Quality Assurance
                                   </a>
                                 </li>
@@ -153,12 +155,12 @@ const Header = ({ HeaderType }) => {
                                   </a>
                                 </li>
                                 <li>
-                                  <a href="/services/software-maintenance-and-support/">
+                                  <a href="#">
                                     Software Maintenance and Support
                                   </a>
                                 </li>
                               </ul>
-                              <a href="/services/strategic-&-consultative/">
+                              <a href="#">
                                 Strategic & Consultative
                               </a>
                               <ul>
@@ -175,7 +177,7 @@ const Header = ({ HeaderType }) => {
                               </ul>
                             </li>
                             <li>
-                              <a href="/services/data-&-ai/">Data & AI</a>
+                              <a href="#">Data & AI</a>
                               <ul>
                                 <li>
                                   <a href="/services/data-analytics/">
