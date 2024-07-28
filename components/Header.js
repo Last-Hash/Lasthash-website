@@ -140,7 +140,7 @@ const Header = ({ HeaderType }) => {
                             </li>
 
                             <li>
-                              <a href="/services/quality-&-enhancement/">
+                              <a href="#">
                                 Quality & Enhancement
                               </a>
                               <ul>
@@ -150,7 +150,7 @@ const Header = ({ HeaderType }) => {
                                   </a>
                                 </li>
                                 <li>
-                                  <a href="/services/ui-&-ux-design/">
+                                  <a href="/services/ui-ux-design/">
                                     UI/UX Design
                                   </a>
                                 </li>
@@ -200,7 +200,7 @@ const Header = ({ HeaderType }) => {
                                   </a>
                                 </li>
                               </ul>
-                              <a href="/services/emerging-technologies/">
+                              <a href="#">
                                 Emerging Technologies
                               </a>
                               <ul>
