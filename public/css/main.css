@@ -248,7 +248,7 @@ textarea {
 
 .header-block {
   position: relative;
-  background: var(--bg-color);
+  background: var(--header-bottom-bg);
 }
 
 #site-overlay {
@@ -331,7 +331,7 @@ ul.header-navigation-menu>li>a {
   height: auto;
   position: relative;
   display: inline-block;
-  color: #3B3B3B;
+  color: #ffffff;
 }
 
 @media (max-width: 1199.98px) {
@@ -362,7 +362,8 @@ ul.header-navigation-menu>li:hover>a,
 ul.header-navigation-menu>li:active>a,
 ul.header-navigation-menu>li:focus>a,
 ul.header-navigation-menu>li.current_page_parent>a {
-  color: #006DFE;
+  color: #000000;
+  text-shadow: 1px 1px 0 #444;
 }
 
 ul.header-navigation-menu>li:hover>a .menu-arrow,
