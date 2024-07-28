@@ -82,7 +82,7 @@ const Header = ({ HeaderType }) => {
                 <Link href={"/"} legacyBehavior>
                   <a>
                     <img
-                      src="/img/header-logo.svg"
+                      src="/img/logo.png"
                       alt="header logo"
                       className="img-fluid"
                     />
