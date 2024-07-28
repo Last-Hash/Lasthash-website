@@ -4,9 +4,9 @@ import { useTheme } from "next-themes";
 
 import React from "react";
 
-export default function Header({ HeaderType }) {
+const Header = ({ HeaderType }) => {
   const { theme, setTheme } = useTheme();
-
+console.log(HeaderType);
   return (
     <>
       <div id="site-overlay">{HeaderType}</div>
@@ -101,31 +101,47 @@ export default function Header({ HeaderType }) {
                           <a href="/services/">Services</a>
                           <ul className="submenu-inner megamenu-wrap-inner">
                             <li>
-                              <a href="/services/core-software-development/">Core Software Development</a>
+                              <a href="/services/core-software-development/">
+                                Core Software Development
+                              </a>
                               <ul>
                                 <li>
-     <a href="/services/custom-software-development">Custom Software Development</a>
+                                  <a href="/services/custom-software-development">
+                                    Custom Software Development
+                                  </a>
                                 </li>
                                 <li>
-                                  <a href="/services/web-application-development/">Web Application Development</a>
+                                  <a href="/services/web-application-development/">
+                                    Web Application Development
+                                  </a>
                                 </li>
                                 <li>
-                                  <a href="/services/mobile-app-development/">Mobile App Development</a>
+                                  <a href="/services/mobile-app-development/">
+                                    Mobile App Development
+                                  </a>
                                 </li>
                               </ul>
-                              <a href="/services/infrastructure-&-operations/">Infrastructure & Operations</a>
+                              <a href="/services/infrastructure-&-operations/">
+                                Infrastructure & Operations
+                              </a>
                               <ul>
                                 <li>
-                                  <a href="/services/cloud-computing-services/">Cloud Computing Services</a>
+                                  <a href="/services/cloud-computing-services/">
+                                    Cloud Computing Services
+                                  </a>
                                 </li>
                                 <li>
-                                  <a href="/services/devops-services/">DevOps Services</a>
+                                  <a href="/services/devops-services/">
+                                    DevOps Services
+                                  </a>
                                 </li>
                               </ul>
                             </li>
 
                             <li>
-                              <a href="/services/quality-&-enhancement/">Quality & Enhancement</a>
+                              <a href="/services/quality-&-enhancement/">
+                                Quality & Enhancement
+                              </a>
                               <ul>
                                 <li>
                                   <a href="/services/software-testing-and-quality-assurance/">
@@ -133,7 +149,9 @@ export default function Header({ HeaderType }) {
                                   </a>
                                 </li>
                                 <li>
-                                  <a href="/services/ui-&-ux-design/">UI/UX Design</a>
+                                  <a href="/services/ui-&-ux-design/">
+                                    UI/UX Design
+                                  </a>
                                 </li>
                                 <li>
                                   <a href="/services/software-maintenance-and-support/">
@@ -141,13 +159,19 @@ export default function Header({ HeaderType }) {
                                   </a>
                                 </li>
                               </ul>
-                              <a href="/services/strategic-&-consultative/">Strategic & Consultative</a>
+                              <a href="/services/strategic-&-consultative/">
+                                Strategic & Consultative
+                              </a>
                               <ul>
                                 <li>
-                                  <a href="/services/it-consulting/">IT Consulting</a>
+                                  <a href="/services/it-consulting/">
+                                    IT Consulting
+                                  </a>
                                 </li>
                                 <li>
-                                  <a href="/services/software-integration/">Software Integration</a>
+                                  <a href="/services/software-integration/">
+                                    Software Integration
+                                  </a>
                                 </li>
                               </ul>
                             </li>
@@ -155,13 +179,19 @@ export default function Header({ HeaderType }) {
                               <a href="/services/data-&-ai/">Data & AI</a>
                               <ul>
                                 <li>
-                                  <a href="/services/data-analytics/">Data Analytics</a>
+                                  <a href="/services/data-analytics/">
+                                    Data Analytics
+                                  </a>
                                 </li>
                                 <li>
-                                  <a href="/services/machine-learning/">Machine Learning</a>
+                                  <a href="/services/machine-learning/">
+                                    Machine Learning
+                                  </a>
                                 </li>
                                 <li>
-                                  <a href="/services/artificial-intelligence/">Artificial Intelligence</a>
+                                  <a href="/services/artificial-intelligence/">
+                                    Artificial Intelligence
+                                  </a>
                                 </li>
                                 <li>
                                   <a href="/services/machine-learning-developmentp/">
@@ -169,10 +199,14 @@ export default function Header({ HeaderType }) {
                                   </a>
                                 </li>
                               </ul>
-                              <a href="/services/emerging-technologies/">Emerging Technologies</a>
+                              <a href="/services/emerging-technologies/">
+                                Emerging Technologies
+                              </a>
                               <ul>
                                 <li>
-                                  <a href="/services/blockchain-development/">Blockchain Development</a>
+                                  <a href="/services/blockchain-development/">
+                                    Blockchain Development
+                                  </a>
                                 </li>
                                 <li>
                                   <a href="/services/Internet-of-things-development/">
@@ -380,4 +414,5 @@ export default function Header({ HeaderType }) {
       </header>
     </>
   );
-}
+};
+export default Header;
