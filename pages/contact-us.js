@@ -12,10 +12,10 @@ const Home = () => {
                 <title>Lasthash</title>
                 <meta name="description" content="" />
             </Head>
-            <Header  />
+            <Header type={2} />
 
            
-  <section class="page-hero" data-background="assets/img/about-header.jpg">
+  <section class="page-hero" data-background="/img/about-header.jpg">
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
