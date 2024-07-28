@@ -2,15 +2,13 @@ import Link from "next/link";
 
 import { useTheme } from "next-themes";
 
-import React from 'react'
+import React from "react";
 
-
-export default function Header({ HeaderType}) {
+export default function Header({ HeaderType }) {
   const { theme, setTheme } = useTheme();
 
   return (
     <>
-    
       <div id="site-overlay">{HeaderType}</div>
       <header className="site-header">
         <div className="header-top d-none d-md-block">
@@ -97,16 +95,8 @@ export default function Header({ HeaderType}) {
                       <ul className="header-navigation-menu">
                         <li className="active">
                           <a href="/">Home</a>
+                        </li>
 
-                        </li>
-                        <li>
-                          <a href="/about/">About us</a>
-                          <ul className="submenu-inner">
-                            <li>
-                              <a href="about-2.html">About 2</a>
-                            </li>
-                          </ul>
-                        </li>
                         <li className="megamenu-parent">
                           <a href="/services/">Services</a>
                           <ul className="submenu-inner megamenu-wrap-inner">
@@ -155,24 +145,26 @@ export default function Header({ HeaderType}) {
                           </ul>
                         </li>
                         <li>
-                          <a href="/projects/">Projects</a>
+                          <a href="/projects/">Portfolio</a>
                         </li>
                         <li>
-                          <a href="/blogs/">Blog</a>
+                          <a href="/about/">Company</a>
                           <ul className="submenu-inner">
                             <li>
-                              <a href="blog.html">Blog Grid</a>
-                            </li>
-                            <li>
-                              <a href="blog/">Blog List</a>
-                            </li>
-                            <li>
-                              <a href="single.html">Single post</a>
+                              <a href="/about/">About</a>
                             </li>
                           </ul>
                         </li>
                         <li>
-                          <a href="/contact-us/">Contact</a>
+                          <a href="/">Support</a>
+                          <ul className="submenu-inner">
+                            <li>
+                              <a href="/blog/">Blog</a>
+                            </li>
+                            <li>
+                              <a href="/contact-us/">Contact us</a>
+                            </li>
+                          </ul>
                         </li>
                       </ul>
                     </div>
