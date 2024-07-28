@@ -101,44 +101,83 @@ export default function Header({ HeaderType }) {
                           <a href="/services/">Services</a>
                           <ul className="submenu-inner megamenu-wrap-inner">
                             <li>
-                              <a href="#">Basic Services</a>
+                              <a href="#">Core Software Development</a>
                               <ul>
                                 <li>
-                                  <a href="#">Data Storage</a>
+                                  <a href="#">Custom Software Development</a>
                                 </li>
                                 <li>
-                                  <a href="#">Data Analysis</a>
+                                  <a href="#">Web Application Development</a>
                                 </li>
                                 <li>
-                                  <a href="#">Security management</a>
+                                  <a href="#">Mobile App Development</a>
+                                </li>
+                              </ul>
+                              <a href="#">Infrastructure & Operations</a>
+                              <ul>
+                                <li>
+                                  <a href="#">Cloud Computing Services</a>
+                                </li>
+                                <li>
+                                  <a href="#">DevOps Services</a>
+                                </li>
+                              </ul>
+                            </li>
+
+                            <li>
+                              <a href="#">Quality & Enhancement</a>
+                              <ul>
+                                <li>
+                                  <a href="#">
+                                    Software Testing and Quality Assurance
+                                  </a>
+                                </li>
+                                <li>
+                                  <a href="#">UI/UX Design</a>
+                                </li>
+                                <li>
+                                  <a href="#">
+                                    Software Maintenance and Support
+                                  </a>
+                                </li>
+                              </ul>
+                              <a href="#">Strategic & Consultative</a>
+                              <ul>
+                                <li>
+                                  <a href="#">IT Consulting</a>
+                                </li>
+                                <li>
+                                  <a href="#">Software Integration</a>
                                 </li>
                               </ul>
                             </li>
                             <li>
-                              <a href="#">Pro Services</a>
+                              <a href="#">Data & AI</a>
                               <ul>
                                 <li>
-                                  <a href="#">Cloud Deployment</a>
+                                  <a href="#">Data Analytics</a>
                                 </li>
                                 <li>
-                                  <a href="#">Data Analysis</a>
+                                  <a href="#">Machine Learning</a>
                                 </li>
                                 <li>
-                                  <a href="#">Security management</a>
+                                  <a href="#">Artificial Intelligence</a>
+                                </li>
+                                <li>
+                                  <a href="#">
+                                    Machine Learning (ML) Developmentp
+                                  </a>
                                 </li>
                               </ul>
-                            </li>
-                            <li>
-                              <a href="#">Developer Services</a>
+                              <a href="#">Emerging Technologies</a>
                               <ul>
                                 <li>
-                                  <a href="#">API Generate</a>
+                                  <a href="#">Blockchain Development</a>
                                 </li>
                                 <li>
-                                  <a href="#">DNS Management</a>
-                                </li>
-                                <li>
-                                  <a href="#">Cloud Compute</a>
+                                  <a href="#">
+                                    Internet of Things (IoT) Development
+                                  </a>
                                 </li>
                               </ul>
                             </li>
