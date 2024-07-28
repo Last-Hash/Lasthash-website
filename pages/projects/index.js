@@ -12,7 +12,7 @@ const Home = () => {
                 <title>Portfolio</title>
                 <meta name="description" content="" />
             </Head>
-            <Header />
+            <Header HeaderType="" />
 
             <section class="page-hero" data-background="/img/about-header.jpg">
     <div class="container">

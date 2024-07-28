@@ -7,14 +7,14 @@ import Footer from "@components/Footer";
 import React from "react";
 
 const Home = () => {
-  const HeaderType = "header-absolute";
+
   return (
     <>
       <Head>
         <title>Strategic & Consultative</title>
         <meta name="description" content="" />
       </Head>
-      <Header HeaderType={HeaderType} />
+      <Header HeaderType="" />
 
       <section class="page-hero" data-background="/img/about-header.jpg">
     <div class="container">

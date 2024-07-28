@@ -2,15 +2,15 @@ import Link from "next/link";
 
 import { useTheme } from "next-themes";
 
-import React from "react";
+import React, { useRef, useState } from "react";
 
 const Header = ({ HeaderType }) => {
   const { theme, setTheme } = useTheme();
-console.log(HeaderType);
+  console.log(HeaderType);
   return (
     <>
-      <div id="site-overlay">{HeaderType}</div>
-      <header className="site-header">
+      <div id="site-overlay"></div>
+      <header className="site-header {HeaderType}">
         <div className="header-top d-none d-md-block">
           <div className="container">
             <div className="row align-items-center">

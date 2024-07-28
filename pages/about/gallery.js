@@ -12,7 +12,7 @@ const Home = () => {
                 <title>gallery</title>
                 <meta name="description" content="" />
             </Head>
-            <Header />
+            <Header HeaderType="" />
 
             <section className="hero-banner background-contain min-vh-100 d-flex align-items-center justify-content-center w-100"
                 data-background="/img/hero-shape-1.svg">

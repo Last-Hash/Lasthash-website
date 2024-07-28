@@ -12,7 +12,7 @@ const Home = () => {
                 <title>Lasthash</title>
                 <meta name="description" content="" />
             </Head>
-            <Header />
+            <Header HeaderType="" />
 
            
             
