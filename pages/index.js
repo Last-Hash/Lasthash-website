@@ -143,7 +143,7 @@ const Home = () => {
                 <div className="about-img-overlay">
                   <a
                     href="https://vimeo.com/352483111"
-                    className="video-popup mfp-fade"
+                    className="mfp-fade"
                   >
                     <i className="fal fa-play"></i>
                     Watch Promo

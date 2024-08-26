@@ -128,7 +128,8 @@ export default function Footer() {
             <Script src="/js/vendor/modernizr-3.8.0.min.js" />
             <Script src="/js/vendor/jquery-3.4.1.min.js" />
             <Script src="/js/vendor/popper.min.js" />
-            <Script src="/js/vendor/jquery.magnific-popup.min.js" />
+            
+            
             <Script src="/js/bootstrap.min.js" />
             <Script src="/js/plugins.js" />
             <Script src="/js/vendor/jquery.tabslet.min.js" />
