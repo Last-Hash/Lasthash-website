@@ -16,17 +16,17 @@ const Home = () => {
       </Head>
       <Header HeaderType="" />
 
-      <section class="page-hero" data-background="/img/about-header.jpg">
-        <div class="container">
-          <div class="row">
-            <div class="col-sm-12">
-              <h1 class="page-title">About Us</h1>
+      <section className="page-hero" data-background="/img/about-header.jpg">
+        <div className="container">
+          <div className="row">
+            <div className="col-sm-12">
+              <h1 className="page-title">About Us</h1>
               <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                  <li class="breadcrumb-item">
+                <ol className="breadcrumb">
+                  <li className="breadcrumb-item">
                     <a href="#">Home</a>
                   </li>
-                  <li class="breadcrumb-item active" aria-current="page">
+                  <li className="breadcrumb-item active" aria-current="page">
                     About Us
                   </li>
                 </ol>
@@ -35,13 +35,13 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <section class="about-page-content ptb-100">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="section-header text-left">
-                <span class="section-heading">About us</span>
-                <h2 class="section-title">
+      <section className="about-page-content ptb-100">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-6">
+              <div className="section-header text-left">
+                <span className="section-heading">About us</span>
+                <h2 className="section-title">
                   Since 1990 we are doing data analysis and security
                 </h2>
               </div>
@@ -54,93 +54,93 @@ const Home = () => {
                 Using 'Content here, content here', making it look like readable
                 English. Many desktop publishing
               </p>
-              <a href="#" class="btn btn-bg">
+              <a href="#" className="btn btn-bg">
                 Contact Us
               </a>
             </div>
-            <div class="col-md-6">
-              <img src="/img/about-image.svg" alt="about" class="img-fluid" />
+            <div className="col-md-6">
+              <img src="/img/about-image.svg" alt="about" className="img-fluid" />
             </div>
           </div>
         </div>
       </section>
-      <section class="we-do-section ptb-100 bg-light">
-        <div class="container">
-          <div class="row">
-            <div class="col-sm-12">
-              <div class="section-header text-center">
-                <span class="section-heading">What we do</span>
-                <h2 class="section-title">
+      <section className="we-do-section ptb-100 bg-light">
+        <div className="container">
+          <div className="row">
+            <div className="col-sm-12">
+              <div className="section-header text-center">
+                <span className="section-heading">What we do</span>
+                <h2 className="section-title">
                   We have experienced teams whom do all works very caregully
                 </h2>
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-4">
-              <div class="we-do-block text-center">
-                <div class="we-do-image">
+          <div className="row">
+            <div className="col-md-4">
+              <div className="we-do-block text-center">
+                <div className="we-do-image">
                   <img
                     src="/img/data-science.svg"
                     alt="data-science"
-                    class="img-fluid"
+                    className="img-fluid"
                   />
                 </div>
-                <div class="we-do-content">
-                  <h3 class="we-do-title">Data Science</h3>
-                  <div class="we-do-description">
+                <div className="we-do-content">
+                  <h3 className="we-do-title">Data Science</h3>
+                  <div className="we-do-description">
                     <p>
                       like readable English. Many desktop publishing packages
                       and web page
                     </p>
                   </div>
-                  <a href="#" class="read-more-we-do">
+                  <a href="#" className="read-more-we-do">
                     Read More
                   </a>
                 </div>
               </div>
             </div>
-            <div class="col-md-4 mt-xs-45">
-              <div class="we-do-block text-center">
-                <div class="we-do-image">
+            <div className="col-md-4 mt-xs-45">
+              <div className="we-do-block text-center">
+                <div className="we-do-image">
                   <img
                     src="/img/data-mining.svg"
                     alt="data-science"
-                    class="img-fluid"
+                    className="img-fluid"
                   />
                 </div>
-                <div class="we-do-content">
-                  <h3 class="we-do-title">Data Mining</h3>
-                  <div class="we-do-description">
+                <div className="we-do-content">
+                  <h3 className="we-do-title">Data Mining</h3>
+                  <div className="we-do-description">
                     <p>
                       like readable English. Many desktop publishing packages
                       and web page
                     </p>
                   </div>
-                  <a href="#" class="read-more-we-do">
+                  <a href="#" className="read-more-we-do">
                     Read More
                   </a>
                 </div>
               </div>
             </div>
-            <div class="col-md-4 mt-xs-45">
-              <div class="we-do-block text-center">
-                <div class="we-do-image">
+            <div className="col-md-4 mt-xs-45">
+              <div className="we-do-block text-center">
+                <div className="we-do-image">
                   <img
                     src="/img/deep-learning.svg"
                     alt="data-science"
-                    class="img-fluid"
+                    className="img-fluid"
                   />
                 </div>
-                <div class="we-do-content">
-                  <h3 class="we-do-title">Deep Learning</h3>
-                  <div class="we-do-description">
+                <div className="we-do-content">
+                  <h3 className="we-do-title">Deep Learning</h3>
+                  <div className="we-do-description">
                     <p>
                       like readable English. Many desktop publishing packages
                       and web page
                     </p>
                   </div>
-                  <a href="#" class="read-more-we-do">
+                  <a href="#" className="read-more-we-do">
                     Read More
                   </a>
                 </div>
