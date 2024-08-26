@@ -8,6 +8,7 @@ const Header = ({ HeaderType }) => {
   const { theme, setTheme } = useTheme();
   return (
     <>
+    
       <div id="site-overlay"></div>
       <header className={`site-header ${HeaderType}`}>
         <div className="header-top d-none d-md-block">

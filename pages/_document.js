@@ -1,5 +1,5 @@
 import { Html, Head, Main, NextScript } from 'next/document'
-
+import $ from "jquery";
 
 export default function Document() {
     return (

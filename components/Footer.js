@@ -126,7 +126,7 @@ export default function Footer() {
                 <i className="fal fa-arrow-to-top"></i>
             </div>
             <Script src="https://www.lasthash.com/js/vendor/modernizr-3.8.0.min.js" />
-            <Script src="https://www.lasthash.com/js/vendor/jquery-3.4.1.min.js" />
+            
             <Script src="https://www.lasthash.com/js/vendor/popper.min.js" />
             <Script src="https://www.lasthash.com/js/vendor/jquery.magnific-popup.min.js" />
             <Script src="https://www.lasthash.com/js/bootstrap.min.js" />

@@ -1,7 +1,7 @@
 import { ThemeProvider } from "next-themes";
 
 import Head from "next/head";
-import $ from "jquery";
+
 import { useEffect } from "react";
 
 import "public/css/normalize.css";
