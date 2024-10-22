@@ -1,158 +1,80 @@
-import Head from "next/head";
+import React, { Fragment, useState } from 'react';
+import Header from '../../components/header/Header';
+import PageTitle from '../../components/pagetitle/PageTitle'
+import Scrollbar from '../../components/scrollbar/scrollbar'
+import Footer from '../../components/footer/Footer';
+import aImg from '/public/images/about/about_image_3.webp'
+import aImg2 from '/public/images/about/about_image_4.webp'
+import ModalVideo from 'react-modal-video'
+import PolicySection from './Policy';
+import WhyUs from './WhyUs';
+import FeaturesSection from '../../components/FeaturesSection/FeaturesSection';
+import TeamSection from '../../components/TeamSection/TeamSection';
+import CtaSection from '../../components/CtaSection/CtaSection';
+import Image from 'next/image';
 
-import Meta from "@components/Meta";
-import Header from "@components/Header";
-import Footer from "@components/Footer";
 
-import React, { useRef, useState } from "react";
+const AboutUsPage = (props) => {
 
-const Home = () => {
-
-  return (
-    <>
-      <Head>
-        <title>About Us</title>
-        <meta name="description" content="header-absolute" />
-      </Head>
-      <Header HeaderType="" />
-
-      <section className="page-hero" data-background="/img/about-header.jpg">
-        <div className="container">
-          <div className="row">
-            <div className="col-sm-12">
-              <h1 className="page-title">About Us</h1>
-              <nav aria-label="breadcrumb">
-                <ol className="breadcrumb">
-                  <li className="breadcrumb-item">
-                    <a href="#">Home</a>
-                  </li>
-                  <li className="breadcrumb-item active" aria-current="page">
-                    About Us
-                  </li>
-                </ol>
-              </nav>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section className="about-page-content ptb-100">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-6">
-              <div className="section-header text-left">
-                <span className="section-heading">About us</span>
-                <h2 className="section-title">
-                  Since 1990 we are doing data analysis and security
-                </h2>
-              </div>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-              </p>
-              <p>
-                Using 'Content here, content here', making it look like readable
-                English. Many desktop publishing
-              </p>
-              <a href="#" className="btn btn-bg">
-                Contact Us
-              </a>
-            </div>
-            <div className="col-md-6">
-              <img src="/img/about-image.svg" alt="about" className="img-fluid" />
-            </div>
-          </div>
-        </div>
-      </section>
-      <section className="we-do-section ptb-100 bg-light">
-        <div className="container">
-          <div className="row">
-            <div className="col-sm-12">
-              <div className="section-header text-center">
-                <span className="section-heading">What we do</span>
-                <h2 className="section-title">
-                  We have experienced teams whom do all works very caregully
-                </h2>
-              </div>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-md-4">
-              <div className="we-do-block text-center">
-                <div className="we-do-image">
-                  <img
-                    src="/img/data-science.svg"
-                    alt="data-science"
-                    className="img-fluid"
-                  />
-                </div>
-                <div className="we-do-content">
-                  <h3 className="we-do-title">Data Science</h3>
-                  <div className="we-do-description">
-                    <p>
-                      like readable English. Many desktop publishing packages
-                      and web page
-                    </p>
-                  </div>
-                  <a href="#" className="read-more-we-do">
-                    Read More
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-4 mt-xs-45">
-              <div className="we-do-block text-center">
-                <div className="we-do-image">
-                  <img
-                    src="/img/data-mining.svg"
-                    alt="data-science"
-                    className="img-fluid"
-                  />
-                </div>
-                <div className="we-do-content">
-                  <h3 className="we-do-title">Data Mining</h3>
-                  <div className="we-do-description">
-                    <p>
-                      like readable English. Many desktop publishing packages
-                      and web page
-                    </p>
-                  </div>
-                  <a href="#" className="read-more-we-do">
-                    Read More
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-4 mt-xs-45">
-              <div className="we-do-block text-center">
-                <div className="we-do-image">
-                  <img
-                    src="/img/deep-learning.svg"
-                    alt="data-science"
-                    className="img-fluid"
-                  />
-                </div>
-                <div className="we-do-content">
-                  <h3 className="we-do-title">Deep Learning</h3>
-                  <div className="we-do-description">
-                    <p>
-                      like readable English. Many desktop publishing packages
-                      and web page
-                    </p>
-                  </div>
-                  <a href="#" className="read-more-we-do">
-                    Read More
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <Footer />
-    </>
-  );
+    const [isOpen, setOpen] = useState(false)
+    return (
+        <Fragment>
+            <Header />
+            <main className="page_content about-page">
+                <PageTitle pageTitle={'About Us'} pagesub={'More Techco 😃'} pageTop={'About'}/>
+                <section className="intro_about_section section_space bg-light">
+                    <div className="intro_about_content">
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-lg-8">
+                                    <div className="image_wrap">
+                                        <Image src={aImg} alt="Techco - About " />
+                                    </div>
+                                </div>
+                                <div className="col-lg-4">
+                                    <div className="image_wrap position-relative">
+                                        <Image src={aImg2} alt="Techco - About" />
+                                        <button className="video_btn ripple_effect" onClick={() => setOpen(true)}>
+                                            <span className="btn_icon">
+                                                <i className="fa-solid fa-play"></i>
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="container">
+                        <div className="heading_block mb-0">
+                            <div className="row justify-content-lg-between">
+                                <div className="col-lg-4">
+                                    <div className="heading_focus_text">
+                                        About
+                                        <span className="badge bg-secondary text-white">Techco 🙂</span>
+                                    </div>
+                                    <h2 className="heading_text mb-0">
+                                        We Provide You Flexible Services
+                                    </h2>
+                                </div>
+                                <div className="col-lg-6">
+                                    <p className="heading_description mb-0">
+                                        At Techco, we pride ourselves on offering dynamic and  IT  to suit your specific requirements. Our flexible approach means we can  adjust our offerings to accommodate your evolving needs, whether you require comprehensive IT infrastructure support, strategic consultancy, software development
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <PolicySection />
+                <FeaturesSection />
+                <TeamSection />
+                <WhyUs />
+                <CtaSection />
+            </main>
+            <Footer />
+            <Scrollbar />
+            <ModalVideo channel='youtube' autoplay isOpen={isOpen} videoId="7e90gBu4pas" onClose={() => setOpen(false)} />
+        </Fragment>
+    )
 };
-
-export default Home;
+export default AboutUsPage;

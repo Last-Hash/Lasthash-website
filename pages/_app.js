@@ -1,35 +1,27 @@
-import { ThemeProvider } from "next-themes";
-
+import "react-toastify/dist/ReactToastify.min.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../node_modules/react-modal-video/scss/modal-video.scss';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import '../styles/animate.css'
+import '../styles/fontawesome.css';
+import '../styles/themify-icons.css';
+import '../styles/animate.css';
+import '../styles/sass/style.scss';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import Head from "next/head";
-import $ from "jquery";
-import { useEffect } from "react";
-
-import "public/css/normalize.css";
-import "public/css/bootstrap.min.css";
-import "public/css/fontawesome.css";
-import "public/css/magnific-popup.css";
-import "public/css/owl.carousel.min.css";
-import "public/css/owl.theme.default.min.css";
-import "public/css/main.css";
-import "public/css/dark.css";
 
 function MyApp({ Component, pageProps }) {
-  useEffect(() => {
-    $(document).ready(function () {
-      console.log("jQuery loaded!");
-    });
-  }, []);
   return (
-    <>
+    <div>
       <Head>
-        <meta name="viewport" content="viewport-fit=cover" />
-        <meta charSet="utf-8" />
+        <title>Techco - IT Solutions & Business Next Js Template</title>
       </Head>
-      <ThemeProvider>
-        <Component {...pageProps} />
-      </ThemeProvider>
-    </>
-  );
+      <Component {...pageProps} />
+    </div>
+
+  )
 }
 
-export default MyApp;
+export default MyApp
