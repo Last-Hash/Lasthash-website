@@ -11,7 +11,7 @@ import icon8 from '/public/images/clients/client_logo_9.webp'
 import icon9 from '/public/images/clients/client_logo_10.webp'
 import icon10 from '/public/images/avatar/avatar_7.webp'
 import icon11 from '/public/images/icons/icon_quote.svg'
-import logo from '/public/images/site_logo/site_logo_3.svg'
+import logo from '/public/images/site_logo/logo.png'
 import cases from '/public/images/case/case_image_4.webp'
 import MobileMenu from '../MobileMenu/MobileMenu'
 import Image from 'next/image';
