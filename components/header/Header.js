@@ -71,11 +71,6 @@ const Header = (props) => {
                                             <Link onClick={ClickHandler} className="nav-link" href="/" id="home_submenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                 Home
                                             </Link>
-                                            <ul className="dropdown-menu" aria-labelledby="home_submenu">
-                                                <li><Link onClick={ClickHandler} href="/">IT Solution</Link></li>
-                                                <li><Link onClick={ClickHandler} href="/home_software_company">Software Company</Link></li>
-                                                <li><Link onClick={ClickHandler} href="/home_business_consulting">Business Consulting</Link></li>
-                                            </ul>
                                         </li>
                                         <li className="dropdown">
                                             <Link onClick={ClickHandler} className="nav-link" href="/" id="company_submenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
