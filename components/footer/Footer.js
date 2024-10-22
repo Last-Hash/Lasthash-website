@@ -17,6 +17,7 @@ const SubmitHandler = (e) => {
 
 
 const Footer = (props) => {
+    const currentYear = new Date().getFullYear();
     return (
         <footer className="site_footer footer_layout_1">
             <div className="content_box" style={{ backgroundImage: `url(${'/images/shapes/bg_pattern_3.svg'})` }}>
@@ -201,10 +202,10 @@ const Footer = (props) => {
             <div className="footer_bottom">
                 <div className="container d-md-flex align-items-md-center justify-content-md-between">
                     <p className="copyright_text m-0">
-                        Copyright © 2024 Techco, All rights reserved.
+                        Copyright © 2017-{currentYear} Lasthash, All rights reserved.
                     </p>
                     <p className="copyright_text m-0">
-                        Developed by <Link onClick={ClickHandler} href="/">XpressBuddy</Link>
+                        Made in India with <i className="fa-solid fa-heart"></i> by <Link onClick={ClickHandler} href="/">Lasthash</Link>
                     </p>
                 </div>
             </div>
