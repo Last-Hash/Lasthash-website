@@ -18,10 +18,10 @@ function MyApp({ Component, pageProps }) {
   return (
     
     <div>
-      <ThemeProvider>
       <Head>
         <title>Lasthash</title>
       </Head>
+      <ThemeProvider>
       <Component {...pageProps} />
       </ThemeProvider>
     </div>
