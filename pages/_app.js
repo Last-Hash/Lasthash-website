@@ -16,14 +16,16 @@ import Head from "next/head";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <ThemeProvider>
+    
     <div>
+      <ThemeProvider>
       <Head>
         <title>Lasthash</title>
       </Head>
       <Component {...pageProps} />
+      </ThemeProvider>
     </div>
-    </ThemeProvider>
+    
   )
 }
 
