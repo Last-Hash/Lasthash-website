@@ -10,17 +10,20 @@ import '../styles/animate.css';
 import '../styles/sass/style.scss';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { ThemeProvider } from 'next-themes'
+
 import Head from "next/head";
 
 function MyApp({ Component, pageProps }) {
   return (
+    <ThemeProvider>
     <div>
       <Head>
         <title>Lasthash</title>
       </Head>
       <Component {...pageProps} />
     </div>
-
+    </ThemeProvider>
   )
 }
 
