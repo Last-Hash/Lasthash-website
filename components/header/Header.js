@@ -16,7 +16,12 @@ import cases from '/public/images/case/case_image_4.webp'
 import MobileMenu from '../MobileMenu/MobileMenu'
 import Image from 'next/image';
 
+import { useTheme } from 'next-themes'
+
+
 const Header = (props) => {
+
+    const { theme, setTheme } = useTheme()
 
     const [mobailActive, setMobailState] = useState(false);
 
@@ -507,12 +512,10 @@ const Header = (props) => {
                                     </button>
                                 </li>
                                 <li>
-                                    <Link onClick={ClickHandler} className="btn btn-outline-light" href="/pricing">
-                                        <span className="btn_label" data-text="Get Started">Get Started</span>
-                                        <span className="btn_icon">
-                                            <i className="fa-solid fa-arrow-up-right"></i>
-                                        </span>
-                                    </Link>
+                                    <div className='theme-switcher'>
+                                    <button onClick={() => setTheme('light')}>Light Mode</button>
+                                    <button onClick={() => setTheme('dark')}>Dark Mode</button>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
