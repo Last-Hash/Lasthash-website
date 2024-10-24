@@ -513,8 +513,8 @@ const Header = (props) => {
                                 </li>
                                 <li>
                                     <div className='theme-switcher'>
-                                    <button data-hide-on-theme="dark" onClick={() => setTheme('light')}>Light Mode</button>
-                                    <button data-hide-on-theme="light" onClick={() => setTheme('dark')}>Dark Mode</button>
+                                    <button data-hide-on-theme="light" onClick={() => setTheme('light')}>Light Mode</button>
+                                    <button data-hide-on-theme="dark" onClick={() => setTheme('dark')}>Dark Mode</button>
                                     </div>
                                 </li>
                             </ul>
