@@ -513,9 +513,9 @@ const Header = (props) => {
                                 </li>
                                 <li>
                                     <div className='theme-switcher'>
-                                    <button className='btn' data-hide-on-theme="light" onClick={() => setTheme('light')}><i className="fa-solid fa-sun"></i> light
+                                    <button className='btn btn-outline-dark' data-hide-on-theme="light" onClick={() => setTheme('light')}><i className="fa-solid fa-sun"></i> light
                                     </button>
-                                    <button className='btn' data-hide-on-theme="dark" onClick={() => setTheme('dark')}><i className="fa-solid fa-moon"></i> dark
+                                    <button className='btn btn-outline-light' data-hide-on-theme="dark" onClick={() => setTheme('dark')}><i className="fa-solid fa-moon"></i> dark
                                     </button>
                                     </div>
                                 </li>
