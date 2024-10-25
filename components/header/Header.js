@@ -11,12 +11,16 @@ import icon8 from "/public/images/clients/client_logo_9.webp";
 import icon9 from "/public/images/clients/client_logo_10.webp";
 import icon10 from "/public/images/avatar/avatar_7.webp";
 import icon11 from "/public/images/icons/icon_quote.svg";
-import logo from "/public/images/site_logo/lasthash_logo.png";
 import cases from "/public/images/case/case_image_4.webp";
 import MobileMenu from "../MobileMenu/MobileMenu";
+import logo from '/public/images/site_logo/site_logo_3.svg'
+import lightLogoUrl from '/public/images/site_logo/logo-light.png'
+import darkLogoUrl from '/public/images/site_logo/logo-dark.png'
 import Image from "next/image";
 
 import { useTheme } from "next-themes";
+
+
 
 const Header = (props) => {
   const { theme, setTheme } = useTheme();
@@ -68,13 +72,10 @@ const Header = (props) => {
             <div className="col-xl-3 col-lg-2 col-5">
               <div className="site_logo">
                 <Link onClick={ClickHandler} className="site_link" href="/">
-                  <Image
-                    src={logo}
-                    alt="Site Logo – Techco – IT Solutions & Technology, Business Consulting, Software Company Site Template"
-                  />
+                  <Image src={theme === 'dark' ? lightLogoUrl : darkLogoUrl} alt="Site Logo - Techco - IT Solutions & Technology, Business Consulting, Software Company Site Template" />
                 </Link>
                 <div className="badge bg-danger-subtle text-danger">
-                  We’re Hiring
+                  We're Hiring
                 </div>
               </div>
             </div>
