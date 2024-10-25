@@ -170,6 +170,14 @@ Responsive For Mobile & Tablet Devices
 	.site_header_3 .dropdown-menu.mega_menu_wrapper {
 		top: 77px;
 	}
+
+	.site_header .header_btns_group {
+		>li {
+			&:last-child {
+				 display: none;
+			}
+		}
+	}
 }
 
 @media screen and (max-width: 1440px) {
@@ -754,7 +762,7 @@ Responsive For Mobile & Tablet Devices
 	.site_header .header_btns_group {
 		>li {
 			&:last-child {
-				display: none;
+				 display: block;
 			}
 		}
 	}

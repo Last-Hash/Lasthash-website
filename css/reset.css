@@ -2,3 +2,8 @@
 [data-theme='light'] [data-hide-on-theme='light'] {
   display: none;
 }
+
+.theme-switcher-btn{
+  cursor: pointer;
+  color: black;
+}

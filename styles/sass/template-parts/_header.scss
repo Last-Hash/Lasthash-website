@@ -27,7 +27,7 @@
 
 		>li {
 			&:first-child {
-				display: none;
+				//display: none;
 			}
 		}
 	}
@@ -45,6 +45,12 @@
 					transform: translateY(-81%);
 				}
 			}
+		}
+	}
+
+	.theme-switcher-btn {
+		& > i {
+			font-size: 30px;
 		}
 	}
 }
