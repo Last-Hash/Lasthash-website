@@ -13,7 +13,6 @@ import icon10 from "/public/images/avatar/avatar_7.webp";
 import icon11 from "/public/images/icons/icon_quote.svg";
 import cases from "/public/images/case/case_image_4.webp";
 import MobileMenu from "../MobileMenu/MobileMenu";
-import logo from '/public/images/site_logo/site_logo_3.svg'
 import lightLogoUrl from '/public/images/site_logo/logo-light.png'
 import darkLogoUrl from '/public/images/site_logo/logo-dark.png'
 import Image from "next/image";
