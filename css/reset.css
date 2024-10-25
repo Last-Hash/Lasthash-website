@@ -5,5 +5,5 @@
 
 .theme-switcher-btn{
   cursor: pointer;
-  color: black;
+  color: var(--header-bottom-tx);
 }

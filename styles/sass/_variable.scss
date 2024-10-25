@@ -1,4 +1,4 @@
-:root, [data-bs-theme=light] {
+[data-theme=light] {
 	--bs-body-font-family: 'Axiforma Regular', sans-serif;
 	--bs-heading-font-family: 'Axiforma Bold', sans-serif;
 	--bs-body-font-size: 16px;
@@ -40,4 +40,12 @@
 	--bs-border-radius-pill: 50px;
 
 	--bs-transition: 300ms ease;
+	
+	--header-bottom-bg: #ffffff;
+	--header-bottom-tx: #0A0A0A;
+}
+
+[data-theme=dark] {
+	--header-bottom-bg: #0A0A0A;
+	--header-bottom-tx: #ffffff;
 }
