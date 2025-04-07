@@ -1,9 +1,0 @@
-[data-theme='dark'] [data-hide-on-theme='dark'],
-[data-theme='light'] [data-hide-on-theme='light'] {
-  display: none;
-}
-
-.theme-switcher-btn{
-  cursor: pointer;
-  color: var(--header-bottom-tx);
-}
