@@ -1,5 +1,5 @@
-import { Box, ThemeProvider, createTheme, CssBaseline } from '@mui/material';
-import { useState, useMemo } from 'react';
+import { Box, ThemeProvider, createTheme, CssBaseline, useScrollTrigger } from '@mui/material';
+import { useState, useMemo, useEffect } from 'react';
 import TopHeader from '../header/TopHeader';
 import MainHeader from '../header/MainHeader';
 import BottomHeader from '../header/BottomHeader';
@@ -8,6 +8,22 @@ import BottomFooter from '../footer/BottomFooter';
 
 const MainLayout = ({ children }) => {
   const [mode, setMode] = useState('light');
+  const trigger = useScrollTrigger({
+    threshold: 100,
+    disableHysteresis: true
+  });
+
+  // Load theme preference from localStorage on initial render
+  useEffect(() => {
+    const savedMode = localStorage.getItem('theme-mode');
+    if (savedMode) {
+      setMode(savedMode);
+    } else {
+      // Optional: Check system preference
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setMode(prefersDark ? 'dark' : 'light');
+    }
+  }, []);
 
   const theme = useMemo(
     () =>
@@ -15,19 +31,66 @@ const MainLayout = ({ children }) => {
         palette: {
           mode,
           primary: {
-            main: '#1976d2',
-            light: '#42a5f5',
-            dark: '#1565c0',
+            main: '#00ADB5', // rgb(0, 173, 181)
+            light: '#33BDC3',
+            dark: '#007983',
           },
           secondary: {
-            main: '#9c27b0',
+            main: '#393E46', // rgb(57, 62, 70)
+            light: '#4A515A',
+            dark: '#2D3238',
           },
           background: {
-            default: mode === 'light' ? '#ffffff' : '#121212',
-            paper: mode === 'light' ? '#ffffff' : '#1e1e1e',
+            default: mode === 'light' ? '#EEEEEE' : '#222831', // rgb(238, 238, 238) : rgb(34, 40, 49)
+            paper: mode === 'light' ? '#FFFFFF' : '#393E46',
           },
+          text: {
+            primary: mode === 'light' ? '#222831' : '#EEEEEE',
+            secondary: mode === 'light' ? '#393E46' : '#00ADB5',
+          },
+          divider: mode === 'light' ? 'rgba(57, 62, 70, 0.12)' : 'rgba(238, 238, 238, 0.12)',
         },
         components: {
+          MuiAppBar: {
+            styleOverrides: {
+              root: {
+                backgroundColor: mode === 'light' ? '#EEEEEE' : '#222831',
+                color: mode === 'light' ? '#222831' : '#EEEEEE',
+              },
+            },
+          },
+          MuiButton: {
+            styleOverrides: {
+              root: {
+                textTransform: 'none',
+                fontSize: '1rem',
+                '&:hover': {
+                  backgroundColor: mode === 'light' ? '#00ADB5' : '#007983',
+                },
+              },
+              containedPrimary: {
+                backgroundColor: '#00ADB5',
+                color: '#EEEEEE',
+                '&:hover': {
+                  backgroundColor: '#007983',
+                },
+              },
+              containedSecondary: {
+                backgroundColor: '#393E46',
+                color: '#EEEEEE',
+                '&:hover': {
+                  backgroundColor: '#2D3238',
+                },
+              },
+            },
+          },
+          MuiCard: {
+            styleOverrides: {
+              root: {
+                backgroundColor: mode === 'light' ? '#FFFFFF' : '#393E46',
+              },
+            },
+          },
           MuiContainer: {
             styleOverrides: {
               root: {
@@ -37,41 +100,50 @@ const MainLayout = ({ children }) => {
               },
             },
           },
-          MuiButton: {
-            styleOverrides: {
-              root: {
-                textTransform: 'none',
-                fontSize: '1rem',
-              },
-            },
-          },
-          MuiAppBar: {
-            styleOverrides: {
-              root: {
-                backgroundColor: mode === 'light' ? '#ffffff' : '#1e1e1e',
-                color: mode === 'light' ? '#000000' : '#ffffff',
-              },
-            },
-          },
         },
       }),
     [mode]
   );
 
   const toggleTheme = () => {
-    setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+    setMode((prevMode) => {
+      const newMode = prevMode === 'light' ? 'dark' : 'light';
+      // Save to localStorage
+      localStorage.setItem('theme-mode', newMode);
+      return newMode;
+    });
   };
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-        <Box component="header">
-          <TopHeader />
-          <MainHeader onToggleTheme={toggleTheme} isDarkMode={mode === 'dark'} />
-          <BottomHeader />
+        <Box component="header" sx={{ position: 'sticky', top: 0, zIndex: 1100 }}>
+          <Box sx={{ 
+            height: trigger ? 0 : 'auto',
+            overflow: 'hidden',
+            transition: 'all 0.3s ease'
+          }}>
+            <TopHeader />
+          </Box>
+          <Box sx={{ 
+            position: 'relative',
+            backgroundColor: mode === 'light' ? '#EEEEEE' : '#222831',
+            boxShadow: trigger ? 1 : 0,
+            transition: 'all 0.3s ease'
+          }}>
+            <MainHeader onToggleTheme={toggleTheme} isDarkMode={mode === 'dark'} />
+            <BottomHeader />
+          </Box>
         </Box>
-        <Box component="main" sx={{ flexGrow: 1, py: { xs: 4, md: 6 } }}>
+        <Box 
+          component="main" 
+          sx={{ 
+            flexGrow: 1,
+            pb: { xs: 4, md: 6 }, // Changed from py to pb (padding-bottom only)
+            mt: 0 
+          }}
+        >
           {children}
         </Box>
         <Box component="footer">

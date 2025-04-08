@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Card, CardContent, Typography, IconButton } from '@mui/material';
+import { Box, Container, Grid, Card, CardContent, CardMedia, Typography, IconButton } from '@mui/material';
 import SectionTitle from '../common/SectionTitle';
 import { useTheme } from '@mui/material/styles';
 import CodeIcon from '@mui/icons-material/Code';
@@ -11,24 +11,28 @@ const services = [
     title: 'Web Development',
     description: 'Custom web applications built with modern technologies',
     icon: <CodeIcon fontSize="large" />,
+    image: 'https://picsum.photos/400/300?random=2',
     link: '/services/web-development'
   },
   {
     title: 'Mobile Development',
     description: 'Native and cross-platform mobile applications',
     icon: <PhoneIphoneIcon fontSize="large" />,
+    image: 'https://picsum.photos/400/300?random=3',
     link: '/services/mobile-development'
   },
   {
     title: 'Cloud Solutions',
     description: 'Scalable cloud infrastructure and DevOps services',
     icon: <CloudIcon fontSize="large" />,
+    image: 'https://picsum.photos/400/300?random=4',
     link: '/services/cloud'
   },
   {
     title: 'Cybersecurity',
     description: 'Protecting your digital assets and data',
     icon: <SecurityIcon fontSize="large" />,
+    image: 'https://picsum.photos/400/300?random=5',
     link: '/services/security'
   }
 ];
@@ -55,12 +59,20 @@ const ServicesSection = () => {
                   }
                 }}
               >
+                <CardMedia
+                  component="img"
+                  height="140"
+                  image={service.image}
+                  alt={service.title}
+                />
                 <CardContent sx={{ textAlign: 'center' }}>
                   <IconButton 
                     sx={{ 
                       mb: 2,
                       color: 'primary.main',
-                      '&:hover': { bgcolor: 'transparent' }
+                      '&:hover': {
+                        bgcolor: 'transparent'
+                      }
                     }}
                     disableRipple
                   >
