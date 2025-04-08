@@ -1,17 +1,26 @@
-import { AppBar, Container, Box } from '@mui/material';
+import { AppBar, Container, Box, IconButton, useMediaQuery } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
 import Logo from '../common/Logo';
 import ThemeSwitcher from '../common/ThemeSwitcher';
+import { useTheme } from '@mui/material/styles';
 
-const MainHeader = ({ onToggleTheme, isDarkMode }) => {
+const MainHeader = ({ onToggleTheme, isDarkMode, onToggleMobileMenu }) => {
+  const theme = useTheme();
+  const isDark = theme.palette.mode === 'dark';
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
   return (
     <AppBar 
       position="relative" 
       elevation={0}
       sx={{
         backdropFilter: 'blur(8px)',
-        backgroundColor: 'rgba(238, 238, 238, 0.95)',
+        backgroundColor: isDark 
+          ? 'rgba(34, 40, 49, 0.95)'
+          : 'rgba(238, 238, 238, 0.95)',
         borderBottom: '1px solid',
-        borderColor: 'divider'
+        borderColor: 'divider',
+        transition: 'all 0.3s ease'
       }}
     >
       <Container>
@@ -22,7 +31,20 @@ const MainHeader = ({ onToggleTheme, isDarkMode }) => {
           py={1.5}
         >
           <Logo />
-          <ThemeSwitcher onToggle={onToggleTheme} isDark={isDarkMode} />
+          <Box display="flex" alignItems="center" gap={1}>
+            <ThemeSwitcher onToggle={onToggleTheme} isDark={isDarkMode} />
+            {isMobile && (
+              <IconButton
+                onClick={onToggleMobileMenu}
+                sx={{ 
+                  color: 'text.primary',
+                  ml: 1
+                }}
+              >
+                <MenuIcon />
+              </IconButton>
+            )}
+          </Box>
         </Box>
       </Container>
     </AppBar>

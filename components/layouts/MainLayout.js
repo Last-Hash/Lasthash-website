@@ -7,6 +7,7 @@ import TopFooter from '../footer/TopFooter';
 
 const MainLayout = ({ children }) => {
   const [mode, setMode] = useState('light');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const trigger = useScrollTrigger({
     threshold: 100,
     disableHysteresis: true
@@ -148,6 +149,10 @@ const MainLayout = ({ children }) => {
     });
   };
 
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+
   return (
     <ThemeProvider theme={{ ...theme, ...globalStyles }}>
       <CssBaseline />
@@ -166,8 +171,15 @@ const MainLayout = ({ children }) => {
             boxShadow: trigger ? 1 : 0,
             transition: 'all 0.3s ease'
           }}>
-            <MainHeader onToggleTheme={toggleTheme} isDarkMode={mode === 'dark'} />
-            <BottomHeader />
+            <MainHeader 
+              onToggleTheme={toggleTheme} 
+              isDarkMode={mode === 'dark'} 
+              onToggleMobileMenu={toggleMobileMenu}
+            />
+            <BottomHeader 
+              mobileMenuOpen={mobileMenuOpen}
+              onMobileMenuClose={() => setMobileMenuOpen(false)}
+            />
           </Box>
         </Box>
         <Box 

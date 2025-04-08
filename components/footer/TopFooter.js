@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Typography, Link, IconButton, Stack, Divider } from '@mui/material';
+import { Box, Container, Grid, Typography, Link, IconButton, Stack, Divider, Paper } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
@@ -35,6 +35,7 @@ const IndianFlagLogo = () => (
 
 const TopFooter = () => {
   const theme = useTheme();
+  const isDark = theme.palette.mode === 'dark';
   const startYear = 2010;
   const [years, setYears] = useState(0);
 
@@ -59,11 +60,14 @@ const TopFooter = () => {
   return (
     <Box 
       sx={{ 
-        bgcolor: theme.palette.mode === 'light' ? 'primary.main' : '#1A1A1A',
+        position: 'relative',
+        background: isDark 
+          ? `linear-gradient(135deg, #1a1a1a 0%, #2d3436 100%)`
+          : `linear-gradient(135deg, ${theme.palette.primary.dark} 0%, ${theme.palette.primary.main} 100%)`,
         color: '#ffffff',
         pt: 8,
         pb: 4,
-        position: 'relative',
+        overflow: 'hidden',
         '&::before': {
           content: '""',
           position: 'absolute',
@@ -71,103 +75,80 @@ const TopFooter = () => {
           left: 0,
           right: 0,
           height: '100%',
-          background: `linear-gradient(90deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 100%)`,
-          opacity: theme.palette.mode === 'light' ? 0.9 : 0.1,
-          zIndex: 0
+          backgroundImage: isDark
+            ? 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 50%)'
+            : 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 50%)',
+          zIndex: 1
         }
       }}
     >
-      <Container sx={{ position: 'relative', zIndex: 1 }}>
+      <Container sx={{ position: 'relative', zIndex: 2 }}>
+        {/* Company Info Section */}
         <Grid container spacing={6}>
           <Grid item xs={12} md={4}>
-            <Box sx={{ mb: 3 }}>
-              <Logo />
-              <Box 
-                sx={{ 
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 1,
-                  mt: 2
-                }}
-              >
-                <Typography 
-                  variant="h4" 
-                  component="span"
+            <Logo />
+            <Box sx={{ 
+              mt: 2,
+              mb: 3,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 1,
+              borderLeft: '3px solid',
+              borderColor: isDark ? theme.palette.primary.main : theme.palette.secondary.main,
+              pl: 2,
+              background: isDark ? 'rgba(255,255,255,0.03)' : 'transparent',
+              borderRadius: '0 4px 4px 0',
+              py: 1
+            }}>
+              <Typography variant="h4" sx={{ 
+                fontWeight: 'bold',
+                color: isDark ? theme.palette.primary.main : '#fff'
+              }}>
+                {years}
+              </Typography>
+              <Typography sx={{ color: isDark ? 'rgba(255,255,255,0.9)' : '#fff' }}>
+                Years of code baking 
+                <FavoriteIcon 
                   sx={{ 
-                    color: '#fff',
-                    fontWeight: 'bold'
+                    color: '#dc3545',
+                    fontSize: 16,
+                    ml: 1,
+                    filter: isDark ? 'drop-shadow(0 0 2px rgba(220,53,69,0.5))' : 'none',
+                    animation: 'heartBeat 1.5s ease infinite',
+                    '@keyframes heartBeat': {
+                      '0%': { transform: 'scale(1)', filter: 'brightness(1)' },
+                      '50%': { transform: 'scale(1.2)', filter: 'brightness(1.3)' },
+                      '100%': { transform: 'scale(1)', filter: 'brightness(1)' }
+                    }
                   }}
-                >
-                  {years}
-                </Typography>
-                <Typography 
-                  variant="body1"
-                  sx={{ 
-                    color: '#fff',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 1
-                  }}
-                >
-                  Years of code baking 
-                  <FavoriteIcon 
-                    sx={{ 
-                      color: '#dc3545', 
-                      fontSize: 16,
-                      animation: 'heartBeat 1.5s ease infinite',
-                      '@keyframes heartBeat': {
-                        '0%': {
-                          transform: 'scale(1)',
-                          opacity: 1
-                        },
-                        '15%': {
-                          transform: 'scale(1.25)',
-                          opacity: 0.8
-                        },
-                        '30%': {
-                          transform: 'scale(1)',
-                          opacity: 1
-                        },
-                        '45%': {
-                          transform: 'scale(1.15)',
-                          opacity: 0.9
-                        },
-                        '60%': {
-                          transform: 'scale(1)',
-                          opacity: 1
-                        }
-                      }
-                    }} 
-                  />
-                </Typography>
-              </Box>
+                />
+              </Typography>
             </Box>
-            <Typography 
-              variant="body2" 
-              sx={{ 
-                color: 'rgba(255,255,255,0.8)',
-                mb: 3,
-                lineHeight: 1.8
-              }}
-            >
+
+            <Typography sx={{ 
+              color: isDark ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.8)',
+              mb: 4,
+              maxWidth: '90%'
+            }}>
               We are a modern software development company focused on delivering innovative solutions
-              using cutting-edge technologies. Our mission is to transform businesses through digital excellence.
+              using cutting-edge technologies.
             </Typography>
-            <Stack direction="row" spacing={1} sx={{ mb: 3 }}>
+
+            <Stack direction="row" spacing={2} sx={{ mb: 4 }}>
               {socialLinks.map((social, index) => (
                 <IconButton 
                   key={index}
                   href={social.url}
                   target="_blank"
-                  rel="noopener noreferrer"
                   sx={{ 
-                    color: 'rgba(255,255,255,0.8)',
+                    color: isDark ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.8)',
+                    transition: 'all 0.3s ease',
+                    background: isDark ? 'rgba(255,255,255,0.03)' : 'transparent',
                     '&:hover': {
                       color: '#fff',
-                      transform: 'translateY(-3px)',
-                      bgcolor: 'rgba(255,255,255,0.1)'
-                    },
-                    transition: 'all 0.3s ease'
+                      transform: 'translateY(-5px)',
+                      background: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.1)'
+                    }
                   }}
                 >
                   {social.icon}
@@ -176,179 +157,136 @@ const TopFooter = () => {
             </Stack>
           </Grid>
 
+          {/* Quick Links Section */}
           <Grid item xs={12} md={4}>
-            <Typography 
-              variant="h6" 
-              gutterBottom 
-              sx={{ 
-                color: '#fff',
-                position: 'relative',
-                '&::after': {
-                  content: '""',
-                  position: 'absolute',
-                  bottom: -8,
-                  left: 0,
-                  width: 40,
-                  height: 2,
-                  bgcolor: theme.palette.secondary.main
-                }
-              }}
-            >
+            <Typography variant="h6" sx={{ 
+              mb: 3,
+              fontWeight: 600,
+              position: 'relative',
+              color: isDark ? theme.palette.primary.main : '#fff',
+              '&::after': {
+                content: '""',
+                position: 'absolute',
+                bottom: -8,
+                left: 0,
+                width: 50,
+                height: 3,
+                background: isDark ? theme.palette.primary.main : theme.palette.secondary.main
+              }
+            }}>
               Quick Links
             </Typography>
-            <Box 
-              display="grid" 
-              gridTemplateColumns="1fr 1fr"
-              gap={2}
-              sx={{ mt: 4 }}
-            >
+            <Grid container spacing={2}>
               {['Services', 'Solutions', 'About Us', 'Contact', 'Portfolio', 'Careers', 'Blog', 'FAQ'].map((text, index) => (
-                <Link 
-                  key={index}
-                  href={`/${text.toLowerCase().replace(' ', '-')}`} 
-                  sx={{ 
-                    color: 'rgba(255,255,255,0.8)',
-                    textDecoration: 'none',
-                    display: 'flex',
-                    alignItems: 'center',
-                    transition: 'all 0.3s ease',
-                    '&:hover': {
-                      color: '#fff',
-                      transform: 'translateX(5px)'
-                    },
-                    '&::before': {
-                      content: '"→"',
-                      marginRight: 1,
-                      opacity: 0,
-                      transition: 'opacity 0.3s ease'
-                    },
-                    '&:hover::before': {
-                      opacity: 1
-                    }
-                  }}
-                >
-                  {text}
-                </Link>
-              ))}
-            </Box>
-          </Grid>
-
-          <Grid item xs={12} md={4}>
-            <Typography 
-              variant="h6" 
-              gutterBottom 
-              sx={{ 
-                color: '#fff',
-                position: 'relative',
-                '&::after': {
-                  content: '""',
-                  position: 'absolute',
-                  bottom: -8,
-                  left: 0,
-                  width: 40,
-                  height: 2,
-                  bgcolor: theme.palette.secondary.main
-                }
-              }}
-            >
-              Contact Us
-            </Typography>
-            <Box sx={{ mt: 4 }}>
-              {contactInfo.map((item, index) => (
-                <Box 
-                  key={index}
-                  sx={{ 
-                    display: 'flex',
-                    alignItems: 'flex-start',
-                    mb: 2.5,
-                    '&:hover': {
-                      transform: 'translateX(5px)'
-                    },
-                    transition: 'transform 0.3s ease'
-                  }}
-                >
-                  <Box 
+                <Grid item xs={6} key={index}>
+                  <Link 
+                    href={`/${text.toLowerCase().replace(' ', '-')}`}
                     sx={{ 
-                      mr: 2,
-                      color: theme.palette.secondary.main,
-                      mt: 0.5
+                      color: isDark ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.8)',
+                      textDecoration: 'none',
+                      display: 'flex',
+                      alignItems: 'center',
+                      transition: 'all 0.2s ease',
+                      '&:hover': {
+                        color: '#fff',
+                        transform: 'translateX(8px)'
+                      }
                     }}
                   >
-                    {item.icon}
-                  </Box>
-                  <Box>
-                    <Typography 
-                      variant="subtitle2" 
-                      sx={{ color: '#fff', mb: 0.5 }}
-                    >
-                      {item.label}
-                    </Typography>
-                    <Typography 
-                      variant="body2" 
-                      sx={{ color: 'rgba(255,255,255,0.8)' }}
-                    >
-                      {item.value}
-                    </Typography>
-                  </Box>
-                </Box>
+                    → {text}
+                  </Link>
+                </Grid>
               ))}
-            </Box>
+            </Grid>
+          </Grid>
+
+          {/* Contact Section */}
+          <Grid item xs={12} md={4}>
+            <Typography variant="h6" sx={{ 
+              mb: 3,
+              fontWeight: 600,
+              position: 'relative',
+              color: isDark ? theme.palette.primary.main : '#fff',
+              '&::after': {
+                content: '""',
+                position: 'absolute',
+                bottom: -8,
+                left: 0,
+                width: 50,
+                height: 3,
+                background: isDark ? theme.palette.primary.main : theme.palette.secondary.main
+              }
+            }}>
+              Contact Us
+            </Typography>
+            {contactInfo.map((item, index) => (
+              <Box 
+                key={index}
+                sx={{ 
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  mb: 3,
+                  transition: 'transform 0.2s ease',
+                  '&:hover': {
+                    transform: 'translateX(8px)'
+                  }
+                }}
+              >
+                <Box sx={{ 
+                  color: isDark ? theme.palette.primary.main : theme.palette.secondary.main 
+                }}>
+                  {item.icon}
+                </Box>
+                <Box sx={{ ml: 2 }}>
+                  <Typography variant="subtitle2" sx={{ 
+                    opacity: isDark ? 0.7 : 0.8,
+                    color: isDark ? theme.palette.primary.main : '#fff'
+                  }}>
+                    {item.label}
+                  </Typography>
+                  <Typography sx={{ color: isDark ? 'rgba(255,255,255,0.9)' : '#fff' }}>
+                    {item.value}
+                  </Typography>
+                </Box>
+              </Box>
+            ))}
           </Grid>
         </Grid>
 
-        <Divider sx={{ mt: 6, mb: 4, bgcolor: 'rgba(255,255,255,0.1)' }} />
+        <Divider sx={{ 
+          my: 4,
+          borderColor: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.1)'
+        }} />
 
-        <Typography 
-          variant="body2" 
-          align="center" 
-          sx={{ 
-            color: 'rgba(255,255,255,0.6)',
-            '& a': {
-              color: '#fff',
-              textDecoration: 'none',
-              '&:hover': {
-                textDecoration: 'underline'
-              }
-            }
-          }}
-        >
-          © {new Date().getFullYear()} Lasthash. All rights reserved. | 
-          <Link href="/privacy-policy"> Privacy Policy</Link> |
-          <Link href="/terms-of-service"> Terms of Service</Link>
-        </Typography>
+        <Box sx={{ 
+          display: 'flex',
+          flexDirection: { xs: 'column', md: 'row' },
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          gap: 2
+        }}>
+          <Typography sx={{ 
+            color: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(255,255,255,0.6)' 
+          }}>
+            © {new Date().getFullYear()} Lasthash. All rights reserved.
+          </Typography>
 
-        <Box 
-          sx={{ 
+          <Box sx={{ 
             display: 'flex',
-            justifyContent: 'center',
-            mt: 3
-          }}
-        >
-          <Box
-            sx={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              py: 1,
-              px: 2,
-              borderRadius: '20px',
-              border: '1px solid rgba(255,255,255,0.1)',
-              bgcolor: 'rgba(255,255,255,0.05)',
-              gap: 1
-            }}
-          >
+            alignItems: 'center',
+            gap: 2,
+            background: isDark ? 'rgba(255,255,255,0.03)' : 'transparent',
+            py: 1,
+            px: 2,
+            borderRadius: 2
+          }}>
             <IndianFlagLogo />
-            <Typography
-              variant="caption"
-              sx={{
-                color: 'rgba(255,255,255,0.6)',
-                fontFamily: 'monospace',
-                letterSpacing: 1,
-                display: 'flex',
-                alignItems: 'center',
-                gap: 1
-              }}
-            >
-               PROUDLY MADE IN INDIA SINCE 2010
+            <Typography sx={{
+              color: isDark ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.8)',
+              fontFamily: 'monospace',
+              letterSpacing: 1
+            }}>
+              PROUDLY MADE IN INDIA - SINCE 2010
             </Typography>
           </Box>
         </Box>

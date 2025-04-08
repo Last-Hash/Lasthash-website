@@ -3,18 +3,29 @@ import { useTheme } from '@mui/material/styles';
 
 const TopHeader = () => {
   const theme = useTheme();
+  const isDark = theme.palette.mode === 'dark';
   
   return (
     <AppBar 
       position="static" 
-      color="primary"
       sx={{ 
         py: 0.5,
-        bgcolor: theme.palette.mode === 'light' ? 'primary.main' : 'primary.dark'
+        bgcolor: isDark ? 'primary.dark' : 'primary.main',
+        transition: 'all 0.3s ease'
       }}
     >
       <Container>
-        <Box display="flex" justifyContent="space-between" alignItems="center">
+        <Box 
+          display="flex" 
+          justifyContent="space-between" 
+          alignItems="center"
+          sx={{
+            '& .MuiTypography-root': {
+              color: '#fff',
+              opacity: isDark ? 0.9 : 1
+            }
+          }}
+        >
           <Typography variant="body2">
             Contact: info@lasthash.com
           </Typography>
