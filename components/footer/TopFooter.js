@@ -191,7 +191,7 @@ const TopFooter = () => {
               {['Services', 'Solutions', 'About Us', 'Contact', 'Portfolio', 'Careers', 'Blog', 'FAQ'].map((text, index) => (
                 <Grid item xs={6} key={index}>
                   <Link 
-                    href={`/${text.toLowerCase().replace(' ', '-')}`}
+                    href={`/${text.toLowerCase().replace(' ', '-')}`}  // This will now correctly point to /about-us
                     sx={{ 
                       color: isDark ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.8)',
                       textDecoration: 'none',

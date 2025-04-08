@@ -60,7 +60,7 @@ const AboutSection = () => {
                 variant="contained" 
                 color="primary"
                 size="large"
-                href="/about"
+                href="/about-us"
               >
                 Learn More
               </Button>
