@@ -65,15 +65,12 @@ const MainHeader = ({
   };
 
   const getMenuWidth = (menuType) => {
-    switch (menuType) {
-      case 'services':
-        return '800px';
-      case 'solutions':
-        return '600px';
-      case 'support':
-        return '400px';
-      default:
-        return '400px';
+    const cols = menuItems[menuType]?.cols || 1;
+    switch (cols) {
+      case 3: return '1000px';
+      case 2: return '800px';
+      case 1: return '400px';
+      default: return '400px';
     }
   };
 
@@ -350,41 +347,75 @@ const MainHeader = ({
         PaperProps={{
           sx: {
             width: currentMenu ? getMenuWidth(currentMenu) : '400px',
-            maxWidth: '1200px',
+            maxWidth: '95vw',
             mt: 1.5,
             bgcolor: isDark ? 'background.paper' : '#fff',
             '& .MuiMenu-list': {
               p: 3,
             },
-            position: 'relative',
+            position: 'absolute',
             left: '50%',
             transform: 'translateX(-50%)',
-            '@media (max-width: 600px)': {
+            '@media (max-width: 1200px)': {
               width: '95vw',
-              maxWidth: '95vw'
+              maxWidth: '95vw',
+              left: '50%',
+              transform: 'translateX(-50%)'
             }
           },
         }}
         transformOrigin={{ horizontal: 'center', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
+        sx={{
+          '& .MuiMenu-paper': {
+            overflow: 'visible',
+            mt: 2,
+            '&:before': {
+              content: '""',
+              display: 'block',
+              position: 'absolute',
+              top: 0,
+              left: '50%',
+              transform: 'translate(-50%, -50%) rotate(45deg)',
+              width: 10,
+              height: 10,
+              bgcolor: isDark ? 'background.paper' : '#fff',
+              zIndex: 0,
+            },
+          }
+        }}
       >
         {currentMenu && menuItems[currentMenu] && (
           <Grid container spacing={3}>
             {Object.entries(menuItems[currentMenu].sections).map(([key, section]) => (
               <Grid item xs={12} md={12 / menuItems[currentMenu].cols} key={key}>
                 <Box sx={{ mb: 2 }}>
-                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+                  <Box sx={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    mb: 1,
+                    '&:hover': {
+                      color: 'primary.main'
+                    }
+                  }}>
                     <ListItemIcon sx={{ 
                       minWidth: 40,
-                      color: isDark ? 'primary.light' : 'primary.main'
+                      color: 'inherit'
                     }}>
                       {section.icon}
                     </ListItemIcon>
-                    <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                    <Typography variant="h6" sx={{ 
+                      fontWeight: 600,
+                      fontSize: '1rem'
+                    }}>
                       {section.title}
                     </Typography>
                   </Box>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography 
+                    variant="body2" 
+                    color="text.secondary"
+                    sx={{ pl: 5 }}
+                  >
                     {section.description}
                   </Typography>
                 </Box>
@@ -398,8 +429,9 @@ const MainHeader = ({
                         sx={{
                           borderRadius: 1,
                           p: 1.5,
+                          transition: 'all 0.2s ease',
                           '&:hover': {
-                            backgroundColor: 'primary.main',
+                            bgcolor: 'primary.main',
                             '& .MuiTypography-root': { color: 'white' },
                             '& .MuiListItemIcon-root': { color: 'white' }
                           }
@@ -418,7 +450,10 @@ const MainHeader = ({
                           <Typography 
                             variant="caption" 
                             color="text.secondary"
-                            sx={{ display: 'block' }}
+                            sx={{ 
+                              display: 'block',
+                              transition: 'all 0.2s ease'
+                            }}
                           >
                             {item.description}
                           </Typography>
