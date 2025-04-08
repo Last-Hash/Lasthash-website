@@ -5,6 +5,7 @@ import { useEffect, useRef } from 'react';
 
 const HeroSection = () => {
   const canvasRef = useRef(null);
+  const isDark = true; // Example variable to determine dark mode
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -73,7 +74,9 @@ const HeroSection = () => {
   return (
     <Box sx={{ 
       position: 'relative',
-      background: theme => `linear-gradient(-45deg, ${theme.palette.primary.main}, ${theme.palette.primary.dark}, #2193b0, #6dd5ed)`,
+      background: theme => isDark 
+        ? `linear-gradient(-45deg, ${theme.palette.primary.dark}, #1a1a1a, #222831, #2d3436)`
+        : `linear-gradient(-45deg, ${theme.palette.primary.main}, ${theme.palette.primary.dark}, #2193b0, #6dd5ed)`,
       backgroundSize: '400% 400%',
       animation: 'gradientBG 15s ease infinite',
       color: 'white',

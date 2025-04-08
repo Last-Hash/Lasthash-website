@@ -41,7 +41,7 @@ const technologies = {
   }
 };
 
-const TechnologyStack = () => {
+const TechnologyStack = ({ isDark }) => {
   return (
     <Box sx={{ 
       py: { xs: 6, md: 10 }, 
@@ -61,10 +61,14 @@ const TechnologyStack = () => {
                   p: 3,
                   height: '100%',
                   border: 1,
-                  borderColor: 'divider',
+                  borderColor: theme => isDark ? 'rgba(255,255,255,0.1)' : 'divider',
+                  bgcolor: theme => isDark ? 'background.paper' : 'background.default',
                   '&:hover': {
                     borderColor: 'primary.main',
-                    transition: 'border-color 0.3s ease'
+                    transition: 'all 0.3s ease',
+                    boxShadow: theme => isDark 
+                      ? '0 8px 24px rgba(0,0,0,0.4)'
+                      : '0 8px 24px rgba(0,0,0,0.1)'
                   }
                 }}
               >

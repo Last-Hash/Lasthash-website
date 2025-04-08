@@ -45,6 +45,8 @@ const ServicesSection = () => {
     threshold: 0.1
   });
 
+  const isDark = theme.palette.mode === 'dark';
+
   return (
     <Box ref={ref} sx={{ 
       py: { xs: 6, md: 10 }, 
@@ -65,8 +67,12 @@ const ServicesSection = () => {
                 sx={{ 
                   height: '100%',
                   transition: 'transform 0.3s ease',
+                  bgcolor: theme => isDark ? 'background.paper' : 'background.default',
                   '&:hover': {
-                    transform: 'translateY(-8px)'
+                    transform: 'translateY(-8px)',
+                    boxShadow: theme => isDark 
+                      ? '0 8px 24px rgba(0,0,0,0.4)'
+                      : '0 8px 24px rgba(0,0,0,0.1)'
                   }
                 }}
               >

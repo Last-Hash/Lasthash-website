@@ -87,7 +87,17 @@ const MainLayout = ({ children }) => {
           MuiCard: {
             styleOverrides: {
               root: {
-                backgroundColor: mode === 'light' ? '#FFFFFF' : '#393E46',
+                backgroundColor: mode === 'dark' ? '#2d3238' : '#FFFFFF',
+                backgroundImage: mode === 'dark' 
+                  ? 'linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05))'
+                  : 'none'
+              },
+            },
+          },
+          MuiPaper: {
+            styleOverrides: {
+              root: {
+                backgroundImage: 'none',
               },
             },
           },

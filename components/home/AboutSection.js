@@ -3,8 +3,26 @@ import Image from 'next/image';
 import SectionTitle from '../common/SectionTitle';
 
 const AboutSection = () => {
+  const isDark = false; // Example variable to determine theme mode
+
   return (
-    <Box sx={{ py: { xs: 6, md: 10 }, bgcolor: 'background.paper' }}>
+    <Box sx={{ 
+      py: { xs: 6, md: 10 }, 
+      bgcolor: theme => isDark ? 'background.default' : 'background.paper',
+      position: 'relative',
+      '&::before': {
+        content: '""',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: theme => isDark 
+          ? 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 50%)'
+          : 'none',
+        pointerEvents: 'none'
+      }
+    }}>
       <Container>
         <Grid container spacing={6} alignItems="center">
           <Grid item xs={12} md={6}>

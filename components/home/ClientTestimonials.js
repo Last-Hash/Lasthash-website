@@ -1,6 +1,7 @@
 import { Box, Container, Grid, Card, CardContent, Typography, Avatar, Rating } from '@mui/material';
 import SectionTitle from '../common/SectionTitle';
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
+import { useTheme } from '@mui/material/styles';
 
 const testimonials = [
   {
@@ -27,6 +28,9 @@ const testimonials = [
 ];
 
 const ClientTestimonials = () => {
+  const theme = useTheme();
+  const isDark = theme.palette.mode === 'dark';
+
   return (
     <Box sx={{ py: { xs: 6, md: 10 }, bgcolor: 'background.paper' }}>
       <Container>
@@ -43,9 +47,14 @@ const ClientTestimonials = () => {
                   display: 'flex',
                   flexDirection: 'column',
                   position: 'relative',
+                  bgcolor: isDark ? 'background.paper' : 'background.default',
+                  borderRadius: 2,
+                  transition: 'all 0.3s ease',
                   '&:hover': {
                     transform: 'translateY(-8px)',
-                    transition: 'transform 0.3s ease'
+                    boxShadow: isDark 
+                      ? '0 8px 24px rgba(0,0,0,0.4)'
+                      : '0 8px 24px rgba(0,0,0,0.1)'
                   }
                 }}
               >

@@ -26,6 +26,8 @@ const portfolioItems = [
 ];
 
 const PortfolioSection = () => {
+  const isDark = true; // Example variable for dark mode
+
   return (
     <Box sx={{ py: { xs: 6, md: 10 }, bgcolor: 'background.default' }}>
       <Container>
@@ -41,9 +43,13 @@ const PortfolioSection = () => {
                   height: '100%',
                   display: 'flex',
                   flexDirection: 'column',
-                  transition: 'transform 0.3s ease',
+                  transition: 'all 0.3s ease',
+                  bgcolor: theme => isDark ? 'background.paper' : 'background.default',
                   '&:hover': {
-                    transform: 'translateY(-8px)'
+                    transform: 'translateY(-8px)',
+                    boxShadow: theme => isDark 
+                      ? '0 8px 24px rgba(0,0,0,0.4)'
+                      : '0 8px 24px rgba(0,0,0,0.1)'
                   }
                 }}
               >

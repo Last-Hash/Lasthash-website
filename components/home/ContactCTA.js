@@ -1,13 +1,19 @@
 import { Box, Container, Typography, Button, Grid } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
+import { useTheme } from '@mui/material/styles';
 
 const ContactCTA = () => {
+  const theme = useTheme();
+  const isDark = theme.palette.mode === 'dark';
+
   return (
     <Box 
       sx={{ 
         py: { xs: 8, md: 12 }, 
-        background: theme => `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 100%)`,
+        background: isDark
+          ? `linear-gradient(135deg, ${theme.palette.primary.dark} 0%, #1a1a1a 100%)`
+          : `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 100%)`,
         color: 'white',
         textAlign: 'center'
       }}
