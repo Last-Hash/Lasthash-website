@@ -1,19 +1,102 @@
 import { Box, Container, Typography, Button, Grid } from '@mui/material';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import Image from 'next/image';
+import { useEffect, useRef } from 'react';
 
 const HeroSection = () => {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 5 + 1;
+        this.speedX = Math.random() * 3 - 1.5;
+        this.speedY = Math.random() * 3 - 1.5;
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        
+        if (this.size > 0.2) this.size -= 0.1;
+        
+        if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+        if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+      }
+
+      draw() {
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.fill();
+      }
+    }
+
+    const init = () => {
+      particles = [];
+      for (let i = 0; i < 50; i++) {
+        particles.push(new Particle());
+      }
+    };
+
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(particle => {
+        particle.update();
+        particle.draw();
+      });
+      requestAnimationFrame(animate);
+    };
+
+    resizeCanvas();
+    init();
+    animate();
+
+    window.addEventListener('resize', resizeCanvas);
+    return () => window.removeEventListener('resize', resizeCanvas);
+  }, []);
+
   return (
     <Box sx={{ 
-      background: theme => `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 100%)`,
+      position: 'relative',
+      background: theme => `linear-gradient(-45deg, ${theme.palette.primary.main}, ${theme.palette.primary.dark}, #2193b0, #6dd5ed)`,
+      backgroundSize: '400% 400%',
+      animation: 'gradientBG 15s ease infinite',
       color: 'white',
       pt: { xs: 8, md: 12 },
       pb: { xs: 8, md: 12 },
       overflow: 'hidden'
     }}>
-      <Container>
+      <canvas
+        ref={canvasRef}
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          pointerEvents: 'none'
+        }}
+      />
+      <Container sx={{ position: 'relative' }}>
         <Grid container spacing={4} alignItems="center">
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={6} sx={{ 
+            animation: 'fadeIn 1s ease-out',
+          }}>
             <Typography 
               variant="h1" 
               sx={{ 
@@ -85,9 +168,21 @@ const HeroSection = () => {
           </Grid>
           <Grid item xs={12} md={6}>
             <Box sx={{ 
-              position: 'relative', 
+              position: 'relative',
               height: { xs: '300px', md: '500px' },
-              animation: 'float 6s ease-in-out infinite'
+              animation: 'float 6s ease-in-out infinite',
+              '&::after': {
+                content: '""',
+                position: 'absolute',
+                bottom: '-20px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: '80%',
+                height: '20px',
+                background: 'radial-gradient(ellipse at center, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 80%)',
+                animation: 'float 6s ease-in-out infinite',
+                animationDelay: '-3s'
+              }
             }}>
               <Image
                 src="https://picsum.photos/800/600?tech"

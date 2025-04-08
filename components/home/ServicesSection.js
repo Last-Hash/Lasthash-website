@@ -5,6 +5,7 @@ import CodeIcon from '@mui/icons-material/Code';
 import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
 import CloudIcon from '@mui/icons-material/Cloud';
 import SecurityIcon from '@mui/icons-material/Security';
+import { useInView } from 'react-intersection-observer';
 
 const services = [
   {
@@ -39,9 +40,19 @@ const services = [
 
 const ServicesSection = () => {
   const theme = useTheme();
-  
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.1
+  });
+
   return (
-    <Box sx={{ py: { xs: 6, md: 10 }, bgcolor: 'background.default' }}>
+    <Box ref={ref} sx={{ 
+      py: { xs: 6, md: 10 }, 
+      bgcolor: 'background.default',
+      opacity: inView ? 1 : 0,
+      transform: inView ? 'translateY(0)' : 'translateY(50px)',
+      transition: 'opacity 0.6s ease-out, transform 0.6s ease-out'
+    }}>
       <Container>
         <SectionTitle 
           title="Our Services" 

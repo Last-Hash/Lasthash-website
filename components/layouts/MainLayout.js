@@ -105,6 +105,41 @@ const MainLayout = ({ children }) => {
     [mode]
   );
 
+  const globalStyles = {
+    '@keyframes float': {
+      '0%': {
+        transform: 'translateY(0px)'
+      },
+      '50%': {
+        transform: 'translateY(-20px)'
+      },
+      '100%': {
+        transform: 'translateY(0px)'
+      }
+    },
+    '@keyframes fadeIn': {
+      from: {
+        opacity: 0,
+        transform: 'translateY(20px)'
+      },
+      to: {
+        opacity: 1,
+        transform: 'translateY(0)'
+      }
+    },
+    '@keyframes gradientBG': {
+      '0%': {
+        backgroundPosition: '0% 50%'
+      },
+      '50%': {
+        backgroundPosition: '100% 50%'
+      },
+      '100%': {
+        backgroundPosition: '0% 50%'
+      }
+    }
+  };
+
   const toggleTheme = () => {
     setMode((prevMode) => {
       const newMode = prevMode === 'light' ? 'dark' : 'light';
@@ -115,7 +150,7 @@ const MainLayout = ({ children }) => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={{ ...theme, ...globalStyles }}>
       <CssBaseline />
       <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
         <Box component="header" sx={{ position: 'sticky', top: 0, zIndex: 1100 }}>
