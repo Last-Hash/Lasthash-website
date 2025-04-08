@@ -4,7 +4,6 @@ import TopHeader from '../header/TopHeader';
 import MainHeader from '../header/MainHeader';
 import BottomHeader from '../header/BottomHeader';
 import TopFooter from '../footer/TopFooter';
-import BottomFooter from '../footer/BottomFooter';
 
 const MainLayout = ({ children }) => {
   const [mode, setMode] = useState('light');
@@ -174,17 +173,12 @@ const MainLayout = ({ children }) => {
         <Box 
           component="main" 
           sx={{ 
-            flexGrow: 1,
-            pb: { xs: 4, md: 6 }, // Changed from py to pb (padding-bottom only)
-            mt: 0 
+            flexGrow: 1
           }}
         >
           {children}
         </Box>
-        <Box component="footer">
-          <TopFooter />
-          <BottomFooter />
-        </Box>
+        <TopFooter />
       </Box>
     </ThemeProvider>
   );
