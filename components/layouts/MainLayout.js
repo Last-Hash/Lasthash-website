@@ -1,11 +1,12 @@
 import { Box, ThemeProvider, createTheme, CssBaseline, useScrollTrigger } from '@mui/material';
 import { useState, useMemo, useEffect } from 'react';
+import { useRouter } from 'next/router'; // Add this import
 import TopHeader from '../header/TopHeader';
 import MainHeader from '../header/MainHeader';
-import BottomHeader from '../header/BottomHeader';
 import TopFooter from '../footer/TopFooter';
 
-const MainLayout = ({ children }) => {
+const MainLayout = ({ children, isTransparentHeader = false }) => {
+  const router = useRouter(); // Add this line
   const [mode, setMode] = useState('light');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const trigger = useScrollTrigger({
@@ -167,7 +168,17 @@ const MainLayout = ({ children }) => {
     <ThemeProvider theme={{ ...theme, ...globalStyles }}>
       <CssBaseline />
       <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-        <Box component="header" sx={{ position: 'sticky', top: 0, zIndex: 1100 }}>
+        <Box 
+          component="header" 
+          sx={{ 
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            zIndex: 1100,
+            transition: 'all 0.3s ease',
+          }}
+        >
           <Box sx={{ 
             height: trigger ? 0 : 'auto',
             overflow: 'hidden',
@@ -175,29 +186,30 @@ const MainLayout = ({ children }) => {
           }}>
             <TopHeader />
           </Box>
-          <Box sx={{ 
-            position: 'relative',
-            backgroundColor: mode === 'light' ? '#EEEEEE' : '#222831',
-            boxShadow: trigger ? 1 : 0,
-            transition: 'all 0.3s ease'
-          }}>
-            <MainHeader 
-              onToggleTheme={toggleTheme} 
-              isDarkMode={mode === 'dark'} 
-              onToggleMobileMenu={toggleMobileMenu}
-            />
-            <BottomHeader 
-              mobileMenuOpen={mobileMenuOpen}
-              onMobileMenuClose={() => setMobileMenuOpen(false)}
-            />
-          </Box>
+          <MainHeader 
+            onToggleTheme={toggleTheme} 
+            isDarkMode={mode === 'dark'} 
+            onToggleMobileMenu={toggleMobileMenu}
+            mobileMenuOpen={mobileMenuOpen}
+            isScrolled={trigger}
+            isTransparent={isTransparentHeader}
+          />
         </Box>
-        <Box 
-          component="main" 
-          sx={{ 
-            flexGrow: 1
-          }}
-        >
+
+        {/* Spacer that adjusts based on header type */}
+        <Box sx={{ 
+          height: { 
+            xs: isTransparentHeader 
+              ? trigger ? '80px' : '200px'
+              : '80px',
+            md: isTransparentHeader 
+              ? trigger ? '80px' : '160px'
+              : '80px'
+          },
+          transition: 'all 0.3s ease'
+        }} />
+
+        <Box component="main" sx={{ flexGrow: 1 }}>
           {children}
         </Box>
         <TopFooter />

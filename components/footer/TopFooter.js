@@ -11,27 +11,38 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import Logo from '../common/Logo';
 import { useEffect, useState } from 'react';
 
-const IndianFlagLogo = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect y="4" width="24" height="5.33333" fill="#FF9933"/>
-    <rect y="9.33333" width="24" height="5.33333" fill="#FFFFFF"/>
-    <rect y="14.6667" width="24" height="5.33333" fill="#138808"/>
-    <circle cx="12" cy="12" r="2" fill="#000080"/>
-    <g fill="#000080">
-      {[...Array(24)].map((_, i) => (
-        <line
-          key={i}
-          x1="12"
-          y1="12"
-          x2={12 + 1.8 * Math.cos(i * Math.PI / 12)}
-          y2={12 + 1.8 * Math.sin(i * Math.PI / 12)}
-          strokeWidth="0.5"
-          stroke="#000080"
-        />
-      ))}
-    </g>
-  </svg>
-);
+const IndianFlagLogo = () => {
+  // Pre-calculate the spoke points to avoid floating-point differences
+  const spokes = Array.from({ length: 24 }, (_, i) => {
+    const angle = (i * Math.PI) / 12;
+    // Round to 3 decimal places to ensure consistency
+    const x2 = Math.round((12 + 1.8 * Math.cos(angle)) * 1000) / 1000;
+    const y2 = Math.round((12 + 1.8 * Math.sin(angle)) * 1000) / 1000;
+    return { x2, y2 };
+  });
+
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect y="4" width="24" height="5.33333" fill="#FF9933"/>
+      <rect y="9.33333" width="24" height="5.33333" fill="#FFFFFF"/>
+      <rect y="14.6667" width="24" height="5.33333" fill="#138808"/>
+      <circle cx="12" cy="12" r="2" fill="#000080"/>
+      <g fill="#000080">
+        {spokes.map((spoke, i) => (
+          <line
+            key={i}
+            x1="12"
+            y1="12"
+            x2={spoke.x2}
+            y2={spoke.y2}
+            strokeWidth="0.5"
+            stroke="#000080"
+          />
+        ))}
+      </g>
+    </svg>
+  );
+};
 
 const TopFooter = () => {
   const theme = useTheme();

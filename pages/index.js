@@ -1,4 +1,5 @@
 import { Box } from '@mui/material';
+import MainLayout from '../components/layouts/MainLayout';
 import HeroSection from '../components/home/HeroSection';
 import ServicesSection from '../components/home/ServicesSection';
 import PortfolioSection from '../components/home/PortfolioSection';
@@ -10,13 +11,15 @@ import ContactCTA from '../components/home/ContactCTA';
 export default function Home() {
   return (
     <Box>
-      <HeroSection />
-      <ServicesSection />
-      <PortfolioSection />
-      <AboutSection />
-      <TechnologyStack />
-      <ClientTestimonials />
-      <ContactCTA />
+      <MainLayout isTransparentHeader>
+        <HeroSection />
+        <ServicesSection />
+        <PortfolioSection />
+        <AboutSection />
+        <TechnologyStack />
+        <ClientTestimonials />
+        <ContactCTA />
+      </MainLayout>
     </Box>
   );
 }

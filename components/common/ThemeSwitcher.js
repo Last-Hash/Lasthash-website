@@ -3,7 +3,7 @@ import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { keyframes } from '@mui/system';
 
-const ThemeSwitcher = ({ onToggle, isDark }) => {
+const ThemeSwitcher = ({ onToggle, isDark, isTransparent }) => {
   // Define animations
   const rotateAnimation = keyframes`
     0% {
@@ -45,12 +45,20 @@ const ThemeSwitcher = ({ onToggle, isDark }) => {
           borderRadius: '50%',
           p: 1,
           '&:hover': {
-            bgcolor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)',
+            bgcolor: isTransparent 
+              ? 'rgba(255,255,255,0.1)'
+              : isDark 
+                ? 'rgba(255,255,255,0.1)' 
+                : 'rgba(0,0,0,0.1)',
             transform: 'translateY(-2px)',
           },
           '& svg': {
             animation: `${pulseAnimation} 0.3s ease`,
             transition: 'all 0.3s ease',
+            color: isTransparent ? '#fff' : 'primary.main',
+            filter: isTransparent && isDark 
+              ? 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))'
+              : 'none',
           },
           '&:active svg': {
             animation: `${rotateAnimation} 0.5s ease`,
@@ -76,15 +84,17 @@ const ThemeSwitcher = ({ onToggle, isDark }) => {
         {isDark ? (
           <Brightness7Icon 
             sx={{ 
-              color: 'primary.main',
+              color: isTransparent ? '#fff' : 'primary.main',
               fontSize: '1.5rem',
-              filter: 'drop-shadow(0 0 2px rgba(255,255,255,0.2))'
+              filter: isTransparent && isDark 
+                ? 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))'
+                : 'drop-shadow(0 0 2px rgba(255,255,255,0.2))'
             }} 
           />
         ) : (
           <Brightness4Icon 
             sx={{ 
-              color: 'primary.main',
+              color: isTransparent ? '#fff' : 'primary.main',
               fontSize: '1.5rem'
             }} 
           />
