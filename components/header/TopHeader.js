@@ -27,10 +27,10 @@ const TopHeader = () => {
           }}
         >
           <Typography variant="body2">
-            Contact: info@lasthash.com
+            Contact: contact@lasthash.com
           </Typography>
           <Typography variant="body2">
-            Phone: +1234567890
+            Phone:  +91-7982377273 
           </Typography>
         </Box>
       </Container>

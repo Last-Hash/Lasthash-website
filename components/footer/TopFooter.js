@@ -63,8 +63,8 @@ const TopFooter = () => {
   ];
 
   const contactInfo = [
-    { icon: <EmailIcon />, label: 'Email:', value: 'info@lasthash.com' },
-    { icon: <PhoneIcon />, label: 'Phone:', value: '+1234567890' },
+    { icon: <EmailIcon />, label: 'Email:', value: 'contact@lasthash.com' },
+    { icon: <PhoneIcon />, label: 'Phone:', value: ' +91-7982377273 ' },
     { icon: <LocationOnIcon />, label: 'Address:', value: 'Your Company Address' }
   ];
 
