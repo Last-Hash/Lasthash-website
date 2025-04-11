@@ -117,13 +117,16 @@ const TopFooter = () => {
               }}>
                 {years}
               </Typography>
-              <Typography sx={{ color: isDark ? 'rgba(255,255,255,0.9)' : '#fff' }}>
-                Years of code baking 
+              <Typography sx={{ color: isDark ? 'rgba(255,255,255,0.9)' : '#fff', display: 'flex', alignItems: 'center' }}>
+                Years of code baking
                 <FavoriteIcon 
                   sx={{ 
                     color: '#dc3545',
-                    fontSize: 16,
+                    fontSize: 18, // Increased from 16 to 18
                     ml: 1,
+                    mt: 0, // Remove any top margin
+                    display: 'inline-flex',
+                    alignItems: 'center',
                     filter: isDark ? 'drop-shadow(0 0 2px rgba(220,53,69,0.5))' : 'none',
                     animation: 'heartBeat 1.5s ease infinite',
                     '@keyframes heartBeat': {
