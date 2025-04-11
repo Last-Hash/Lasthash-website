@@ -1,15 +1,22 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: true,
   images: {
+    domains: [
+      'res.cloudinary.com',
+    ],
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'picsum.photos',
       },
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        pathname: '/**',
+      },
     ],
   },
-  // Keep any other existing configurations
-  reactStrictMode: true,
 };
 
 module.exports = nextConfig;
