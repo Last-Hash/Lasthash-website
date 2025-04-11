@@ -648,22 +648,7 @@ const AboutContent = () => {
               </Box>
             </Grid>
           </Grid>
-          <Button 
-            variant="contained" 
-            color="secondary" 
-            size="large"
-            component={Link}
-            href="/contact"
-            sx={{ 
-              mt: 6,
-              px: 4,
-              py: 1.5,
-              borderRadius: '30px',
-              fontSize: '1.1rem'
-            }}
-          >
-            Get in Touch
-          </Button>
+          
         </Container>
       </Box>
     </Box>
