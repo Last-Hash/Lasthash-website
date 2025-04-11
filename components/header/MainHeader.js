@@ -241,8 +241,10 @@ const MainHeader = ({
   return (
     <AppBar 
       position="relative" 
-      elevation={isScrolled ? 1 : 0}
+      component="div" 
+      elevation={0} // This is already set to 0, which removes the shadow
       sx={{
+        boxShadow: 'none', // Add this to explicitly remove any shadow
         backdropFilter: isTransparent && !isScrolled ? 'none' : 'blur(8px)',
         backgroundColor: isTransparent && !isScrolled 
           ? 'transparent'
@@ -253,7 +255,6 @@ const MainHeader = ({
         borderColor: 'divider',
         transition: 'all 0.3s ease',
         py: isTransparent && !isScrolled ? 3 : 1,
-        mt: isTransparent && !isScrolled ? 2 : 0,
       }}
     >
       <Container>

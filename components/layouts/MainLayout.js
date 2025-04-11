@@ -167,28 +167,19 @@ const MainLayout = ({ children, isTransparentHeader = false }) => {
   return (
     <ThemeProvider theme={{ ...theme, ...globalStyles }}>
       <CssBaseline />
-      <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-        <Box 
-          component="header" 
-          sx={{ 
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            zIndex: 1100,
-            transition: 'all 0.3s ease',
-          }}
-        >
-          <Box sx={{ 
-            height: trigger ? 0 : 'auto',
-            overflow: 'hidden',
-            transition: 'all 0.3s ease'
-          }}>
-            <TopHeader />
-          </Box>
+      <Box component="div" sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+        <Box component="header" sx={{ 
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 1100,
+          transition: 'all 0.3s ease',
+        }}>
+          <TopHeader isTransparent={isTransparentHeader && !trigger} />
           <MainHeader 
-            onToggleTheme={toggleTheme} 
-            isDarkMode={mode === 'dark'} 
+            onToggleTheme={toggleTheme}
+            isDarkMode={mode === 'dark'}
             onToggleMobileMenu={toggleMobileMenu}
             mobileMenuOpen={mobileMenuOpen}
             isScrolled={trigger}
@@ -199,12 +190,8 @@ const MainLayout = ({ children, isTransparentHeader = false }) => {
         {/* Spacer that adjusts based on header type */}
         <Box sx={{ 
           height: { 
-            xs: isTransparentHeader 
-              ? trigger ? '80px' : '200px'
-              : '80px',
-            md: isTransparentHeader 
-              ? trigger ? '80px' : '160px'
-              : '80px'
+            xs: isTransparentHeader ? '0px' : '80px', // No need for spacing when transparent
+            md: isTransparentHeader ? '0px' : '80px'
           },
           transition: 'all 0.3s ease'
         }} />

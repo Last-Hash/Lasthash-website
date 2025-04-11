@@ -1,17 +1,20 @@
 import { AppBar, Container, Typography, Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
-const TopHeader = () => {
+const TopHeader = ({ isTransparent = false }) => {
   const theme = useTheme();
   const isDark = theme.palette.mode === 'dark';
   
   return (
     <AppBar 
       position="static" 
+      component="div" 
+      elevation={0} // Add this to remove the default elevation shadow
       sx={{ 
+        boxShadow: 'none', // Add this to explicitly remove any shadow
         py: 0.5,
-        bgcolor: isDark ? 'primary.dark' : 'primary.main',
-        transition: 'all 0.3s ease'
+        bgcolor: isTransparent ? 'transparent' : (isDark ? 'primary.dark' : 'primary.main'),
+        transition: 'all 0.3s ease',
       }}
     >
       <Container>

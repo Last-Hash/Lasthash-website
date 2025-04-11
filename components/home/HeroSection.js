@@ -80,7 +80,8 @@ const HeroSection = () => {
       backgroundSize: '400% 400%',
       animation: 'gradientBG 15s ease infinite',
       color: 'white',
-      pt: { xs: 8, md: 12 },
+      // Increase the top padding to create space for the transparent header
+      pt: { xs: 22, md: 28 }, // Increased significantly to accommodate both headers
       pb: { xs: 8, md: 12 },
       overflow: 'hidden'
     }}>
