@@ -1,4 +1,4 @@
-import { Box, Container, Typography, Chip, Grid, Paper, List, ListItem, ListItemIcon, ListItemText, Button } from '@mui/material';
+import { Box, Container, Typography, Chip, Grid, Paper, List, ListItem, ListItemIcon, ListItemText, Button, Divider, Stack } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,6 +8,7 @@ import SEO from '../../components/common/SEO';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import LinkIcon from '@mui/icons-material/Link';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 // Helper function to get category color
 const getCategoryColor = (category) => {
@@ -27,7 +28,21 @@ const getCategoryColor = (category) => {
   }
 };
 
-export default function TechnologyDetail({ technology, error }) {
+// Helper function to get expertise level color
+const getExpertiseLevelColor = (level) => {
+  switch(level) {
+    case 'Beginner':
+      return '#4caf50'; // Light green
+    case 'Intermediate':
+      return '#ff9800'; // Orange
+    case 'Expert':
+      return '#f44336'; // Red
+    default:
+      return '#95a5a6'; // Grey
+  }
+};
+
+export default function TechnologyDetail({ technology, relatedTechnologies, error }) {
   const theme = useTheme();
   const isDark = theme.palette.mode === 'dark';
   
@@ -112,17 +127,44 @@ export default function TechnologyDetail({ technology, error }) {
                   {Name}
                 </Typography>
                 
-                <Chip 
-                  label={Category}
-                  sx={{ 
-                    bgcolor: getCategoryColor(Category),
-                    color: 'white',
-                    fontWeight: 'bold',
-                    mb: 3,
-                    py: 1,
-                    px: 2
-                  }}
-                />
+                <Box sx={{ display: 'flex', gap: 1, mb: 3, flexWrap: 'wrap' }}>
+                  <Chip 
+                    label={Category}
+                    sx={{ 
+                      bgcolor: getCategoryColor(Category),
+                      color: 'white',
+                      fontWeight: 'bold',
+                      py: 1,
+                      px: 2
+                    }}
+                  />
+                  
+                  {ExpertiseLevel && (
+                    <Chip 
+                      label={`${ExpertiseLevel} Level`}
+                      sx={{ 
+                        bgcolor: getExpertiseLevelColor(ExpertiseLevel),
+                        color: 'white',
+                        fontWeight: 'bold',
+                        py: 1,
+                        px: 2
+                      }}
+                    />
+                  )}
+                  
+                  {YearsExperience && (
+                    <Chip 
+                      label={`${YearsExperience}+ Years Experience`}
+                      sx={{ 
+                        bgcolor: isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.2)',
+                        color: 'white',
+                        fontWeight: 'bold',
+                        py: 1,
+                        px: 2
+                      }}
+                    />
+                  )}
+                </Box>
                 
                 <Typography 
                   variant="h5" 
@@ -258,6 +300,149 @@ export default function TechnologyDetail({ technology, error }) {
               </Paper>
             </Grid>
           </Grid>
+          
+          {/* Related Technologies Section */}
+          {relatedTechnologies && relatedTechnologies.length > 0 && (
+            <Box sx={{ mt: 10 }}>
+              <Divider sx={{ mb: 6 }} />
+              
+              <Typography 
+                variant="h4" 
+                component="h2" 
+                sx={{ 
+                  fontWeight: 'bold', 
+                  mb: 4, 
+                  position: 'relative',
+                  display: 'inline-block',
+                  '&:after': {
+                    content: '""',
+                    position: 'absolute',
+                    left: 0,
+                    bottom: -8,
+                    width: '30%',
+                    height: 3,
+                    background: theme.palette.primary.main,
+                    borderRadius: '2px'
+                  }
+                }}
+              >
+                Related Technologies
+              </Typography>
+              
+              <Grid container spacing={3}>
+                {relatedTechnologies.map(tech => (
+                  <Grid item xs={12} sm={6} md={3} key={tech.id}>
+                    <Paper
+                      component={Link}
+                      href={`/technology/${tech.Slug}`}
+                      sx={{
+                        p: 2,
+                        height: '100%',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        textAlign: 'center',
+                        border: 1,
+                        borderColor: isDark ? 'rgba(255,255,255,0.1)' : 'divider',
+                        borderRadius: 2,
+                        textDecoration: 'none',
+                        transition: 'all 0.3s ease',
+                        '&:hover': {
+                          transform: 'translateY(-5px)',
+                          boxShadow: 3,
+                          borderColor: getCategoryColor(tech.Category)
+                        }
+                      }}
+                    >
+                      <Box 
+                        sx={{ 
+                          width: 60, 
+                          height: 60, 
+                          mb: 2,
+                          position: 'relative' 
+                        }}
+                      >
+                        {tech.Icon?.url ? (
+                          <Image
+                            src={tech.Icon.url}
+                            alt={tech.Name}
+                            fill
+                            style={{ objectFit: 'contain' }}
+                          />
+                        ) : (
+                          <Box sx={{ width: 60, height: 60, bgcolor: 'grey.300', borderRadius: '50%' }} />
+                        )}
+                      </Box>
+                      
+                      <Typography variant="h6" sx={{ color: 'text.primary', mb: 1 }}>
+                        {tech.Name}
+                      </Typography>
+                      
+                      <Stack direction="row" spacing={1} flexWrap="wrap" justifyContent="center" sx={{ mb: 1 }}>
+                        <Chip 
+                          label={tech.Category}
+                          size="small"
+                          sx={{ 
+                            bgcolor: getCategoryColor(tech.Category),
+                            color: 'white',
+                            mb: 0.5
+                          }}
+                        />
+                        
+                        {tech.ExpertiseLevel && (
+                          <Chip 
+                            label={tech.ExpertiseLevel}
+                            size="small"
+                            sx={{ 
+                              bgcolor: getExpertiseLevelColor(tech.ExpertiseLevel),
+                              color: 'white',
+                              mb: 0.5
+                            }}
+                          />
+                        )}
+                      </Stack>
+                      
+                      {tech.YearsExperience && (
+                        <Typography variant="caption" color="text.secondary">
+                          {tech.YearsExperience}+ years experience
+                        </Typography>
+                      )}
+                    </Paper>
+                  </Grid>
+                ))}
+                
+                <Grid item xs={12} sm={6} md={3}>
+                  <Paper
+                    component={Link}
+                    href="/technologies"
+                    sx={{
+                      p: 2,
+                      height: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      textAlign: 'center',
+                      border: '1px dashed',
+                      borderColor: isDark ? 'rgba(255,255,255,0.3)' : 'divider',
+                      borderRadius: 2,
+                      textDecoration: 'none',
+                      transition: 'all 0.3s ease',
+                      '&:hover': {
+                        transform: 'translateY(-5px)',
+                        borderColor: theme.palette.primary.main
+                      }
+                    }}
+                  >
+                    <MoreHorizIcon sx={{ fontSize: 40, mb: 2, color: 'text.secondary' }} />
+                    <Typography variant="body1" sx={{ color: 'text.secondary' }}>
+                      View All Technologies
+                    </Typography>
+                  </Paper>
+                </Grid>
+              </Grid>
+            </Box>
+          )}
         </Container>
       </MainLayout>
     </>
@@ -314,9 +499,29 @@ export async function getStaticProps({ params }) {
       };
     }
     
+    const currentTechnology = technologies[0];
+    
+    // Fetch related technologies (same category, excluding current)
+    const relatedResponse = await fetchAPI("/technologies", {
+      filters: {
+        Category: currentTechnology.Category,
+        id: {
+          $ne: currentTechnology.id // Exclude current technology
+        }
+      },
+      pagination: {
+        limit: 3 // Limit to 3 related technologies
+      },
+      populate: "*"
+    });
+    
+    // Extract related technologies
+    const relatedTechnologies = relatedResponse.data ? relatedResponse.data : relatedResponse;
+    
     return {
       props: {
-        technology: technologies[0],
+        technology: currentTechnology,
+        relatedTechnologies: relatedTechnologies || [],
         error: false
       },
       // Revalidate content every hour
@@ -327,6 +532,7 @@ export async function getStaticProps({ params }) {
     return {
       props: {
         technology: null,
+        relatedTechnologies: [],
         error: true
       },
       // Revalidate sooner if there was an error
