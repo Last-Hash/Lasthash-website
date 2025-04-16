@@ -8,6 +8,7 @@ import CloudIcon from '@mui/icons-material/Cloud';
 import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
 import LayersIcon from '@mui/icons-material/Layers';
 import { keyframes } from '@mui/system';
+import Link from 'next/link';
 
 // Define animations
 const float = keyframes`
@@ -379,18 +380,22 @@ const TechnologyStack = ({ technologiesData = { data: [] }, isLoading = false, h
                       // Get data from API format only
                       const name = tech.Name;
                       const iconUrl = tech.Icon?.url;
+                      const slug = tech.Slug || tech.id;
                       
                       if (!name || !iconUrl) return null;
                       
                       return (
                         <Grid item xs={6} sm={3} key={index}>
                           <Box 
+                            component={Link}
+                            href={`/technology/${slug}`}
                             sx={{ 
                               display: 'flex',
                               flexDirection: 'column',
                               alignItems: 'center',
                               gap: 1,
                               animation: `${float} 6s ease-in-out infinite ${index * 0.3}s`, // Staggered floating animation
+                              textDecoration: 'none',
                               '&:hover': {
                                 transform: 'translateY(-4px) scale(1.05)',
                                 transition: 'all 0.3s ease'
