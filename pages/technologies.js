@@ -1,3 +1,4 @@
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { Box, Container, Typography, Grid, Card, CardContent, CardActionArea, Chip, TextField, InputAdornment, Paper, Select, MenuItem, FormControl, InputLabel, Stack, Button, ToggleButtonGroup, ToggleButton } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import Image from 'next/image';
@@ -12,7 +13,6 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ClearIcon from '@mui/icons-material/Clear';
-import { useState, useMemo } from 'react';
 
 // Helper function to get category color
 const getCategoryColor = (category) => {
@@ -36,11 +36,37 @@ export default function Technologies({ technologies, isLoading, error }) {
   const theme = useTheme();
   const isDark = theme.palette.mode === 'dark';
   const [searchTerm, setSearchTerm] = useState('');
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState('category');
   const [sortOrder, setSortOrder] = useState('asc');
   const [categoryFilter, setCategoryFilter] = useState('all');
   const [experienceFilter, setExperienceFilter] = useState('all');
   const [viewMode, setViewMode] = useState('category'); // 'category' or 'list'
+  
+  // Add CSS to ensure consistent scrollbar behavior
+  useEffect(() => {
+    const style = document.createElement('style');
+    style.innerHTML = `
+      html {
+        overflow-y: scroll;
+        scrollbar-gutter: stable;
+      }
+    `;
+    document.head.appendChild(style);
+    
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
+  
+  // Debounce search input
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm);
+    }, 300); // 300ms delay before applying search filter
+    
+    return () => clearTimeout(timer);
+  }, [searchTerm]);
   
   // Extract all unique categories for filter dropdown
   const categories = useMemo(() => {
@@ -74,11 +100,11 @@ export default function Technologies({ technologies, isLoading, error }) {
   const processedTechnologies = useMemo(() => {
     if (!technologies || !Array.isArray(technologies)) return [];
     
-    // First filter by search term
+    // First filter by search term - use debounced term instead of searchTerm
     let result = technologies.filter(tech => {
       if (!tech) return false;
       
-      const searchLower = searchTerm.toLowerCase();
+      const searchLower = debouncedSearchTerm.toLowerCase();
       return (
         (tech.Name?.toLowerCase().includes(searchLower)) ||
         (tech.Category?.toLowerCase().includes(searchLower)) ||
@@ -136,7 +162,7 @@ export default function Technologies({ technologies, isLoading, error }) {
     });
     
     return result;
-  }, [technologies, searchTerm, sortBy, sortOrder, categoryFilter, experienceFilter]);
+  }, [technologies, debouncedSearchTerm, sortBy, sortOrder, categoryFilter, experienceFilter]);
   
   // Group technologies by category if viewMode is 'category'
   const groupedTechnologies = useMemo(() => {
@@ -349,7 +375,11 @@ export default function Technologies({ technologies, isLoading, error }) {
               flexDirection: { xs: 'column', md: 'row' },
               alignItems: { xs: 'stretch', md: 'center' },
               gap: 2,
-              flexWrap: 'wrap'
+              flexWrap: 'wrap',
+              position: 'relative',
+              zIndex: 5,
+              overflowX: 'visible',
+              overflowY: 'visible'
             }}
           >
             <Stack 
@@ -358,12 +388,19 @@ export default function Technologies({ technologies, isLoading, error }) {
               alignItems="center" 
               sx={{ flexGrow: 1 }}
             >
-              <FormControl size="small" sx={{ minWidth: 120 }}>
+              <FormControl size="small" sx={{ minWidth: 120, zIndex: 6 }}>
                 <InputLabel>Category</InputLabel>
                 <Select
                   value={categoryFilter}
                   label="Category"
                   onChange={(e) => setCategoryFilter(e.target.value)}
+                  MenuProps={{
+                    PaperProps: {
+                      sx: {
+                        maxHeight: 300 // Limit height to prevent excessive shifting
+                      }
+                    }
+                  }}
                 >
                   {categories.map((category) => (
                     <MenuItem key={category} value={category.toLowerCase()}>
@@ -373,12 +410,19 @@ export default function Technologies({ technologies, isLoading, error }) {
                 </Select>
               </FormControl>
               
-              <FormControl size="small" sx={{ minWidth: 120 }}>
+              <FormControl size="small" sx={{ minWidth: 120, zIndex: 6 }}>
                 <InputLabel>Expertise</InputLabel>
                 <Select
                   value={experienceFilter}
                   label="Expertise"
                   onChange={(e) => setExperienceFilter(e.target.value)}
+                  MenuProps={{
+                    PaperProps: {
+                      sx: {
+                        maxHeight: 300 // Limit height to prevent excessive shifting
+                      }
+                    }
+                  }}
                 >
                   {experienceLevels.map((level) => (
                     <MenuItem key={level} value={level.toLowerCase()}>
@@ -388,12 +432,19 @@ export default function Technologies({ technologies, isLoading, error }) {
                 </Select>
               </FormControl>
               
-              <FormControl size="small" sx={{ minWidth: 120 }}>
+              <FormControl size="small" sx={{ minWidth: 120, zIndex: 6 }}>
                 <InputLabel>Sort By</InputLabel>
                 <Select
                   value={sortBy}
                   label="Sort By"
                   onChange={(e) => setSortBy(e.target.value)}
+                  MenuProps={{
+                    PaperProps: {
+                      sx: {
+                        maxHeight: 300 // Limit height to prevent excessive shifting
+                      }
+                    }
+                  }}
                 >
                   <MenuItem value="name">Name</MenuItem>
                   <MenuItem value="category">Category</MenuItem>
@@ -539,8 +590,8 @@ export default function Technologies({ technologies, isLoading, error }) {
   );
 }
 
-// Technology Card Component
-const TechnologyCard = ({ tech, isDark, getCategoryColor }) => {
+// Technology Card Component - Wrap with React.memo to prevent unnecessary rerenders
+const TechnologyCard = React.memo(function TechnologyCard({ tech, isDark, getCategoryColor }) {
   // Helper function to get expertise level color
   const getExpertiseLevelColor = (level) => {
     switch(level) {
@@ -638,7 +689,7 @@ const TechnologyCard = ({ tech, isDark, getCategoryColor }) => {
       </CardActionArea>
     </Card>
   );
-};
+});
 
 // Helper function to truncate text
 function truncateText(text, maxLength) {
