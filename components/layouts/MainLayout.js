@@ -32,63 +32,32 @@ const MainLayout = ({ children, isTransparentHeader = false }) => {
         palette: {
           mode,
           primary: {
-            main: '#00ADB5', // rgb(0, 173, 181)
+            main: '#00ADB5',
             light: '#33BDC3',
             dark: '#007983',
           },
           secondary: {
-            main: '#393E46', // rgb(57, 62, 70)
+            main: '#393E46',
             light: '#4A515A',
             dark: '#2D3238',
           },
           background: {
-            default: mode === 'light' ? '#EEEEEE' : '#222831', // rgb(238, 238, 238) : rgb(34, 40, 49)
-            paper: mode === 'light' ? '#FFFFFF' : '#393E46',
+            default: mode === 'light' ? '#EEEEEE' : '#222831',
+            paper: mode === 'light' ? '#FFFFFF' : '#2D3238',
           },
           text: {
             primary: mode === 'light' ? '#222831' : '#EEEEEE',
-            secondary: mode === 'light' ? '#393E46' : '#00ADB5',
+            secondary: mode === 'light' ? '#393E46' : 'rgba(238, 238, 238, 0.7)',
           },
-          divider: mode === 'light' ? 'rgba(57, 62, 70, 0.12)' : 'rgba(238, 238, 238, 0.12)',
+          divider: mode === 'light' 
+            ? 'rgba(57, 62, 70, 0.12)' 
+            : 'rgba(238, 238, 238, 0.12)',
         },
         components: {
-          MuiAppBar: {
-            styleOverrides: {
-              root: {
-                backgroundColor: mode === 'light' ? '#EEEEEE' : '#222831',
-                color: mode === 'light' ? '#222831' : '#EEEEEE',
-              },
-            },
-          },
-          MuiButton: {
-            styleOverrides: {
-              root: {
-                textTransform: 'none',
-                fontSize: '1rem',
-                '&:hover': {
-                  backgroundColor: mode === 'light' ? '#00ADB5' : '#007983',
-                },
-              },
-              containedPrimary: {
-                backgroundColor: '#00ADB5',
-                color: '#EEEEEE',
-                '&:hover': {
-                  backgroundColor: '#007983',
-                },
-              },
-              containedSecondary: {
-                backgroundColor: '#393E46',
-                color: '#EEEEEE',
-                '&:hover': {
-                  backgroundColor: '#2D3238',
-                },
-              },
-            },
-          },
           MuiCard: {
             styleOverrides: {
               root: {
-                backgroundColor: mode === 'dark' ? '#2d3238' : '#FFFFFF',
+                backgroundColor: mode === 'dark' ? '#2D3238' : '#FFFFFF',
                 backgroundImage: mode === 'dark' 
                   ? 'linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05))'
                   : 'none'
@@ -99,15 +68,6 @@ const MainLayout = ({ children, isTransparentHeader = false }) => {
             styleOverrides: {
               root: {
                 backgroundImage: 'none',
-              },
-            },
-          },
-          MuiContainer: {
-            styleOverrides: {
-              root: {
-                '@media (min-width: 1200px)': {
-                  maxWidth: '1200px',
-                },
               },
             },
           },

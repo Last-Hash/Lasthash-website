@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
-import { Box, Container, Typography, Grid, Card, CardContent, CardActionArea, Chip, TextField, InputAdornment, Paper, Select, MenuItem, FormControl, InputLabel, Stack, Button, ToggleButtonGroup, ToggleButton } from '@mui/material';
+import { Box, Container, Typography, Grid, Card, CardContent, CardActionArea, Chip, TextField, InputAdornment, Paper, Select, MenuItem, FormControl, InputLabel, Stack, Button, ToggleButtonGroup, ToggleButton, IconButton } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -330,31 +330,48 @@ export default function Technologies({ technologies, isLoading, error }) {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 sx={{
                   '& .MuiOutlinedInput-root': {
-                    bgcolor: isDark ? 'rgba(255,255,255,0.05)' : 'white',
+                    bgcolor: isDark ? 'rgba(255,255,255,0.1)' : 'white', // Match hover state opacity
                     '& fieldset': {
                       border: 'none',
                     },
-                  },
-                  '& .MuiInputBase-input': {
-                    py: 2,
-                    px: 3,
-                    color: isDark ? 'white' : 'inherit',
+                    '&:hover fieldset': {
+                      border: 'none',
+                    },
+                    '&:hover': {
+                      bgcolor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.01)',
+                    },
+                    '& .MuiInputBase-input': {
+                      color: isDark ? 'white' : 'text.primary',
+                      '&::placeholder': {
+                        color: isDark ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.54)',
+                        opacity: 1
+                      }
+                    },
+                    '& .MuiInputAdornment-root .MuiSvgIcon-root': {
+                      color: isDark ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.54)',
+                    }
                   }
                 }}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <SearchIcon sx={{ color: isDark ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.5)' }} />
+                      <SearchIcon />
                     </InputAdornment>
                   ),
                   endAdornment: searchTerm && (
                     <InputAdornment position="end">
-                      <Button 
-                        onClick={handleClearSearch} 
-                        sx={{ minWidth: 'auto', p: 1 }}
+                      <IconButton 
+                        onClick={handleClearSearch}
+                        size="small"
+                        sx={{
+                          color: isDark ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.54)',
+                          '&:hover': {
+                            bgcolor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.04)',
+                          }
+                        }}
                       >
-                        <ClearIcon sx={{ color: isDark ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.5)' }} />
-                      </Button>
+                        <ClearIcon />
+                      </IconButton>
                     </InputAdornment>
                   ),
                 }}
@@ -368,8 +385,8 @@ export default function Technologies({ technologies, isLoading, error }) {
           <Paper 
             sx={{ 
               p: 2, 
-              mb: 4, 
-              background: isDark ? 'rgba(255,255,255,0.05)' : 'white',
+              mb: 4,
+              bgcolor: 'background.paper',
               borderRadius: 2,
               display: 'flex',
               flexDirection: { xs: 'column', md: 'row' },
@@ -379,7 +396,10 @@ export default function Technologies({ technologies, isLoading, error }) {
               position: 'relative',
               zIndex: 5,
               overflowX: 'visible',
-              overflowY: 'visible'
+              overflowY: 'visible',
+              boxShadow: theme => isDark 
+                ? '0 4px 20px rgba(0,0,0,0.4)'
+                : '0 4px 20px rgba(0,0,0,0.1)'
             }}
           >
             <Stack 
@@ -389,15 +409,29 @@ export default function Technologies({ technologies, isLoading, error }) {
               sx={{ flexGrow: 1 }}
             >
               <FormControl size="small" sx={{ minWidth: 120, zIndex: 6 }}>
-                <InputLabel>Category</InputLabel>
+                <InputLabel sx={{ color: 'text.secondary' }}>Category</InputLabel>
                 <Select
                   value={categoryFilter}
                   label="Category"
                   onChange={(e) => setCategoryFilter(e.target.value)}
+                  sx={{
+                    bgcolor: 'background.paper',
+                    '& .MuiOutlinedInput-notchedOutline': {
+                      borderColor: isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.12)',
+                    },
+                    '&:hover .MuiOutlinedInput-notchedOutline': {
+                      borderColor: isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.2)',
+                    },
+                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'primary.main',
+                    }
+                  }}
                   MenuProps={{
                     PaperProps: {
                       sx: {
-                        maxHeight: 300 // Limit height to prevent excessive shifting
+                        bgcolor: 'background.paper',
+                        backgroundImage: 'none',
+                        maxHeight: 300
                       }
                     }
                   }}
@@ -462,6 +496,19 @@ export default function Technologies({ technologies, isLoading, error }) {
                   }
                 }}
                 size="small"
+                sx={{
+                  '& .MuiToggleButton-root': {
+                    color: 'text.secondary',
+                    borderColor: isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.12)',
+                    '&.Mui-selected': {
+                      color: 'primary.main',
+                      bgcolor: isDark ? 'rgba(0,173,181,0.1)' : 'rgba(0,173,181,0.1)',
+                      '&:hover': {
+                        bgcolor: isDark ? 'rgba(0,173,181,0.2)' : 'rgba(0,173,181,0.2)',
+                      }
+                    }
+                  }
+                }}
               >
                 <ToggleButton value="asc" aria-label="ascending">
                   <ArrowUpwardIcon />
@@ -611,17 +658,27 @@ const TechnologyCard = React.memo(function TechnologyCard({ tech, isDark, getCat
       sx={{ 
         height: '100%',
         transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-        background: isDark ? 'rgba(255,255,255,0.05)' : 'white',
+        bgcolor: 'background.paper',
         '&:hover': {
           transform: 'translateY(-10px)',
-          boxShadow: '0 10px 30px rgba(0,0,0,0.1)'
+          boxShadow: theme => isDark 
+            ? '0 10px 30px rgba(0,0,0,0.4)'
+            : '0 10px 30px rgba(0,0,0,0.1)'
         }
       }}
     >
       <CardActionArea 
         component={Link}
         href={`/technology/${tech.Slug || tech.id}`}
-        sx={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}
+        sx={{ 
+          height: '100%', 
+          display: 'flex', 
+          flexDirection: 'column', 
+          alignItems: 'stretch',
+          '&:hover': {
+            bgcolor: 'background.paper',
+          }
+        }}
       >
         <Box sx={{ p: 3, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <Box 
