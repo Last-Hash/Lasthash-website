@@ -15,6 +15,9 @@ export async function getStaticProps() {
     // Fetch technologies with sorting, pagination, and populate
     const technologies = await fetchAPI("/technologies", {
       sort: ['Category:asc', 'Name:asc'],
+      filters: {
+        Featured: true
+      },
       pagination: {
         limit: 100
       },
@@ -25,10 +28,10 @@ export async function getStaticProps() {
     const portfolios = await fetchAPI("/portfolios", {
       sort: ['id:desc'],
       pagination: {
-        limit: 6
+        limit: 10
       },
       filters: {
-        featured: true
+        Featured: true
       },
       populate: "*"
     });
