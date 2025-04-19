@@ -26,15 +26,19 @@ export async function getStaticProps() {
     
     // Fetch featured portfolios
     const portfolios = await fetchAPI("/portfolios", {
-      sort: ['id:desc'],
-      pagination: {
-        limit: 10
-      },
-      filters: {
-        Featured: true
-      },
-      populate: "*"
-    });
+          sort: ['id:desc'],
+          populate: {
+            ThumbnailImage: {
+              populate: '*'
+            },
+            technologies: {
+              populate: '*'
+            },
+            portfolio_categories: {
+              populate: '*'
+            }
+          }
+        });
     
     // Check for successful API responses
     const hasTechnologies = technologies && technologies.data && technologies.data.length > 0;
