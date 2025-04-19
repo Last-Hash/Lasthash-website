@@ -20,6 +20,7 @@ import DevicesOtherIcon from '@mui/icons-material/DevicesOther';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import ParticleBackground from '../../components/effects/ParticleBackground';
+import PortfolioSection from '../../components/home/PortfolioSection';
 
 // Updated services data with more comprehensive offerings
 const frontendServices = [
@@ -571,207 +572,12 @@ export default function FrontendDevelopment({ technologies = dummyTechnologies, 
           )}
         </Container>
 
-        {/* Case Studies Section */}
-        <Box sx={{ 
-          bgcolor: theme => isDark ? 'background.paper' : 'grey.50',
-          py: { xs: 8, md: 12 },
-          position: 'relative',
-          '&::before': {
-            content: '""',
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: isDark 
-              ? 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 70%)'
-              : 'none',
-            pointerEvents: 'none'
-          }
-        }}>
-          <Container>
-            <SectionTitle
-              title="Featured Projects"
-              subtitle="Success stories that showcase our frontend expertise"
-              align="center"
-            />
-            {isLoading ? (
-              <Typography textAlign="center">Loading projects...</Typography>
-            ) : error ? (
-              <Typography textAlign="center" color="error">Error loading projects</Typography>
-            ) : (
-              <Grid container spacing={4} sx={{ mt: 4 }}>
-                {portfolios?.map((project) => (
-                  <Grid item xs={12} sm={6} md={4} key={project.id}>
-                    <Card 
-                      component={Link}
-                      href={`/portfolio/${project.Slug}`}
-                      sx={{ 
-                        height: '100%',
-                        textDecoration: 'none',
-                        transition: 'all 0.3s ease',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        '&:hover': {
-                          transform: 'translateY(-8px)',
-                          boxShadow: theme => isDark 
-                            ? '0 8px 24px rgba(0,0,0,0.4)'
-                            : '0 8px 24px rgba(0,0,0,0.1)',
-                          '& .project-image': {
-                            transform: 'scale(1.05)'
-                          }
-                        }
-                      }}
-                    >
-                      <Box 
-                        sx={{ 
-                          position: 'relative', 
-                          height: 240,
-                          overflow: 'hidden'
-                        }}
-                      >
-                        <Image
-                          src={project.ThumbnailImage?.formats?.medium?.url || project.ThumbnailImage?.url}
-                          alt={project.Title}
-                          fill
-                          className="project-image"
-                          style={{ 
-                            objectFit: 'cover',
-                            borderRadius: '4px 4px 0 0',
-                            transition: 'transform 0.5s ease'
-                          }}
-                        />
-                        {project.Featured && (
-                          <Box
-                            sx={{
-                              position: 'absolute',
-                              top: 16,
-                              right: 16,
-                              bgcolor: 'primary.main',
-                              color: 'white',
-                              px: 2,
-                              py: 0.5,
-                              borderRadius: 1,
-                              fontSize: '0.75rem',
-                              fontWeight: 'medium'
-                            }}
-                          >
-                            Featured
-                          </Box>
-                        )}
-                      </Box>
-                      <CardContent sx={{ flexGrow: 1, p: 3 }}>
-                        <Typography 
-                          variant="h6" 
-                          gutterBottom
-                          sx={{ 
-                            color: isDark ? 'common.white' : 'text.primary',
-                            fontWeight: 'bold'
-                          }}
-                        >
-                          {project.Title}
-                        </Typography>
-                        
-                        {/* Categories */}
-                        {project.portfolio_categories?.length > 0 && (
-                          <Box sx={{ mb: 2 }}>
-                            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-                              {project.portfolio_categories.map((category) => (
-                                <Chip
-                                  key={category.id}
-                                  label={category.title}
-                                  size="small"
-                                  color="primary"
-                                  sx={{
-                                    bgcolor: isDark ? 'primary.dark' : 'primary.light',
-                                    color: 'white',
-                                    fontSize: '0.75rem',
-                                    height: '24px'
-                                  }}
-                                />
-                              ))}
-                            </Box>
-                          </Box>
-                        )}
-                        
-                        <Typography 
-                          variant="body2" 
-                          color="text.secondary" 
-                          sx={{ mb: 2 }}
-                        >
-                          {project.ShortDescription || 
-                          `${project.DetailedDescription?.substring(0, 100)}...` || 
-                          `A ${project.project_type} for ${project.ClientName}`}
-                        </Typography>
-
-                        {/* Technologies */}
-                        {project.technologies?.length > 0 && (
-                          <Box sx={{ mb: 2 }}>
-                            <Typography 
-                              variant="body2" 
-                              color="text.secondary" 
-                              sx={{ fontWeight: 'medium', mb: 1 }}
-                            >
-                              Technologies:
-                            </Typography>
-                            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-                              {project.technologies.map((tech) => (
-                                <Chip
-                                  key={tech.id}
-                                  label={tech.Name}
-                                  size="small"
-                                  variant="outlined"
-                                  sx={{
-                                    bgcolor: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)',
-                                    color: isDark ? 'rgba(255,255,255,0.7)' : 'text.secondary',
-                                    border: 'none'
-                                  }}
-                                />
-                              ))}
-                            </Box>
-                          </Box>
-                        )}
-
-                        {/* Project Status and Live URL */}
-                        <Box 
-                          sx={{ 
-                            display: 'flex', 
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                            mt: 'auto'
-                          }}
-                        >
-                          <Typography 
-                            variant="body2" 
-                            color="text.secondary"
-                          >
-                            {project.ProjectStatus}
-                          </Typography>
-                          {project.LiveURL && (
-                            <Button
-                              component="a"
-                              href={project.LiveURL}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              size="small"
-                              endIcon={<NavigateNextIcon />}
-                              sx={{ 
-                                color: 'primary.main',
-                                '&:hover': { bgcolor: 'transparent' }
-                              }}
-                            >
-                              Visit Site
-                            </Button>
-                          )}
-                        </Box>
-                      </CardContent>
-                    </Card>
-                  </Grid>
-                ))}
-              </Grid>
-            )}
-          </Container>
-        </Box>
+        {/* Portfolio Section */}
+        <PortfolioSection
+          portfoliosData={portfolios}
+          isLoading={isLoading}
+          hasError={error}
+        />
 
         {/* Testimonials Section */}
         <Container sx={{ py: { xs: 8, md: 12 } }}>
@@ -867,32 +673,36 @@ export default function FrontendDevelopment({ technologies = dummyTechnologies, 
 // Update getStaticProps to handle errors gracefully
 export async function getStaticProps() {
   try {
-    const [techResponse, portfolioResponse] = await Promise.all([
-      fetchAPI("/technologies", {
-        sort: ['Name:asc'],
-        populate: "*"
-      }),
-      fetchAPI("/portfolios", {
-        sort: ['id:desc'],
-        populate: "*"
-      })
-    ]);
+    // Fetch technologies (you can keep your logic here)
+    const techResponse = await fetchAPI("/technologies", {
+      sort: ['Name:asc'],
+      populate: "*"
+    });
+
+    // Fetch portfolios EXACTLY like the home page (no filters)
+    const portfolios = await fetchAPI("/portfolios", {
+      sort: ['id:desc'],
+      populate: {
+        ThumbnailImage: { populate: '*' },
+        technologies: { populate: '*' },
+        portfolio_categories: { populate: '*' }
+      }
+    });
 
     return {
       props: {
-        technologies: techResponse.data || dummyTechnologies,
-        portfolios: portfolioResponse.data || [],
+        technologies: techResponse.data || [],
+        portfolios: portfolios && portfolios.data ? { data: portfolios.data } : { data: [] },
         isLoading: false,
         error: false
       },
       revalidate: 3600, // Revalidate every hour
     };
   } catch (error) {
-    console.error('Error fetching data:', error);
     return {
       props: {
-        technologies: dummyTechnologies,
-        portfolios: [],
+        technologies: [],
+        portfolios: { data: [] },
         isLoading: false,
         error: true
       },
