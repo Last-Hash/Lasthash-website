@@ -2,6 +2,7 @@ import SEO from '../components/common/SEO';
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import { getTheme } from '../src/theme';
 import { useEffect, useState } from 'react';
+import { ServiceProvider } from '../contexts/ServiceContext';
 
 function MyApp({ Component, pageProps }) {
   const [mode, setMode] = useState('light');
@@ -24,8 +25,10 @@ function MyApp({ Component, pageProps }) {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <SEO /> {/* Default SEO tags */}
-      <Component {...pageProps} />
+      <ServiceProvider>
+        <SEO /> {/* Default SEO tags */}
+        <Component {...pageProps} />
+      </ServiceProvider>
     </ThemeProvider>
   );
 }
