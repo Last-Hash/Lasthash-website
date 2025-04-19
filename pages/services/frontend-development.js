@@ -1,4 +1,4 @@
-import { Box, Container, Typography, Grid, Paper, Button, Card, CardContent, IconButton, Stack, Divider, Avatar } from '@mui/material';
+import { Box, Container, Typography, Grid, Paper, Button, Card, CardContent, IconButton, Stack, Divider, Avatar, Chip } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -105,23 +105,6 @@ const dummyTechnologies = [
     Slug: "nextjs",
     ShortDescription: "The React Framework for Production",
     Icon: { url: "https://picsum.photos/60?random=2" }
-  },
-];
-
-const dummyCaseStudies = [
-  {
-    title: "E-commerce Platform Redesign",
-    description: "Transformed an outdated e-commerce platform into a modern, responsive shopping experience.",
-    image: "https://picsum.photos/800/400?random=1",
-    technologies: ["React", "Next.js", "Material-UI"],
-    results: "40% increase in mobile conversions"
-  },
-  {
-    title: "SaaS Dashboard",
-    description: "Built a complex analytics dashboard with real-time data visualization.",
-    image: "https://picsum.photos/800/400?random=2",
-    technologies: ["Vue.js", "D3.js", "Tailwind CSS"],
-    results: "90% positive user feedback"
   },
 ];
 
@@ -590,8 +573,21 @@ export default function FrontendDevelopment({ technologies = dummyTechnologies, 
 
         {/* Case Studies Section */}
         <Box sx={{ 
-          bgcolor: theme => isDark ? 'background.default' : 'grey.50',
-          py: { xs: 8, md: 12 } 
+          bgcolor: theme => isDark ? 'background.paper' : 'grey.50',
+          py: { xs: 8, md: 12 },
+          position: 'relative',
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: isDark 
+              ? 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 70%)'
+              : 'none',
+            pointerEvents: 'none'
+          }
         }}>
           <Container>
             <SectionTitle
@@ -599,47 +595,181 @@ export default function FrontendDevelopment({ technologies = dummyTechnologies, 
               subtitle="Success stories that showcase our frontend expertise"
               align="center"
             />
-            <Grid container spacing={4} sx={{ mt: 4 }}>
-              {dummyCaseStudies.map((caseStudy, index) => (
-                <Grid item xs={12} sm={6} md={4} key={index}>
-                  <Card 
-                    sx={{ 
-                      height: '100%',
-                      transition: 'transform 0.3s ease',
-                      '&:hover': {
-                        transform: 'translateY(-8px)',
-                        boxShadow: theme => isDark 
-                          ? '0 8px 24px rgba(0,0,0,0.4)'
-                          : '0 8px 24px rgba(0,0,0,0.1)'
-                      }
-                    }}
-                  >
-                    <Box sx={{ position: 'relative', height: 200 }}>
-                      <Image
-                        src={caseStudy.image}
-                        alt={caseStudy.title}
-                        fill
-                        style={{ objectFit: 'cover', borderRadius: '4px 4px 0 0' }}
-                      />
-                    </Box>
-                    <CardContent sx={{ p: 3 }}>
-                      <Typography variant="h6" gutterBottom>
-                        {caseStudy.title}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                        {caseStudy.description}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        <strong>Technologies:</strong> {caseStudy.technologies.join(', ')}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        <strong>Results:</strong> {caseStudy.results}
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </Grid>
-              ))}
-            </Grid>
+            {isLoading ? (
+              <Typography textAlign="center">Loading projects...</Typography>
+            ) : error ? (
+              <Typography textAlign="center" color="error">Error loading projects</Typography>
+            ) : (
+              <Grid container spacing={4} sx={{ mt: 4 }}>
+                {portfolios?.map((project) => (
+                  <Grid item xs={12} sm={6} md={4} key={project.id}>
+                    <Card 
+                      component={Link}
+                      href={`/portfolio/${project.Slug}`}
+                      sx={{ 
+                        height: '100%',
+                        textDecoration: 'none',
+                        transition: 'all 0.3s ease',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        '&:hover': {
+                          transform: 'translateY(-8px)',
+                          boxShadow: theme => isDark 
+                            ? '0 8px 24px rgba(0,0,0,0.4)'
+                            : '0 8px 24px rgba(0,0,0,0.1)',
+                          '& .project-image': {
+                            transform: 'scale(1.05)'
+                          }
+                        }
+                      }}
+                    >
+                      <Box 
+                        sx={{ 
+                          position: 'relative', 
+                          height: 240,
+                          overflow: 'hidden'
+                        }}
+                      >
+                        <Image
+                          src={project.ThumbnailImage?.formats?.medium?.url || project.ThumbnailImage?.url}
+                          alt={project.Title}
+                          fill
+                          className="project-image"
+                          style={{ 
+                            objectFit: 'cover',
+                            borderRadius: '4px 4px 0 0',
+                            transition: 'transform 0.5s ease'
+                          }}
+                        />
+                        {project.Featured && (
+                          <Box
+                            sx={{
+                              position: 'absolute',
+                              top: 16,
+                              right: 16,
+                              bgcolor: 'primary.main',
+                              color: 'white',
+                              px: 2,
+                              py: 0.5,
+                              borderRadius: 1,
+                              fontSize: '0.75rem',
+                              fontWeight: 'medium'
+                            }}
+                          >
+                            Featured
+                          </Box>
+                        )}
+                      </Box>
+                      <CardContent sx={{ flexGrow: 1, p: 3 }}>
+                        <Typography 
+                          variant="h6" 
+                          gutterBottom
+                          sx={{ 
+                            color: isDark ? 'common.white' : 'text.primary',
+                            fontWeight: 'bold'
+                          }}
+                        >
+                          {project.Title}
+                        </Typography>
+                        
+                        {/* Categories */}
+                        {project.portfolio_categories?.length > 0 && (
+                          <Box sx={{ mb: 2 }}>
+                            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                              {project.portfolio_categories.map((category) => (
+                                <Chip
+                                  key={category.id}
+                                  label={category.title}
+                                  size="small"
+                                  color="primary"
+                                  sx={{
+                                    bgcolor: isDark ? 'primary.dark' : 'primary.light',
+                                    color: 'white',
+                                    fontSize: '0.75rem',
+                                    height: '24px'
+                                  }}
+                                />
+                              ))}
+                            </Box>
+                          </Box>
+                        )}
+                        
+                        <Typography 
+                          variant="body2" 
+                          color="text.secondary" 
+                          sx={{ mb: 2 }}
+                        >
+                          {project.ShortDescription || 
+                          `${project.DetailedDescription?.substring(0, 100)}...` || 
+                          `A ${project.project_type} for ${project.ClientName}`}
+                        </Typography>
+
+                        {/* Technologies */}
+                        {project.technologies?.length > 0 && (
+                          <Box sx={{ mb: 2 }}>
+                            <Typography 
+                              variant="body2" 
+                              color="text.secondary" 
+                              sx={{ fontWeight: 'medium', mb: 1 }}
+                            >
+                              Technologies:
+                            </Typography>
+                            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                              {project.technologies.map((tech) => (
+                                <Chip
+                                  key={tech.id}
+                                  label={tech.Name}
+                                  size="small"
+                                  variant="outlined"
+                                  sx={{
+                                    bgcolor: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)',
+                                    color: isDark ? 'rgba(255,255,255,0.7)' : 'text.secondary',
+                                    border: 'none'
+                                  }}
+                                />
+                              ))}
+                            </Box>
+                          </Box>
+                        )}
+
+                        {/* Project Status and Live URL */}
+                        <Box 
+                          sx={{ 
+                            display: 'flex', 
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            mt: 'auto'
+                          }}
+                        >
+                          <Typography 
+                            variant="body2" 
+                            color="text.secondary"
+                          >
+                            {project.ProjectStatus}
+                          </Typography>
+                          {project.LiveURL && (
+                            <Button
+                              component="a"
+                              href={project.LiveURL}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              size="small"
+                              endIcon={<NavigateNextIcon />}
+                              sx={{ 
+                                color: 'primary.main',
+                                '&:hover': { bgcolor: 'transparent' }
+                              }}
+                            >
+                              Visit Site
+                            </Button>
+                          )}
+                        </Box>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                ))}
+              </Grid>
+            )}
           </Container>
         </Box>
 
@@ -739,12 +869,10 @@ export async function getStaticProps() {
   try {
     const [techResponse, portfolioResponse] = await Promise.all([
       fetchAPI("/technologies", {
-        filters: { Category: { $in: ['Frontend', 'UI/UX'] }},
         sort: ['Name:asc'],
         populate: "*"
       }),
       fetchAPI("/portfolios", {
-        filters: { Category: "Frontend" },
         sort: ['id:desc'],
         populate: "*"
       })
@@ -757,7 +885,7 @@ export async function getStaticProps() {
         isLoading: false,
         error: false
       },
-      revalidate: 3600,
+      revalidate: 3600, // Revalidate every hour
     };
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -768,7 +896,7 @@ export async function getStaticProps() {
         isLoading: false,
         error: true
       },
-      revalidate: 60,
+      revalidate: 60, // Retry sooner on error
     };
   }
 }
