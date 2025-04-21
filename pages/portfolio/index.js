@@ -13,7 +13,7 @@ import {
   InputLabel,
   Stack
 } from '@mui/material';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -23,38 +23,31 @@ import SEO from '../../components/common/SEO';
 import Breadcrumbs from '../../components/common/Breadcrumbs';
 import { fetchAPI } from '../../utils/api';
 import ParticleBackground from '../../components/effects/ParticleBackground';
+import { p } from 'framer-motion/client';
 
 // Items per page options
 const ITEMS_PER_PAGE_OPTIONS = [6, 9, 12, 15];
 
 export async function getStaticProps() {
   try {
-    // Fetch portfolios with all necessary data
-    const portfolios = await fetchAPI("/portfolios", {
+    // Fetch portfolios with direct data structure
+    const portfolioResponse = await fetchAPI("/portfolios", {
       sort: ['id:desc'],
-      populate: {
-        ThumbnailImage: {
-          populate: '*'
-        },
-        technologies: {
-          populate: '*'
-        },
-        portfolio_categories: {
-          populate: '*'
-        }
-      }
+      populate: "*",
     });
 
-    // Check for successful API response
-    const hasPortfolios = portfolios && portfolios.data && portfolios.data.length > 0;
+    // Ensure we're returning an array
+    const portfoliosData = Array.isArray(portfolioResponse.data) 
+      ? portfolioResponse.data 
+      : [];
 
     return {
       props: {
-        portfolios: hasPortfolios ? portfolios.data : [],
+        portfolios: portfoliosData,
         isLoading: false,
         error: false
       },
-      revalidate: 3600, // Revalidate every hour
+      revalidate: 3600
     };
   } catch (error) {
     console.error('Error fetching portfolios:', error);
@@ -64,7 +57,7 @@ export async function getStaticProps() {
         isLoading: false,
         error: true
       },
-      revalidate: 60, // Revalidate sooner if there was an error
+      revalidate: 60
     };
   }
 }
@@ -72,7 +65,7 @@ export async function getStaticProps() {
 export default function Portfolio({ portfolios, isLoading, error }) {
   const theme = useTheme();
   const isDark = theme.palette.mode === 'dark';
-  
+
   // State management
   const [page, setPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(9);
@@ -84,14 +77,27 @@ export default function Portfolio({ portfolios, isLoading, error }) {
     { label: 'Portfolio' }
   ];
 
-  // Get unique categories with null check
-  const categories = ['all', ...new Set(portfolios?.flatMap(portfolio => 
-    portfolio?.portfolio_categories?.map(cat => cat?.title)
-  ).filter(Boolean) || [])];
+  // Get unique categories with proper type checking
+  const categories = useMemo(() => {
+    if (!Array.isArray(portfolios)) return ['all'];
+    
+    const categorySet = new Set();
+    portfolios.forEach(portfolio => {
+      if (Array.isArray(portfolio?.portfolio_categories)) {
+        portfolio.portfolio_categories.forEach(cat => {
+          if (cat?.title) {
+            categorySet.add(cat.title);
+          }
+        });
+      }
+    });
+    
+    return ['all', ...Array.from(categorySet)];
+  }, [portfolios]);
 
-  // Initialize filtered portfolios
+  // Initialize filtered portfolios with type checking
   useEffect(() => {
-    if (portfolios?.length) {
+    if (Array.isArray(portfolios) && portfolios.length > 0) {
       setFilteredPortfolios(portfolios);
     }
   }, [portfolios]);
@@ -283,9 +289,9 @@ export default function Portfolio({ portfolios, isLoading, error }) {
               >
                 <Grid container spacing={4}>
                   {displayedPortfolios.map((portfolio) => (
-                    <Grid item xs={12} md={6} key={portfolio?.id}>
+                    <Grid item xs={12} md={6} key={portfolio.id}>
                       <motion.div variants={itemVariants}>
-                        <Link href={`/portfolio/${portfolio?.attributes?.Slug}`} passHref>
+                        <Link href={`/portfolio/${portfolio.Slug}`} passHref>
                           <Card
                             sx={{
                               height: '100%',
@@ -305,17 +311,31 @@ export default function Portfolio({ portfolios, isLoading, error }) {
                               }
                             }}
                           >
-                            <Box sx={{ position: 'relative', height: 300, overflow: 'hidden' }}>
-                              {portfolio?.attributes?.ThumbnailImage?.data?.attributes?.url && (
+                            <Box 
+                              sx={{ 
+                                position: 'relative',
+                                width: '100%',
+                                paddingTop: '66.67%', // This creates a 3:2 aspect ratio
+                                overflow: 'hidden'
+                              }}
+                            >
+                              {portfolio.ThumbnailImage?.url && (
                                 <Image
-                                  src={portfolio.attributes.ThumbnailImage.data.attributes.url}
-                                  alt={portfolio?.attributes?.Title || 'Portfolio item'}
+                                  src={portfolio.ThumbnailImage.url}
+                                  alt={portfolio.Title || 'Portfolio item'}
                                   fill
                                   className="portfolio-image"
                                   style={{ 
                                     objectFit: 'cover',
-                                    transition: 'transform 0.5s ease'
+                                    objectPosition: 'center',
+                                    transition: 'transform 0.5s ease',
+                                    width: '100%',
+                                    height: '100%',
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: 0
                                   }}
+                                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                 />
                               )}
                             </Box>
@@ -325,7 +345,7 @@ export default function Portfolio({ portfolios, isLoading, error }) {
                                 gutterBottom
                                 sx={{ fontWeight: 'bold' }}
                               >
-                                {portfolio?.attributes?.Title || 'Untitled Project'}
+                                {portfolio.Title || 'Untitled Project'}
                               </Typography>
                               
                               <Typography 
@@ -333,14 +353,14 @@ export default function Portfolio({ portfolios, isLoading, error }) {
                                 color="text.secondary"
                                 sx={{ mb: 2 }}
                               >
-                                {portfolio?.attributes?.ShortDescription || 'No description available'}
+                                {portfolio.ShortDescription || 'No description available'}
                               </Typography>
 
                               <Stack direction="row" spacing={1} flexWrap="wrap" gap={1}>
-                                {portfolio?.attributes?.technologies?.data?.map((tech) => (
+                                {portfolio.technologies?.map((tech) => (
                                   <Chip
                                     key={tech.id}
-                                    label={tech?.attributes?.Name}
+                                    label={tech.Name}
                                     size="small"
                                     sx={{ bgcolor: isDark ? 'rgba(255,255,255,0.05)' : 'grey.100' }}
                                   />
