@@ -30,13 +30,11 @@ const ITEMS_PER_PAGE_OPTIONS = [6, 9, 12, 15];
 
 export async function getStaticProps() {
   try {
-    // Fetch portfolios with direct data structure
     const portfolioResponse = await fetchAPI("/portfolios", {
       sort: ['id:desc'],
       populate: "*",
     });
 
-    // Ensure we're returning an array
     const portfoliosData = Array.isArray(portfolioResponse.data) 
       ? portfolioResponse.data 
       : [];
@@ -46,18 +44,15 @@ export async function getStaticProps() {
         portfolios: portfoliosData,
         isLoading: false,
         error: false
-      },
-      revalidate: 3600
+      }
     };
   } catch (error) {
-    console.error('Error fetching portfolios:', error);
     return {
       props: {
         portfolios: [],
         isLoading: false,
         error: true
-      },
-      revalidate: 60
+      }
     };
   }
 }

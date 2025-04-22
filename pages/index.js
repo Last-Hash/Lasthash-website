@@ -12,7 +12,6 @@ import { fetchAPI } from '../utils/api';
 
 export async function getStaticProps() {
   try {
-    // Fetch technologies with sorting, pagination, and populate
     const technologies = await fetchAPI("/technologies", {
       sort: ['Category:asc', 'Name:asc'],
       filters: {
@@ -24,46 +23,31 @@ export async function getStaticProps() {
       populate: "*"
     });
     
-    // Fetch featured portfolios
     const portfolios = await fetchAPI("/portfolios", {
-          sort: ['id:desc'],
-          populate: {
-            ThumbnailImage: {
-              populate: '*'
-            },
-            technologies: {
-              populate: '*'
-            },
-            portfolio_categories: {
-              populate: '*'
-            }
-          }
-        });
-    
-    // Check for successful API responses
-    const hasTechnologies = technologies && technologies.data && technologies.data.length > 0;
-    const hasPortfolios = portfolios && portfolios.data && portfolios.data.length > 0;
+      sort: ['id:desc'],
+      populate: {
+        ThumbnailImage: { populate: '*' },
+        technologies: { populate: '*' },
+        portfolio_categories: { populate: '*' }
+      }
+    });
     
     return {
       props: {
-        technologies: hasTechnologies ? technologies : { data: [] },
-        portfolios: hasPortfolios ? portfolios : { data: [] },
-        isLoading: false
-      },
-      // Revalidate content every hour
-      revalidate: 3600,
+        technologies: technologies?.data ? technologies : { data: [] },
+        portfolios: portfolios?.data ? portfolios : { data: [] },
+        isLoading: false,
+        error: false
+      }
     };
   } catch (error) {
-    console.error('Error fetching data:', error);
     return {
       props: {
         technologies: { data: [] },
         portfolios: { data: [] },
         isLoading: false,
         error: true
-      },
-      // Revalidate sooner if there was an error
-      revalidate: 60,
+      }
     };
   }
 }

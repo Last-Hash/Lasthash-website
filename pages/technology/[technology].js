@@ -451,7 +451,6 @@ export default function TechnologyDetail({ technology, relatedTechnologies, erro
 
 export async function getStaticPaths() {
   try {
-    // Fetch all technologies to generate paths
     const response = await fetchAPI("/technologies", {
       fields: ['Slug'],
       pagination: {
@@ -459,29 +458,24 @@ export async function getStaticPaths() {
       }
     });
     
-    // Extract the technologies array from the response
-    const technologies = response.data ? response.data : response;
-    
-    const paths = technologies.map((tech) => ({
+    const paths = response?.data?.map((tech) => ({
       params: { technology: tech.Slug },
-    }));
+    })) || [];
     
     return {
       paths,
-      fallback: 'blocking' // Show a fallback page while generating new pages
+      fallback: false // Set to false for static
     };
   } catch (error) {
-    console.error('Error generating technology paths:', error);
     return {
       paths: [],
-      fallback: 'blocking'
+      fallback: false
     };
   }
 }
 
 export async function getStaticProps({ params }) {
   try {
-    // Fetch single technology by slug
     const response = await fetchAPI("/technologies", {
       filters: {
         Slug: params.technology
@@ -489,54 +483,18 @@ export async function getStaticProps({ params }) {
       populate: "*"
     });
     
-    // Extract the technologies array from the response
-    const technologies = response.data ? response.data : response;
-    
-    // Check if we got any results
-    if (!technologies || technologies.length === 0) {
-      return {
-        notFound: true,
-      };
+    if (!response?.data?.[0]) {
+      return { notFound: true };
     }
-    
-    const currentTechnology = technologies[0];
-    
-    // Fetch related technologies (same category, excluding current)
-    const relatedResponse = await fetchAPI("/technologies", {
-      filters: {
-        Category: currentTechnology.Category,
-        id: {
-          $ne: currentTechnology.id // Exclude current technology
-        }
-      },
-      pagination: {
-        limit: 3 // Limit to 3 related technologies
-      },
-      populate: "*"
-    });
-    
-    // Extract related technologies
-    const relatedTechnologies = relatedResponse.data ? relatedResponse.data : relatedResponse;
-    
+
     return {
       props: {
-        technology: currentTechnology,
-        relatedTechnologies: relatedTechnologies || [],
+        technology: response.data[0],
         error: false
-      },
-      // Revalidate content every hour
-      revalidate: 3600,
+      }
+      // Remove revalidate option
     };
   } catch (error) {
-    console.error(`Error fetching technology ${params.technology}:`, error);
-    return {
-      props: {
-        technology: null,
-        relatedTechnologies: [],
-        error: true
-      },
-      // Revalidate sooner if there was an error
-      revalidate: 60,
-    };
+    return { notFound: true };
   }
 }

@@ -12,21 +12,18 @@ export async function getStaticPaths() {
       fields: ['Slug']
     });
 
-    // Validate data structure
     const paths = portfoliosResponse?.data?.map(item => ({
       params: { portfolio: item.Slug }
     })) || [];
 
     return {
       paths,
-      fallback: 'blocking'
+      fallback: false // Set to false for static
     };
-
   } catch (error) {
-    console.error('Error in getStaticPaths:', error);
     return {
       paths: [],
-      fallback: 'blocking'
+      fallback: false
     };
   }
 }
@@ -41,7 +38,8 @@ export async function getStaticProps({ params }) {
         ThumbnailImage: true,
         technologies: {
           fields: ['Name']
-        }
+        },
+        DetailedDescription: true
       }
     });
 
@@ -52,8 +50,8 @@ export async function getStaticProps({ params }) {
     return {
       props: {
         portfolio: response.data[0]
-      },
-      revalidate: 3600
+      }
+      // Remove revalidate option
     };
   } catch (error) {
     return { notFound: true };

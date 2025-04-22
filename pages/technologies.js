@@ -774,7 +774,6 @@ function getCategoryDescription(category) {
 
 export async function getStaticProps() {
   try {
-    // Fetch all technologies with sorting and populate
     const response = await fetchAPI("/technologies", {
       sort: ['Category:asc', 'Name:asc'],
       pagination: {
@@ -783,29 +782,20 @@ export async function getStaticProps() {
       populate: "*"
     });
     
-    // Extract the technologies array from the response
-    // Adjust this based on the actual structure of your API response
-    const technologies = response.data ? response.data : response;
-    
     return {
       props: {
-        technologies: technologies || [],
+        technologies: response?.data || [],
         isLoading: false,
         error: false
-      },
-      // Revalidate content every hour
-      revalidate: 3600,
+      }
     };
   } catch (error) {
-    console.error('Error fetching technologies:', error);
     return {
       props: {
         technologies: [],
         isLoading: false,
         error: true
-      },
-      // Revalidate sooner if there was an error
-      revalidate: 60,
+      }
     };
   }
 }
