@@ -18,9 +18,10 @@ export async function getStaticPaths() {
 
     return {
       paths,
-      fallback: false // Set to false for static
+      fallback: false
     };
   } catch (error) {
+    console.error('Error in getStaticPaths:', error);
     return {
       paths: [],
       fallback: false
@@ -37,9 +38,9 @@ export async function getStaticProps({ params }) {
       populate: {
         ThumbnailImage: true,
         technologies: {
-          fields: ['Name']
-        },
-        DetailedDescription: true
+          fields: ['Name', 'id']
+        }
+        // Remove DetailedDescription from populate since it's causing the error
       }
     });
 
@@ -51,9 +52,9 @@ export async function getStaticProps({ params }) {
       props: {
         portfolio: response.data[0]
       }
-      // Remove revalidate option
     };
   } catch (error) {
+    console.error('Portfolio fetch error:', error);
     return { notFound: true };
   }
 }

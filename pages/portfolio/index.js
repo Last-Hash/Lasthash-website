@@ -32,7 +32,13 @@ export async function getStaticProps() {
   try {
     const portfolioResponse = await fetchAPI("/portfolios", {
       sort: ['id:desc'],
-      populate: "*",
+      populate: {
+        ThumbnailImage: true,
+        technologies: {
+          fields: ['Name', 'id']
+        },
+        portfolio_categories: true
+      }
     });
 
     const portfoliosData = Array.isArray(portfolioResponse.data) 
@@ -47,6 +53,7 @@ export async function getStaticProps() {
       }
     };
   } catch (error) {
+    console.error('Error fetching portfolios:', error);
     return {
       props: {
         portfolios: [],
