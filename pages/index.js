@@ -41,6 +41,7 @@ export async function getStaticProps() {
       }
     };
   } catch (error) {
+    console.error('Error fetching data:', error);
     return {
       props: {
         technologies: { data: [] },
@@ -61,19 +62,76 @@ export default function Home({ technologies, portfolios, isLoading, error }) {
         keywords="software development, web development, mobile apps, react, node.js, digital transformation"
         canonical="/"
       />
-      <Box>
+      
+      <Box 
+        component="main" 
+        role="main"
+        sx={{ 
+          minHeight: '100vh',
+          // Improve color contrast for better accessibility
+          backgroundColor: theme => theme.palette.mode === 'dark' 
+            ? '#121212' 
+            : '#ffffff'
+        }}
+      >
         <MainLayout isTransparentHeader>
-          <HeroSection />
-          <ServicesSection />
-          <PortfolioSection portfoliosData={portfolios} isLoading={isLoading} hasError={error} />
-          <AboutSection />
-          <TechnologyStack 
-            technologiesData={technologies} 
-            isLoading={isLoading} 
-            hasError={error} 
-          />
-          <ClientTestimonials />
-          <ContactCTA />
+          {/* Skip to main content link for keyboard users */}
+          <Box
+            component="a"
+            href="#main-content"
+            sx={{
+              position: 'absolute',
+              left: -9999,
+              zIndex: 999,
+              padding: 2,
+              backgroundColor: 'background.paper',
+              color: 'text.primary',
+              textDecoration: 'none',
+              '&:focus': {
+                left: 0,
+                top: 0
+              }
+            }}
+          >
+            Skip to main content
+          </Box>
+
+          <Box id="main-content" tabIndex={-1}>
+            {/* Hero Section with improved landmarks */}
+            <header>
+              <HeroSection />
+            </header>
+
+            {/* Main content sections */}
+            <Box component="article" role="article">
+              <ServicesSection />
+              
+              <PortfolioSection 
+                portfoliosData={portfolios} 
+                isLoading={isLoading} 
+                hasError={error}
+                aria-busy={isLoading}
+                aria-live="polite"
+              />
+              
+              <AboutSection />
+              
+              <TechnologyStack 
+                technologiesData={technologies} 
+                isLoading={isLoading} 
+                hasError={error}
+                aria-busy={isLoading}
+                aria-live="polite"
+              />
+              
+              <ClientTestimonials />
+            </Box>
+
+            {/* Call to action section */}
+            <Box component="aside" role="complementary">
+              <ContactCTA />
+            </Box>
+          </Box>
         </MainLayout>
       </Box>
     </>
