@@ -76,6 +76,24 @@ export default function PortfolioDetail({ portfolio }) {
     );
   }
 
+  // Helper function to safely render description
+  const renderDescription = (description) => {
+    if (Array.isArray(description)) {
+      return description.map((block, index) => {
+        if (typeof block === 'string') {
+          return <Typography key={index} variant="body1" paragraph>{block}</Typography>;
+        }
+        if (block.children && Array.isArray(block.children)) {
+          return <Typography key={index} variant="body1" paragraph>
+            {block.children.map(child => typeof child === 'string' ? child : '')}
+          </Typography>;
+        }
+        return null;
+      });
+    }
+    return <Typography variant="body1" paragraph>{description || ''}</Typography>;
+  };
+
   return (
     <>
       <SEO 
@@ -89,13 +107,15 @@ export default function PortfolioDetail({ portfolio }) {
             {/* Project Image */}
             <Grid item xs={12} md={6}>
               <Box sx={{ position: 'relative', height: 400, borderRadius: 2, overflow: 'hidden' }}>
-                <Image
-                  src={portfolio.ThumbnailImage?.url}
-                  alt={portfolio.Title}
-                  fill
-                  style={{ objectFit: 'cover' }}
-                  priority
-                />
+                {portfolio.ThumbnailImage?.url && (
+                  <Image
+                    src={portfolio.ThumbnailImage.url}
+                    alt={portfolio.Title}
+                    fill
+                    style={{ objectFit: 'cover' }}
+                    priority
+                  />
+                )}
               </Box>
             </Grid>
 
@@ -105,21 +125,28 @@ export default function PortfolioDetail({ portfolio }) {
                 {portfolio.Title}
               </Typography>
 
-              <Typography variant="body1" color="text.secondary" paragraph>
-                {portfolio.DetailedDescription || portfolio.ShortDescription}
-              </Typography>
+              {/* Description */}
+              <Box sx={{ mb: 4 }}>
+                {renderDescription(portfolio.DetailedDescription || portfolio.ShortDescription)}
+              </Box>
 
               {/* Basic Project Info */}
               <Box sx={{ mb: 4 }}>
-                <Typography variant="subtitle2" color="text.secondary">
-                  Client: {portfolio.ClientName}
-                </Typography>
-                <Typography variant="subtitle2" color="text.secondary">
-                  Duration: {portfolio.Duration} {portfolio.Duration === 1 ? 'Month' : 'Months'}
-                </Typography>
-                <Typography variant="subtitle2" color="text.secondary">
-                  Status: {portfolio.ProjectStatus}
-                </Typography>
+                {portfolio.ClientName && (
+                  <Typography variant="subtitle2" color="text.secondary">
+                    Client: {portfolio.ClientName}
+                  </Typography>
+                )}
+                {portfolio.Duration && (
+                  <Typography variant="subtitle2" color="text.secondary">
+                    Duration: {portfolio.Duration} {portfolio.Duration === 1 ? 'Month' : 'Months'}
+                  </Typography>
+                )}
+                {portfolio.ProjectStatus && (
+                  <Typography variant="subtitle2" color="text.secondary">
+                    Status: {portfolio.ProjectStatus}
+                  </Typography>
+                )}
               </Box>
 
               {/* Technologies */}
