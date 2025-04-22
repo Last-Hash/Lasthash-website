@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 import MainLayout from '../components/layouts/MainLayout';
 import HeroSection from '../components/home/HeroSection';
 import ServicesSection from '../components/home/ServicesSection';
-import PortfolioSection from '../components/home/PortfolioSection';
+import PortfolioCarousel from '../components/home/PortfolioCarousel';
 import AboutSection from '../components/home/AboutSection';
 import TechnologyStack from '../components/home/TechnologyStack';
 import ClientTestimonials from '../components/home/ClientTestimonials';
@@ -106,8 +106,8 @@ export default function Home({ technologies, portfolios, isLoading, error }) {
             <Box component="article" role="article">
               <ServicesSection />
               
-              <PortfolioSection 
-                portfoliosData={portfolios} 
+              <PortfolioCarousel 
+                portfolios={portfolios?.data || []} // Changed from portfoliosData to portfolios
                 isLoading={isLoading} 
                 hasError={error}
                 aria-busy={isLoading}

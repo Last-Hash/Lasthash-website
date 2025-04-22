@@ -157,3 +157,21 @@ a {
   0% { transform: translateX(-100%); }
   100% { transform: translateX(100%); }
 }
+
+/* Swiper interaction styles */
+.swiper-slide {
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.swiper-slide a {
+  pointer-events: none;
+}
+
+.swiper-slide-active a {
+  pointer-events: auto;
+}
+
+.swiper-wrapper {
+  transition-timing-function: ease-out;
+}
