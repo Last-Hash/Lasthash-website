@@ -82,15 +82,19 @@ const PortfolioCarousel = ({ portfolios }) => {
         }}>
           <Swiper
             modules={[Navigation, Autoplay, EffectFade]}
-            spaceBetween={16} // Reduced base spacing
-            slidesPerView={1}
+            spaceBetween={24}
+            slidesPerView={1.2}
+            centeredSlides={true}
+            initialSlide={0}
             loop={true}
             loopFillGroupWithBlank={true}
+            rewind={false}
+            slideToClickedSlide={true}
+            watchSlidesProgress={true}
             navigation={{
               nextEl: '.swiper-button-next',
               prevEl: '.swiper-button-prev',
             }}
-            // Add dragging functionality
             grabCursor={true}
             keyboard={{
               enabled: true,
@@ -104,20 +108,23 @@ const PortfolioCarousel = ({ portfolios }) => {
             }}
             breakpoints={{
               640: {
-                slidesPerView: 2,
-                spaceBetween: 20, // Reduced spacing for tablets
+                slidesPerView: 1.5,
+                spaceBetween: 24,
+                centeredSlides: true,
               },
               1024: {
-                slidesPerView: 3,
-                spaceBetween: 24, // Reduced spacing for desktop
+                slidesPerView: 2.2,
+                spaceBetween: 32,
+                centeredSlides: true,
               },
               1280: {
-                slidesPerView: 3, // Show 4 items on larger screens
-                spaceBetween: 24, // Kept consistent with desktop
+                slidesPerView: 3.2,
+                spaceBetween: 32,
+                centeredSlides: true,
               },
             }}
             style={{ 
-              padding: '40px 60px', // Added horizontal padding for arrows
+              padding: '40px 0',
             }}
           >
             {portfolios.map((portfolio) => (
@@ -277,36 +284,37 @@ const PortfolioCarousel = ({ portfolios }) => {
             className="swiper-button-prev"
             sx={{
               position: 'absolute',
-              left: { xs: 8, md: 20 },
+              left: { xs: 4, md: 12 },
               top: '50%',
               transform: 'translateY(-50%)',
               zIndex: 10,
-              width: { xs: 40, md: 50 },
-              height: { xs: 40, md: 50 },
-              borderRadius: '50%',
-              bgcolor: isDark ? 'background.paper' : 'white',
-              boxShadow: theme => `0 2px 12px ${isDark ? 'rgba(0,0,0,0.3)' : 'rgba(0,0,0,0.1)'}`,
+              width: { xs: 36, md: 44 },
+              height: { xs: 36, md: 44 },
+              borderRadius: '12px',
+              bgcolor: isDark ? 'rgba(0,0,0,0.6)' : 'rgba(255,255,255,0.9)',
+              backdropFilter: 'blur(8px)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
               transition: 'all 0.3s ease',
+              border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
               '&:hover': {
-                transform: 'translateY(-50%) scale(1.1)',
-                boxShadow: theme => `0 4px 16px ${isDark ? 'rgba(0,0,0,0.4)' : 'rgba(0,0,0,0.15)'}`,
+                transform: 'translateY(-50%) scale(1.05)',
+                bgcolor: isDark ? 'rgba(0,0,0,0.8)' : 'rgba(255,255,255,1)',
               },
               '&::after': {
                 display: 'none'
               },
               '@media (max-width: 640px)': {
-                width: 35,
-                height: 35
+                width: 32,
+                height: 32
               }
             }}
           >
             <ArrowBackIcon sx={{ 
-              fontSize: { xs: '1.2rem', md: '1.5rem' },
-              color: 'primary.main'
+              fontSize: { xs: '1rem', md: '1.25rem' },
+              color: isDark ? 'white' : 'text.primary'
             }} />
           </Box>
           
@@ -314,36 +322,37 @@ const PortfolioCarousel = ({ portfolios }) => {
             className="swiper-button-next"
             sx={{
               position: 'absolute',
-              right: { xs: 8, md: 20 },
+              right: { xs: 4, md: 12 },
               top: '50%',
               transform: 'translateY(-50%)',
               zIndex: 10,
-              width: { xs: 40, md: 50 },
-              height: { xs: 40, md: 50 },
-              borderRadius: '50%',
-              bgcolor: isDark ? 'background.paper' : 'white',
-              boxShadow: theme => `0 2px 12px ${isDark ? 'rgba(0,0,0,0.3)' : 'rgba(0,0,0,0.1)'}`,
+              width: { xs: 36, md: 44 },
+              height: { xs: 36, md: 44 },
+              borderRadius: '12px',
+              bgcolor: isDark ? 'rgba(0,0,0,0.6)' : 'rgba(255,255,255,0.9)',
+              backdropFilter: 'blur(8px)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
               transition: 'all 0.3s ease',
+              border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
               '&:hover': {
-                transform: 'translateY(-50%) scale(1.1)',
-                boxShadow: theme => `0 4px 16px ${isDark ? 'rgba(0,0,0,0.4)' : 'rgba(0,0,0,0.15)'}`,
+                transform: 'translateY(-50%) scale(1.05)',
+                bgcolor: isDark ? 'rgba(0,0,0,0.8)' : 'rgba(255,255,255,1)',
               },
               '&::after': {
                 display: 'none'
               },
               '@media (max-width: 640px)': {
-                width: 35,
-                height: 35
+                width: 32,
+                height: 32
               }
             }}
           >
             <ArrowForwardIcon sx={{ 
-              fontSize: { xs: '1.2rem', md: '1.5rem' },
-              color: 'primary.main'
+              fontSize: { xs: '1rem', md: '1.25rem' },
+              color: isDark ? 'white' : 'text.primary'
             }} />
           </Box>
         </Box>
