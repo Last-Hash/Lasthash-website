@@ -17,7 +17,7 @@ const PortfolioCarousel = ({ portfolios }) => {
 
   if (!portfolios?.length) {
     return null;
-  }
+  } 
 
   return (
     <Box 
