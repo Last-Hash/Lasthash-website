@@ -103,6 +103,11 @@ const PortfolioPage = ({ portfolios, currentPage, totalPages, totalItems, error 
   const isDark = theme.palette.mode === 'dark';
   const [activeCategory, setActiveCategory] = useState('all');
 
+  // Helper function to get the correct URL for pagination
+  const getPageUrl = (page) => {
+    return page === 1 ? '/portfolios' : `/portfolios/${page}`;
+  };
+
   // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -112,10 +117,10 @@ const PortfolioPage = ({ portfolios, currentPage, totalPages, totalItems, error 
     }
   };
 
-  // Updated breadcrumbs without home link
+  // Updated breadcrumbs
   const breadcrumbItems = [
     { label: 'Portfolio', href: '/portfolios' },
-    { label: `Page ${currentPage}`, current: true }
+    ...(currentPage > 1 ? [{ label: `Page ${currentPage}`, current: true }] : [])
   ];
 
   // Dynamic SEO content
@@ -132,12 +137,12 @@ const PortfolioPage = ({ portfolios, currentPage, totalPages, totalItems, error 
       'software development',
       'Lasthash projects'
     ].join(', '),
-    canonical: `${process.env.NEXT_PUBLIC_SITE_URL}/portfolios/${currentPage}`,
+    canonical: `${process.env.NEXT_PUBLIC_SITE_URL}${getPageUrl(currentPage)}`,
     openGraph: {
       title: `Portfolio Projects - Page ${currentPage} | Lasthash`,
       description: `Explore our portfolio of successful projects and digital solutions. Page ${currentPage} of ${totalPages}.`,
       type: 'website',
-      url: `${process.env.NEXT_PUBLIC_SITE_URL}/portfolios/${currentPage}`,
+      url: `${process.env.NEXT_PUBLIC_SITE_URL}${getPageUrl(currentPage)}`,
     }
   };
 
@@ -232,7 +237,7 @@ const PortfolioPage = ({ portfolios, currentPage, totalPages, totalItems, error 
                       color="primary"
                       size="large"
                       onChange={(e, page) => {
-                        window.location.href = `/portfolios/${page}`;
+                        window.location.href = getPageUrl(page);
                       }}
                     />
                   </Box>
