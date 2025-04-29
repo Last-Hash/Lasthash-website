@@ -34,7 +34,8 @@ const PortfolioGrid = ({ portfolios = [], limit }) => {
             style={{ 
               textDecoration: 'none',
               display: 'block',
-              cursor: 'pointer'
+              cursor: 'pointer',
+              height: '100%'
             }}
             title={`View details: ${project.Title}`}
           >
@@ -59,6 +60,7 @@ const PortfolioGrid = ({ portfolios = [], limit }) => {
                 }
               }}
             >
+              {/* Fixed height image container */}
               <Box sx={{ position: 'relative', height: 240, overflow: 'hidden' }}>
                 <Image
                   src={project.ThumbnailImage?.formats?.medium?.url || project.ThumbnailImage?.url}
@@ -91,46 +93,62 @@ const PortfolioGrid = ({ portfolios = [], limit }) => {
                 )}
               </Box>
               
-              <CardContent sx={{ flexGrow: 1, p: 3 }}>
-                <Typography 
-                  variant="h6" 
-                  gutterBottom
-                  sx={{ 
-                    color: isDark ? 'common.white' : 'text.primary',
-                    fontWeight: 'bold'
-                  }}
-                >
-                  {project.Title}
-                </Typography>
+              <CardContent 
+                sx={{ 
+                  flexGrow: 1, 
+                  p: 3,
+                  display: 'flex',
+                  flexDirection: 'column'
+                }}
+              >
+                {/* Title with fixed height - removed mb (margin bottom) */}
+                <Box sx={{ height: 56 }}>
+                  <Typography 
+                    variant="h6" 
+                    sx={{ 
+                      color: isDark ? 'common.white' : 'text.primary',
+                      fontWeight: 'bold',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      display: '-webkit-box',
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: 'vertical',
+                      lineHeight: 1.4
+                    }}
+                  >
+                    {project.Title}
+                  </Typography>
+                </Box>
 
-                {project.portfolio_categories?.length > 0 && (
-                  <Box sx={{ mb: 2 }}>
-                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-                      {project.portfolio_categories.map((category) => (
-                        <Chip
-                          key={category.id}
-                          label={category.title}
-                          size="small"
-                          color="primary"
-                          sx={{
-                            bgcolor: isDark ? 'primary.dark' : 'primary.light',
-                            color: 'white',
-                            fontSize: '0.75rem',
-                            height: '24px'
-                          }}
-                        />
-                      ))}
-                    </Box>
+                {/* Combined categories and technologies with consistent spacing */}
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 'auto' }}>
+                  {/* Categories */}
+                  <Box>
+                    {project.portfolio_categories?.length > 0 && (
+                      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                        {project.portfolio_categories.map((category) => (
+                          <Chip
+                            key={category.id}
+                            label={category.title}
+                            size="small"
+                            color="primary"
+                            sx={{
+                              bgcolor: isDark ? 'primary.dark' : 'primary.light',
+                              color: 'white',
+                              fontSize: '0.75rem',
+                              height: '24px'
+                            }}
+                          />
+                        ))}
+                      </Box>
+                    )}
                   </Box>
-                )}
 
-                {project.technologies?.length > 0 && (
-                  <Box sx={{ mb: 2 }}>
-                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-                      {project.technologies.map((tech) => {
-                        
-                        
-                        return (
+                  {/* Technologies */}
+                  <Box>
+                    {project.technologies?.length > 0 && (
+                      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                        {project.technologies.map((tech) => (
                           <Chip
                             key={tech.id}
                             icon={tech.Icon?.url ? (
@@ -155,13 +173,11 @@ const PortfolioGrid = ({ portfolios = [], limit }) => {
                               }
                             }}
                           />
-                        );
-                      })}
-                    </Box>
+                        ))}
+                      </Box>
+                    )}
                   </Box>
-                )}
-
-                
+                </Box>
               </CardContent>
             </Card>
           </Link>

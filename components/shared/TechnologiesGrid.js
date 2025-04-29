@@ -1,8 +1,22 @@
-import { Grid, Paper, Box, Typography } from '@mui/material';
+import { Grid, Paper, Box, Typography, Stack, Chip } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import Image from 'next/image';
 import Link from 'next/link';
 import SectionTitle from '../common/SectionTitle';
+
+// Add helper function for expertise level color
+const getExpertiseLevelColor = (level) => {
+  switch(level) {
+    case 'Expert':
+      return '#f44336';
+    case 'Intermediate':
+      return '#ff9800';
+    case 'Beginner':
+      return '#4caf50';
+    default:
+      return '#95a5a6';
+  }
+};
 
 const TechnologiesGrid = ({ 
   technologies = [], 
@@ -81,6 +95,40 @@ const TechnologiesGrid = ({
               >
                 {tech.Name}
               </Typography>
+              
+              {/* Add Expertise and Experience chips */}
+              <Stack 
+                direction="row" 
+                spacing={1} 
+                sx={{ mb: 2 }}
+                flexWrap="wrap"
+                justifyContent="center"
+                gap={1}
+              >
+                {tech.ExpertiseLevel && (
+                  <Chip
+                    label={tech.ExpertiseLevel}
+                    size="small"
+                    sx={{
+                      bgcolor: getExpertiseLevelColor(tech.ExpertiseLevel),
+                      color: 'white',
+                      fontSize: '0.75rem',
+                    }}
+                  />
+                )}
+                {tech.YearsExperience && (
+                  <Chip
+                    label={`${tech.YearsExperience}+ Years`}
+                    size="small"
+                    sx={{
+                      bgcolor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)',
+                      color: isDark ? 'rgba(255,255,255,0.8)' : 'text.secondary',
+                      fontSize: '0.75rem',
+                    }}
+                  />
+                )}
+              </Stack>
+
               <Typography 
                 variant="body2" 
                 sx={{ 
