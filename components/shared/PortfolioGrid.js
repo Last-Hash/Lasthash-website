@@ -28,8 +28,18 @@ const PortfolioGrid = ({ portfolios = [], limit }) => {
     <Grid container spacing={4}>
       {displayedItems.map((project) => (
         <Grid item xs={12} sm={6} md={4} key={project.id}>
-          <Link href={`/portfolio/${project.Slug}`} passHref legacyBehavior>
+          <Link 
+            href={`/portfolio/${project.Slug}`} 
+            passHref 
+            style={{ 
+              textDecoration: 'none',
+              display: 'block',
+              cursor: 'pointer'
+            }}
+            title={`View details: ${project.Title}`}
+          >
             <Card
+              component="article"
               sx={{ 
                 height: '100%',
                 textDecoration: 'none',

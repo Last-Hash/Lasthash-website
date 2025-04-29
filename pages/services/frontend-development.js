@@ -21,6 +21,8 @@ import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import ParticleBackground from '../../components/effects/ParticleBackground';
 import PortfolioSection from '../../components/home/PortfolioSection';
+import TechnologiesGrid from '../../components/shared/TechnologiesGrid';
+import ProjectsGrid from '../../components/shared/ProjectsGrid';
 
 // Updated services data with more comprehensive offerings
 const frontendServices = [
@@ -91,24 +93,7 @@ const keyAdvantages = [
   }
 ];
 
-// Add dummy data
-const dummyTechnologies = [
-  {
-    id: 1,
-    Name: "React",
-    Slug: "react",
-    ShortDescription: "A JavaScript library for building user interfaces",
-    Icon: { url: "https://picsum.photos/60?random=1" }
-  },
-  {
-    id: 2,
-    Name: "Next.js",
-    Slug: "nextjs",
-    ShortDescription: "The React Framework for Production",
-    Icon: { url: "https://picsum.photos/60?random=2" }
-  },
-];
-
+// Keep dummyTestimonials as it's used in the testimonials section
 const dummyTestimonials = [
   {
     text: "Lasthash transformed our website into a modern, engaging platform that our customers love.",
@@ -124,7 +109,7 @@ const dummyTestimonials = [
   },
 ];
 
-export default function FrontendDevelopment({ technologies = dummyTechnologies, portfolios, isLoading, error }) {
+export default function FrontendDevelopment({ technologies, portfolios, isLoading, error }) {
   const theme = useTheme();
   const isDark = theme.palette.mode === 'dark';
 
@@ -494,89 +479,23 @@ export default function FrontendDevelopment({ technologies = dummyTechnologies, 
 
         {/* Technologies Section */}
         <Container sx={{ py: { xs: 8, md: 12 } }}>
-          <SectionTitle
-            title="Technologies We Master"
+          <TechnologiesGrid
+            technologies={technologies}
+            isLoading={isLoading}
+            error={error}
+            title="Frontend Technologies We Master"
             subtitle="Cutting-edge tools and frameworks we use to build exceptional frontend solutions"
-            align="center"
           />
-          {isLoading ? (
-            <Typography textAlign="center">Loading technologies...</Typography>
-          ) : error ? (
-            <Typography textAlign="center" color="error">Error loading technologies</Typography>
-          ) : (
-            <Grid container spacing={4} sx={{ mt: 4 }}>
-              {technologies.map((tech, index) => (
-                <Grid item xs={12} sm={6} md={3} key={tech.id || index}>
-                  <Paper 
-                    component={Link}
-                    href={`/technology/${tech.Slug}`}
-                    sx={{ 
-                      p: 3,
-                      height: '100%',
-                      bgcolor: 'background.paper',
-                      transition: 'all 0.3s ease',
-                      textDecoration: 'none',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      cursor: 'pointer',
-                      '&:hover': {
-                        transform: 'translateY(-5px)',
-                        boxShadow: isDark 
-                          ? '0 8px 24px rgba(0,0,0,0.4)'
-                          : '0 8px 24px rgba(0,0,0,0.1)',
-                        bgcolor: isDark ? 'rgba(255,255,255,0.05)' : 'background.paper'
-                      }
-                    }}
-                  >
-                    {tech.Icon?.url && (
-                      <Box 
-                        sx={{ 
-                          width: 60,
-                          height: 60,
-                          mb: 2,
-                          position: 'relative'
-                        }}
-                      >
-                        <Image
-                          src={tech.Icon.url}
-                          alt={tech.Name}
-                          fill
-                          style={{ objectFit: 'contain' }}
-                        />
-                      </Box>
-                    )}
-                    <Typography 
-                      variant="h6" 
-                      gutterBottom 
-                      sx={{ 
-                        color: isDark ? 'common.white' : 'text.primary',
-                        textAlign: 'center'
-                      }}
-                    >
-                      {tech.Name}
-                    </Typography>
-                    <Typography 
-                      variant="body2" 
-                      sx={{ 
-                        color: isDark ? 'rgba(255,255,255,0.7)' : 'text.secondary',
-                        textAlign: 'center'
-                      }}
-                    >
-                      {tech.ShortDescription || tech.Description?.substring(0, 100)}
-                    </Typography>
-                  </Paper>
-                </Grid>
-              ))}
-            </Grid>
-          )}
         </Container>
 
         {/* Portfolio Section */}
-        <PortfolioSection
-          portfoliosData={portfolios}
+        <ProjectsGrid
+          portfolios={portfolios}
           isLoading={isLoading}
           hasError={error}
+          title="Frontend Development Projects"
+          subtitle="Explore our successful frontend development projects"
+          limit={6}
         />
 
         {/* Testimonials Section */}
@@ -673,14 +592,15 @@ export default function FrontendDevelopment({ technologies = dummyTechnologies, 
 // Update getStaticProps to handle errors gracefully
 export async function getStaticProps() {
   try {
-    // Fetch technologies (you can keep your logic here)
-    const techResponse = await fetchAPI("/technologies", {
-      sort: ['Name:asc'],
-      populate: "*"
-    });
-
-    // Fetch portfolios EXACTLY like the home page (no filters)
-    const portfolios = await fetchAPI("/portfolios", {
+    // Fetch portfolios with frontend technologies
+    const portfoliosResponse = await fetchAPI("/portfolios", {
+      filters: {
+        technologies: {
+          Category: {
+            $eq: "Frontend"
+          }
+        }
+      },
       sort: ['id:desc'],
       populate: {
         ThumbnailImage: { populate: '*' },
@@ -689,16 +609,37 @@ export async function getStaticProps() {
       }
     });
 
+    // Extract unique frontend technologies from portfolios
+    const frontendTechnologies = portfoliosResponse?.data?.reduce((acc, portfolio) => {
+      const techs = portfolio.technologies?.filter(tech => tech.Category === "Frontend") || [];
+      techs.forEach(tech => {
+        if (!acc.find(t => t.id === tech.id)) {
+          acc.push(tech);
+        }
+      });
+      return acc;
+    }, []);
+
+    // Remove duplicate portfolios
+    const uniquePortfolios = portfoliosResponse?.data?.reduce((acc, current) => {
+      const x = acc.find(item => item.id === current.id);
+      if (!x) {
+        return acc.concat([current]);
+      }
+      return acc;
+    }, []);
+
     return {
       props: {
-        technologies: techResponse.data || [],
-        portfolios: portfolios && portfolios.data ? { data: portfolios.data } : { data: [] },
+        technologies: frontendTechnologies || [],
+        portfolios: { data: uniquePortfolios || [] },
         isLoading: false,
         error: false
       },
-      revalidate: 3600, // Revalidate every hour
+      revalidate: 3600,
     };
   } catch (error) {
+    console.error('Error fetching data:', error);
     return {
       props: {
         technologies: [],
@@ -706,7 +647,7 @@ export async function getStaticProps() {
         isLoading: false,
         error: true
       },
-      revalidate: 60, // Retry sooner on error
+      revalidate: 60,
     };
   }
 }
