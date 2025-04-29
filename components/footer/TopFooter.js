@@ -62,6 +62,18 @@ const TopFooter = () => {
     { icon: <InstagramIcon />, url: 'https://instagram.com' }
   ];
 
+  const quickLinks = [
+    { title: 'Services', url: '/services' },
+    { title: 'Technologies', url: '/technologies' },
+    { title: 'Solutions', url: '/solutions' },
+    { title: 'About Us', url: '/about-us' },
+    { title: 'Contact', url: '/contact-us' },
+    { title: 'Portfolio', url: '/portfolios' },
+    { title: 'Careers', url: '/careers' },
+    { title: 'Blog', url: '/blog' },
+    { title: 'FAQ', url: '/faq' }
+  ];
+
   const contactInfo = [
     { icon: <EmailIcon />, label: 'Email:', value: 'contact@lasthash.com' },
     { icon: <PhoneIcon />, label: 'Phone:', value: ' +91-7982377273 ' },
@@ -191,10 +203,10 @@ const TopFooter = () => {
               Quick Links
             </Typography>
             <Grid container spacing={2}>
-              {['Services', 'Technologies', 'Solutions', 'About Us', 'Contact', 'Portfolio', 'Careers', 'Blog', 'FAQ'].map((text, index) => (
+              {quickLinks.map((link, index) => (
                 <Grid item xs={6} key={index}>
                   <Link 
-                    href={`/${text.toLowerCase().replace(' ', '-')}`}
+                    href={link.url}
                     sx={{ 
                       color: isDark ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.8)',
                       textDecoration: 'none',
@@ -207,7 +219,7 @@ const TopFooter = () => {
                       }
                     }}
                   >
-                    → {text}
+                    → {link.title}
                   </Link>
                 </Grid>
               ))}

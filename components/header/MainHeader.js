@@ -78,7 +78,7 @@ const MainHeader = ({
     { text: 'Services', hasSubmenu: true, menuKey: 'services' },
     { text: 'Solutions', hasSubmenu: true, menuKey: 'solutions' },
     { text: 'Support', hasSubmenu: true, menuKey: 'support' },
-    { text: 'Portfolio', link: '/portfolio' },
+    { text: 'Portfolio', link: '/portfolios' },
     { text: 'About Us', link: '/about-us' }  // Changed from /about
   ];
 
