@@ -300,7 +300,7 @@ const TopFooter = () => {
               fontFamily: 'monospace',
               letterSpacing: 1
             }}>
-              PROUDLY MADE IN INDIA - SINCE 2010
+              Proudly Made in India - Since 2010
             </Typography>
           </Box>
         </Box>
