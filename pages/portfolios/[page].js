@@ -28,16 +28,20 @@ export async function getStaticPaths() {
   try {
     const portfoliosData = await fetchAPI("/portfolios", {
       pagination: {
-        page: 1,
-        pageSize: 1 // We only need count information
+        pageSize: ITEMS_PER_PAGE // Use the same ITEMS_PER_PAGE constant
       }
     });
 
-    const totalPages = portfoliosData.meta.pagination.pageCount || 0;
+    // Calculate total pages based on total items and items per page
+    const totalItems = portfoliosData.meta.pagination.total;
+    const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
 
+    // Generate paths for each page
     const paths = Array.from({ length: totalPages }, (_, i) => ({
       params: { page: String(i + 1) }
     }));
+
+    console.log(`Generating ${totalPages} pages for ${totalItems} items (${ITEMS_PER_PAGE} items per page)`);
 
     return {
       paths,
