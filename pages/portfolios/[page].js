@@ -36,7 +36,7 @@ import ParticleBackground from '../../components/effects/ParticleBackground';
 const DEFAULT_PAGE_SIZE = 2;  // For testing - shows 2 items per page
 const PAGE_SIZE_OPTIONS = [2, 12, 24, 48, 96];  // Added 2 as an option for testing
 
-// Update getStaticPaths to include the root path
+// Update getStaticPaths
 export async function getStaticPaths() {
   try {
     const response = await fetchAPI("/portfolios", {
@@ -47,13 +47,10 @@ export async function getStaticPaths() {
 
     const totalPages = response.meta.pagination.pageCount;
     
-    // Include 'index' for the root path and generate numbered paths
-    const paths = [
-      { params: { page: 'index' } },  // This handles /portfolios
-      ...Array.from({ length: totalPages }, (_, i) => ({
-        params: { page: String(i + 1) }
-      }))
-    ];
+    // Generate paths only for numbered pages (2 and above)
+    const paths = Array.from({ length: totalPages - 1 }, (_, i) => ({
+      params: { page: String(i + 2) }  // Start from page 2
+    }));
 
     return {
       paths,
@@ -62,27 +59,24 @@ export async function getStaticPaths() {
   } catch (error) {
     console.error('Error generating paths:', error);
     return {
-      paths: [{ params: { page: 'index' } }],
+      paths: [],
       fallback: 'blocking'
     };
   }
 }
 
-// Update getStaticProps to handle both index and numbered pages
+// Update getStaticProps
 export async function getStaticProps({ params }) {
   try {
-    let page = 1;
+    // Get the page number
+    const page = params?.page ? parseInt(params.page) : 1;
     
-    // Handle both 'index' and numbered pages
-    if (params.page !== 'index') {
-      page = parseInt(params.page);
-      if (isNaN(page) || page < 1) {
-        return {
-          notFound: true
-        };
-      }
+    if (isNaN(page) || page < 1) {
+      return {
+        notFound: true
+      };
     }
-    
+
     const portfolioResponse = await fetchAPI("/portfolios", {
       sort: ['id:desc'],
       pagination: {
@@ -112,12 +106,12 @@ export async function getStaticProps({ params }) {
       props: {
         portfolios: [],
         pagination: {
-          page: params.page === 'index' ? 1 : parseInt(params.page) || 1,
+          page: params?.page ? parseInt(params.page) : 1,
           pageSize: DEFAULT_PAGE_SIZE,
           pageCount: 0,
           total: 0
         },
-        currentPage: params.page === 'index' ? 1 : parseInt(params.page) || 1,
+        currentPage: params?.page ? parseInt(params.page) : 1,
         isLoading: false,
         error: true
       }
