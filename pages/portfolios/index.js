@@ -2,18 +2,12 @@ import {
   Box, 
   Container, 
   Typography, 
-  Grid, 
-  Pagination, 
-  Chip, 
-  Stack,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem
+  Pagination,
 } from '@mui/material';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from '@mui/material/styles';
+import { useRouter } from 'next/router';
 import MainLayout from '../../components/layouts/MainLayout';
 import SEO from '../../components/common/SEO';
 import Breadcrumbs from '../../components/common/Breadcrumbs';
@@ -21,44 +15,14 @@ import PortfolioGrid from '../../components/shared/PortfolioGrid';
 import ParticleBackground from '../../components/effects/ParticleBackground';
 import { fetchAPI } from '../../utils/api';
 
-// Items per page options
 const ITEMS_PER_PAGE = 2;
 
-export async function getStaticPaths() {
+export async function getStaticProps() {
   try {
-    const portfoliosData = await fetchAPI("/portfolios", {
-      pagination: {
-        page: 1,
-        pageSize: 1 // We only need count information
-      }
-    });
-
-    const totalPages = portfoliosData.meta.pagination.pageCount || 0;
-
-    const paths = Array.from({ length: totalPages }, (_, i) => ({
-      params: { page: String(i + 1) }
-    }));
-
-    return {
-      paths,
-      fallback: false
-    };
-  } catch (error) {
-    console.error('Error in getStaticPaths:', error);
-    return {
-      paths: [{ params: { page: '1' } }],
-      fallback: false
-    };
-  }
-}
-
-export async function getStaticProps({ params }) {
-  try {
-    // Fetch portfolios with proper population and sorting
     const portfoliosData = await fetchAPI("/portfolios", {
       sort: ['id:desc'],
       pagination: {
-        page: parseInt(params.page),
+        page: 1,
         pageSize: ITEMS_PER_PAGE
       },
       populate: {
@@ -70,19 +34,15 @@ export async function getStaticProps({ params }) {
       }
     });
 
-    if (!portfoliosData?.data) {
-      throw new Error('Invalid API response');
-    }
-
     return {
       props: {
         portfolios: portfoliosData.data,
-        currentPage: parseInt(params.page),
+        currentPage: 1,
         totalPages: portfoliosData.meta.pagination.pageCount,
         totalItems: portfoliosData.meta.pagination.total,
         error: false
       },
-      revalidate: 3600 // Revalidate every hour
+      revalidate: 3600
     };
   } catch (error) {
     console.error('Error fetching portfolios:', error);
@@ -98,30 +58,42 @@ export async function getStaticProps({ params }) {
   }
 }
 
-const PortfolioPage = ({ portfolios, currentPage, totalPages, totalItems, error }) => {
+const PortfoliosPage = ({ portfolios, currentPage, totalPages, totalItems, error }) => {
+  const router = useRouter();
   const theme = useTheme();
   const isDark = theme.palette.mode === 'dark';
-  const [activeCategory, setActiveCategory] = useState('all');
 
-  // Animation variants
+  // Define animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.1 }
+      transition: { 
+        staggerChildren: 0.1,
+        duration: 0.5
+      }
     }
   };
 
-  // Updated breadcrumbs without home link
+  // Update handlePageChange to use /portfolios/[page] for pagination
+  const handlePageChange = (event, value) => {
+    if (value === 1) {
+      router.push('/portfolios');
+    } else {
+      router.push(`/portfolios/${value}`);
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Update breadcrumbs - remove /portfolios/1 reference
   const breadcrumbItems = [
-    { label: 'Portfolio', href: '/portfolios' },
-    { label: `Page ${currentPage}`, current: true }
+    { label: 'Portfolio', href: '/portfolios', current: true }
   ];
 
-  // Dynamic SEO content
+  // Update SEO data - remove /portfolios/1 references
   const seoData = {
-    title: `Portfolio Projects - Page ${currentPage} | Lasthash`,
-    description: `Explore our portfolio of successful projects and digital solutions. Browse through our work in web development, mobile apps, and enterprise solutions. Page ${currentPage} of ${totalPages}.`,
+    title: 'Our Portfolio | Lasthash',
+    description: 'Explore our portfolio of successful projects and digital solutions. Browse through our work in web development, mobile apps, and enterprise solutions.',
     keywords: [
       'portfolio projects',
       'web development',
@@ -132,12 +104,12 @@ const PortfolioPage = ({ portfolios, currentPage, totalPages, totalItems, error 
       'software development',
       'Lasthash projects'
     ].join(', '),
-    canonical: `${process.env.NEXT_PUBLIC_SITE_URL}/portfolios/${currentPage}`,
+    canonical: `${process.env.NEXT_PUBLIC_SITE_URL}/portfolios`,
     openGraph: {
-      title: `Portfolio Projects - Page ${currentPage} | Lasthash`,
-      description: `Explore our portfolio of successful projects and digital solutions. Page ${currentPage} of ${totalPages}.`,
+      title: 'Our Portfolio | Lasthash',
+      description: 'Explore our portfolio of successful projects and digital solutions.',
       type: 'website',
-      url: `${process.env.NEXT_PUBLIC_SITE_URL}/portfolios/${currentPage}`,
+      url: `${process.env.NEXT_PUBLIC_SITE_URL}/portfolios`,
     }
   };
 
@@ -217,25 +189,25 @@ const PortfolioPage = ({ portfolios, currentPage, totalPages, totalItems, error 
                   <PortfolioGrid portfolios={portfolios} />
                   
                   {/* Pagination Controls */}
-                  <Box
-                    sx={{
-                      mt: 6,
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      gap: 4
-                    }}
-                  >
-                    <Pagination 
-                      count={totalPages}
-                      page={currentPage}
-                      color="primary"
-                      size="large"
-                      onChange={(e, page) => {
-                        window.location.href = `/portfolios/${page}`;
+                  {totalPages > 1 && (
+                    <Box
+                      sx={{
+                        mt: 6,
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        gap: 4
                       }}
-                    />
-                  </Box>
+                    >
+                      <Pagination 
+                        count={totalPages}
+                        page={currentPage}
+                        color="primary"
+                        size="large"
+                        onChange={handlePageChange}
+                      />
+                    </Box>
+                  )}
                 </>
               )}
             </motion.div>
@@ -246,4 +218,4 @@ const PortfolioPage = ({ portfolios, currentPage, totalPages, totalItems, error 
   );
 };
 
-export default PortfolioPage;
+export default PortfoliosPage;
