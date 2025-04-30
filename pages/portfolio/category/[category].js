@@ -5,11 +5,15 @@ import SEO from '../../../components/common/SEO';
 import Breadcrumbs from '../../../components/common/Breadcrumbs';
 import PortfolioGrid from '../../../components/shared/PortfolioGrid';
 import { fetchAPI } from '../../../utils/api';
+import PortfolioCarousel from '../../../components/home/PortfolioCarousel';
 
-// Update getStaticPaths to properly handle the API response
 export async function getStaticPaths() {
   try {
     const response = await fetchAPI("/portfolio-categories", {
+      pagination: {
+        pageSize: 1000,
+        page: 1
+      },
       fields: ['slug', 'id', 'documentId']
     });
 
@@ -23,90 +27,79 @@ export async function getStaticPaths() {
 
     return {
       paths,
-      fallback: false // Return 404 for non-existent slugs
+      fallback: false
     };
   } catch (error) {
-    console.error('Error in getStaticPaths:', error);
     return { paths: [], fallback: false };
   }
 }
 
-// Update getStaticProps to match the API response structure
 export async function getStaticProps({ params }) {
   try {
-    console.log('Fetching data for category:', params.category);
-
-    const response = await fetchAPI("/portfolio-categories", {
+    // First get category details
+    const categoryResponse = await fetchAPI("/portfolio-categories", {
       filters: { 
-        slug: {
-          $eq: params.category
+        slug: params.category 
+      },
+      fields: ['title', 'slug', 'description', 'documentId']
+    });
+
+    if (!categoryResponse.data?.[0]) {
+      return { notFound: true };
+    }
+
+    // Get category portfolios
+    const portfoliosResponse = await fetchAPI("/portfolios", {
+      filters: {
+        portfolio_categories: {
+          slug: {
+            $eq: params.category
+          }
         }
       },
+      pagination: {
+        pageSize: 1000
+      },
       populate: {
-        portfolios: {
-          populate: {
-            ThumbnailImage: true,
-            BannerImage: true,
-            technologies: {
-              populate: '*'
-            },
-            portfolio_categories: {
-              fields: ['title', 'slug']
-            }
-          }
+        ThumbnailImage: true,
+        technologies: {
+          populate: '*'
         }
       }
     });
 
-    // Debug log the API response
-    console.log('API Response data:', response.data);
-
-    if (!response.data?.[0]) {
-      console.error('Category not found:', params.category);
-      return { notFound: true };
-    }
-
-    const categoryData = response.data[0];
-
-    // Transform the data to match your component's expectations
-    const transformedCategory = {
-      id: categoryData.id,
-      title: categoryData.title,
-      slug: categoryData.slug,
-      description: categoryData.description,
-      documentId: categoryData.documentId
-    };
-
-    // Transform portfolios data
-    const portfolios = categoryData.portfolios || [];
-    const transformedPortfolios = portfolios.map(portfolio => ({
-      id: portfolio.id,
-      Title: portfolio.Title,
-      Slug: portfolio.Slug,
-      ThumbnailImage: portfolio.ThumbnailImage,
-      ShortDescription: portfolio.ShortDescription,
-      ProjectStatus: portfolio.ProjectStatus,
-      CompletionDate: portfolio.CompletionDate,
-      ClientName: portfolio.ClientName,
-      LiveURL: portfolio.LiveURL,
-      technologies: portfolio.technologies || [],
-      portfolio_categories: portfolio.portfolio_categories || []
-    }));
+    // Get featured projects (up to 10)
+    const featuredProjectsResponse = await fetchAPI("/portfolios", {
+      filters: {
+        Featured: true  // Changed from Featured to featured
+      },
+      pagination: {
+        pageSize: 10
+      },
+      populate: {
+        ThumbnailImage: true,
+        technologies: {
+          populate: '*'
+        },
+        portfolio_categories: {
+          fields: ['title', 'slug']
+        }
+      }
+    });
 
     return {
       props: {
-        category: transformedCategory,
-        portfolios: transformedPortfolios
-      },
-      revalidate: 60 // ISR enabled
+        category: categoryResponse.data[0],
+        portfolios: portfoliosResponse.data || [],
+        featuredProjects: featuredProjectsResponse.data || []
+      }
     };
   } catch (error) {
-    console.error('Error in getStaticProps:', error);
     return { notFound: true };
   }
 }
 
-export default function CategoryPage({ category, portfolios }) {
+export default function CategoryPage({ category, portfolios, featuredProjects }) {
   const theme = useTheme();
   const isDark = theme.palette.mode === 'dark';
 
@@ -123,67 +116,132 @@ export default function CategoryPage({ category, portfolios }) {
       />
 
       <MainLayout>
-        {/* Header Section */}
+        {/* Hero Section */}
         <Box
           sx={{
-            bgcolor: isDark ? 'grey.900' : 'grey.100',
-            py: { xs: 6, md: 8 },
-            borderBottom: 1,
-            borderColor: isDark ? 'grey.800' : 'grey.200'
+            position: 'relative',
+            height: { xs: '50vh', md: '60vh' },
+            width: '100%',
+            overflow: 'hidden',
+            '&::before': {
+              content: '""',
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: 'linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8))',
+              zIndex: 1
+            }
           }}
         >
-          <Container>
-            <Box sx={{ mb: 2 }}>
-              <Breadcrumbs items={breadcrumbItems} />
-            </Box>
+          {/* Background Pattern */}
+          <Box
+            sx={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              opacity: 0.1,
+              backgroundImage: `
+                radial-gradient(circle at 1px 1px, ${theme.palette.primary.main} 1px, transparent 0)
+              `,
+              backgroundSize: '40px 40px',
+              zIndex: 0
+            }}
+          />
 
-            <Typography
-              variant="h1"
+          <Container
+            sx={{
+              height: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              position: 'relative',
+              zIndex: 2,
+              color: 'white',
+              pt: { xs: 8, md: 12 }
+            }}
+          >
+            <Box
               sx={{
-                fontSize: { xs: '2rem', md: '2.5rem' },
-                fontWeight: 700,
-                mb: 2,
-                color: isDark ? 'grey.100' : 'grey.900'
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: 2,
+                maxWidth: '800px',
+                width: '100%',
+                textAlign: 'center'
               }}
             >
-              {category.title} Projects
-            </Typography>
-
-            {category.description && (
+              <Box sx={{ mb: 2 }}>
+                <Breadcrumbs items={breadcrumbItems} light />
+              </Box>
+              
               <Typography
-                variant="subtitle1"
+                variant="h1"
                 sx={{
-                  color: isDark ? 'grey.300' : 'grey.700',
-                  maxWidth: '800px',
-                  fontSize: '1.1rem',
-                  lineHeight: 1.6
+                  fontSize: { xs: '2.5rem', md: '3.5rem' },
+                  fontWeight: 'bold',
+                  textAlign: 'center',
+                  textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
+                  position: 'relative',
+                  mb: 3,
+                  '&::after': {
+                    content: '""',
+                    position: 'absolute',
+                    bottom: '-10px',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    width: '80px',
+                    height: '4px',
+                    background: theme.palette.primary.main,
+                    borderRadius: '2px'
+                  }
                 }}
               >
-                {category.description}
+                {category.title}
               </Typography>
-            )}
+
+              {category.description && (
+                <Typography
+                  variant="subtitle1"
+                  sx={{
+                    textAlign: 'center',
+                    color: 'white',
+                    opacity: 0.9,
+                    maxWidth: '600px',
+                    fontSize: '1.1rem',
+                    lineHeight: 1.6
+                  }}
+                >
+                  {category.description}
+                </Typography>
+              )}
+
+              <Typography
+                variant="h6"
+                sx={{
+                  mt: 2,
+                  color: theme.palette.primary.main,
+                  fontWeight: 500
+                }}
+              >
+                {portfolios.length} Project{portfolios.length !== 1 ? 's' : ''} Available
+              </Typography>
+            </Box>
           </Container>
         </Box>
 
-        {/* Projects Grid Section */}
+        {/* Main Projects Grid */}
         <Container sx={{ py: { xs: 6, md: 8 } }}>
           {portfolios.length > 0 ? (
-            <>
-              <Typography 
-                variant="body1" 
-                sx={{ 
-                  mb: 4,
-                  color: isDark ? 'grey.400' : 'grey.600'
-                }}
-              >
-                Showing {portfolios.length} project{portfolios.length !== 1 ? 's' : ''} in {category.title}
-              </Typography>
-              
-              <PortfolioGrid 
-                portfolios={portfolios}
-                columns={{ xs: 12, sm: 6, md: 4 }}
-              />
-            </>
+            <PortfolioGrid 
+              portfolios={portfolios}
+              columns={{ xs: 12, sm: 6, md: 4 }}
+            />
           ) : (
             <Box
               sx={{
@@ -211,6 +269,35 @@ export default function CategoryPage({ category, portfolios }) {
             </Box>
           )}
         </Container>
+
+        {/* Related Projects Carousel */}
+        {featuredProjects.length > 0 && (
+          <Box
+            sx={{
+              bgcolor: isDark ? 'grey.900' : 'grey.100',
+              py: { xs: 6, md: 8 }
+            }}
+          >
+            <Container>
+              <Typography
+                variant="h3"
+                sx={{
+                  textAlign: 'center',
+                  mb: 6,
+                  fontWeight: 600,
+                  color: isDark ? 'grey.100' : 'grey.900'
+                }}
+              >
+                Featured Projects
+              </Typography>
+              
+              <PortfolioCarousel 
+                items={featuredProjects}
+                isDark={isDark}
+              />
+            </Container>
+          </Box>
+        )}
       </MainLayout>
     </>
   );
