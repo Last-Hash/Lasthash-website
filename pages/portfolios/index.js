@@ -141,8 +141,23 @@ const PortfoliosPage = ({ portfolios, currentPage, totalPages, totalItems, error
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
+              sx={{ 
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center'  // Center align all content
+              }}
             >
-              <Breadcrumbs items={breadcrumbItems} light />
+              <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+                <Breadcrumbs 
+                  items={breadcrumbItems} 
+                  light 
+                  sx={{
+                    '& .MuiBreadcrumbs-ol': {
+                      justifyContent: 'center'
+                    }
+                  }}
+                />
+              </Box>
               
               <Typography
                 variant="h1"
