@@ -135,7 +135,7 @@ const HeroSection = () => {
                     bgcolor: 'rgba(255, 255, 255, 0.9)'
                   }
                 }}
-                href="/contact-us-us"
+                href="//contact-us"
               >
                 Get Free Consultation
               </Button>
