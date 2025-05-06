@@ -73,7 +73,7 @@ const ContactCTA = () => {
                     bgcolor: 'rgba(255, 255, 255, 0.9)'
                   }
                 }}
-                href="/contact"
+                href="/contact-us"
               >
                 Book a Call
               </Button>
@@ -112,7 +112,7 @@ const ContactCTA = () => {
                     bgcolor: 'rgba(255, 255, 255, 0.1)'
                   }
                 }}
-                href="/contact#message"
+                href="/contact-us#message"
               >
                 Contact Us
               </Button>

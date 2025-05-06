@@ -253,7 +253,7 @@ export default function FrontendDevelopment({ technologies, portfolios, isLoadin
                     <Button 
                       variant="contained"
                       size="large"
-                      href="/contact"
+                      href="/contact-us"
                       sx={{
                         bgcolor: 'white',
                         color: 'primary.main',
@@ -571,7 +571,7 @@ export default function FrontendDevelopment({ technologies, portfolios, isLoadin
             <Button 
               variant="contained"
               size="large"
-              href="/contact"
+              href="/contact-us"
               sx={{
                 bgcolor: 'white',
                 color: 'primary.main',

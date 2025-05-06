@@ -67,7 +67,7 @@ const TopFooter = () => {
     { title: 'Technologies', url: '/technologies' },
     { title: 'Solutions', url: '/solutions' },
     { title: 'About Us', url: '/about-us' },
-    { title: 'Contact', url: '/contact-us' },
+    { title: 'Contact', url: '/contact-us-us' },
     { title: 'Portfolio', url: '/portfolios' },
     { title: 'Careers', url: '/careers' },
     { title: 'Blog', url: '/blog' },

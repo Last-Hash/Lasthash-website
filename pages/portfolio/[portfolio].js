@@ -651,7 +651,7 @@ export default function PortfolioDetail({ portfolio }) {
             variant="contained"
             size="large"
             component={Link}
-            href="/contact"
+            href="/contact-us"
             sx={{
               px: 4,
               py: 1.5

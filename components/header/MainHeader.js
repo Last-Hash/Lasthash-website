@@ -218,7 +218,7 @@ const MainHeader = ({
               title: 'Contact Support',
               icon: <ContactSupportIcon />,
               description: 'Get in touch with our support team',
-              link: '/support/contact'
+              link: '/support/contact-us'
             },
             {
               title: 'Make Payment',

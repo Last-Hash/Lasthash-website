@@ -291,7 +291,7 @@ export default function TechnologyDetail({ technology, relatedTechnologies, erro
                   variant="outlined" 
                   color="primary"
                   component={Link}
-                  href="/contact"
+                  href="/contact-us"
                   sx={{ mt: 3 }}
                   fullWidth
                 >
