@@ -28,7 +28,7 @@ const AboutSection = () => {
           <Grid item xs={12} md={6}>
             <Box sx={{ position: 'relative', height: '400px' }}>
               <Image
-                src="https://picsum.photos/600/400?people"
+                src="/images/working-in-workstatio.jpg"
                 alt="About Lasthash"
                 fill
                 style={{ 
