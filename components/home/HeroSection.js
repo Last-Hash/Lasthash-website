@@ -189,7 +189,7 @@ const HeroSection = () => {
               }
             }}>
               <Image
-                src="https://picsum.photos/800/600?tech"
+                src="/images/hero/home-hero.jpg"
                 alt="Software Development"
                 fill
                 style={{ 

@@ -1,4 +1,5 @@
 import { Box } from '@mui/material';
+import Image from 'next/image';
 import MainLayout from '../components/layouts/MainLayout';
 import HeroSection from '../components/home/HeroSection';
 import ServicesSection from '../components/home/ServicesSection';
