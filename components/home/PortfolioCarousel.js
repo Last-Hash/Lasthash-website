@@ -87,7 +87,6 @@ const PortfolioCarousel = ({ portfolios }) => {
             centeredSlides={true}
             initialSlide={0}
             loop={true}
-            loopFillGroupWithBlank={true}
             rewind={false}
             slideToClickedSlide={true}
             watchSlidesProgress={true}
